@@ -18,7 +18,260 @@ servers:
     description: Production
   - url: 'https://trivia.api.dev.viaapi.com/v1.0'
     description: Development / Testing Server
-paths: {}
+paths:
+  /questions/mc/sa:
+    get:
+      summary: Your GET endpoint
+      tags:
+        - trivia
+        - mc-sa
+      responses:
+        '200':
+          description: Successful response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: ''
+                    result:
+                      pagination:
+                        isCircular: true
+                        prevLink: null
+                        nextLink: 'offset=10&limit=10'
+                        lastLink: 'offset=90&limit=10'
+                        firstLink: 'offset=0&limit=10'
+                        totalItems: 100
+                        itemsPerPage: 10
+                        pageCount: 10
+                        currentPage: 1
+                    set:
+                      - pagination: null
+                        set:
+                          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                          dateCreated: '2020-01-20T12:23:24Z'
+                          dateUpdated: '2020-01-21T21:23:12Z'
+                          status: a
+                          banner:
+                            path: batman-logo.jpg
+                            type: i
+                          difficultyLevel: 1
+                          estimatedReadTime: 50
+                          tags:
+                            - title: movies
+                              icon: movies.png
+                              itemCount: 234
+                          label:
+                            audio: question-223423-2342342-2342.mp3
+                            video: question-223423-2342342-2342.mp4
+                            image: batman-logo.jpg
+                            text: Who among these Hollywood stars have not played the Batman character?
+      operationId: get-questions-mc-sa
+      description: |-
+        This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following prperties:
+
+        - difficulty level
+        - reading time
+        - tags
+        - status
+        - creation time
+        - update time
+
+        You can search data based on the following properties:
+        - label of question
+        - label of choices
+      security:
+        - X-Api-Key: []
+      parameters:
+        - schema:
+            type: integer
+            default: '50'
+            maximum: 200
+            minimum: 1
+            exclusiveMinimum: false
+          in: query
+          name: limit
+          description: |-
+            Number of items to be returned. No more than 200 items can be returned at one query.
+
+            **Example:**
+            ?limit=1000
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: offset
+          description: |-
+            The start point / row of the entries to be listed.
+
+            **Example:**
+            ?offset=0
+        - schema:
+            type: array
+            maxItems: 0
+            minItems: 0
+            uniqueItems: false
+          in: query
+          name: order
+          description: |-
+            This paramter dictates the order of list.
+
+            **Operands:**
+            - `+` ASCENDING
+            - `-` DESCENDING
+
+            **Available Options:**
+            - dateCreated
+            - dateUpdated
+            - label.text
+
+            **Example:**
+            Sort questions by their labels ascending and by their creation time descending.
+            ?order[]=+label.text&order[]=-dateCreated
+        - schema:
+            type: array
+          in: query
+          name: status
+          description: |-
+            This parameter is used to filter questions by their statuses.
+
+            **Example:**
+            Only retrieve questions with status "a" or "w".
+
+            ?status[]=a&status[]=w
+        - schema:
+            type: array
+            minItems: 1
+            maxItems: 2
+          in: query
+          name: createdAt
+          description: |-
+            This parameter is used to filter entries by their creation times.
+
+            **Acceptable Date Formats**:
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss
+
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+
+            **Example**:
+            List entries created at 27th of January 2020.
+
+            ?createdAt[eq]=2020-01-27
+
+            List entries create between 21st and 27th of January 2020, both dates inclusive.
+            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+        - schema:
+            type: array
+          in: query
+          name: updatedAt
+          description: |-
+            This parameter is used to filter entries by their update times.
+
+            **Acceptable Date Formats**:
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss
+
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+
+            **Example**:
+            List entries updated at 27th of January 2020.
+
+            ?updatedAt[eq]=2020-01-27
+
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.
+            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+        - schema:
+            type: array
+          in: query
+          name: difficultyLevel
+          description: |-
+            This parameter is used to filter entries by their difficulty level.
+
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.
+
+            **Example**:
+            List entries marked with a difficulty level of 9.
+
+            ?difficultyLevel[eq]=9
+
+            List entries marked with a difficulty level between 2 and 4 inclusive.
+            ?difficultyLevel[gte]=2&createdAt[lte]=4
+
+            List entries marked with a difficulty level of 3, 5 and 8.
+            ?difficultyLevel[in]=3,5,8
+        - schema:
+            type: array
+          in: query
+          name: estimatedReadingTime
+          description: |-
+            This parameter is used to filter entries by their estimated reading time.
+
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+
+            **Example**:
+            List entries that can be read within 30 seconds.
+
+            ?estimatedReadingTime[eq]=30
+
+            List entries that can be read less than 30 seconds.
+            ?estimatedReadingTime[lt]=30
+
+            List entriesthat can be read beween 30 to 60 seconds inclusive
+            ?estimatedReadingTime[gte]=30&estimatedReadingTime[lte]=60
+        - schema:
+            type: array
+          in: query
+          name: q
+          description: |-
+            This parameter is used to run a search within the question or choice labels.
+
+            **Keys**:
+            - cho: choice
+            - qst: question
+
+            **Operands**:
+            - `*`: Wildcard
+
+            **Example**:
+            Search questions with choice labels starting with "Bruce".
+            ?q[cho]=Bruce*
+
+            Search questions with labels include "Batman"
+            ?q[qst]=*Batman*
+
+            Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"
+            ?q[qst]=*Batman*&q[cho]=Michael%20Keaton
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
@@ -214,7 +467,28 @@ components:
       description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
       x-tags:
         - response
-      x-examples: {}
+      x-examples:
+        Example:
+          pagination: null
+          set:
+            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+            dateCreated: '2020-01-20T12:23:24Z'
+            dateUpdated: '2020-01-21T21:23:12Z'
+            status: a
+            banner:
+              path: batman-logo.jpg
+              type: i
+            difficultyLevel: 1
+            estimatedReadTime: 50
+            tags:
+              - title: movies
+                icon: movies.png
+                itemCount: 234
+            label:
+              audio: question-223423-2342342-2342.mp3
+              video: question-223423-2342342-2342.mp4
+              image: batman-logo.jpg
+              text: Who among these Hollywood stars have not played the Batman character?
       properties:
         pagination:
           $ref: '#/components/schemas/ApiPagination'
@@ -235,9 +509,9 @@ components:
           $ref: '#/components/schemas/ApiResult'
         sessionToken:
           type: string
-          nullable: true
           description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
           example: 1a79a4d60de6718e8e5b326e338ae533
+          nullable: true
         code:
           type: string
           example: '200.0000'
@@ -251,6 +525,42 @@ components:
         - message
       x-tags:
         - response
+      x-examples:
+        Example:
+          code: '200.0000'
+          message: ''
+          result:
+            pagination:
+              isCircular: true
+              prevLink: null
+              nextLink: 'offset=10&limit=10'
+              lastLink: 'offset=90&limit=10'
+              firstLink: 'offset=0&limit=10'
+              totalItems: 100
+              itemsPerPage: 10
+              pageCount: 10
+              currentPage: 1
+          set:
+            - pagination: null
+              set:
+                uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                dateCreated: '2020-01-20T12:23:24Z'
+                dateUpdated: '2020-01-21T21:23:12Z'
+                status: a
+                banner:
+                  path: batman-logo.jpg
+                  type: i
+                difficultyLevel: 1
+                estimatedReadTime: 50
+                tags:
+                  - title: movies
+                    icon: movies.png
+                    itemCount: 234
+                label:
+                  audio: question-223423-2342342-2342.mp3
+                  video: question-223423-2342342-2342.mp4
+                  image: batman-logo.jpg
+                  text: Who among these Hollywood stars have not played the Batman character?
     TQChoice:
       title: TQChoice
       type: object
@@ -334,9 +644,9 @@ components:
       properties:
         icon:
           type: string
-          nullable: true
           description: 'Holds path to the icon related to tag. '
           example: cinema.svg
+          nullable: true
         title:
           type: string
           description: The actual text of tag.
