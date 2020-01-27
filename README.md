@@ -1,2 +1,3 @@
-# rest-trivia
-Trivia Rest API Documentation
+# UNDER HEAVY CONSTRUCTION
+
+Please follow api.docs.viaapi.com for updates.
