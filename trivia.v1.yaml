@@ -1,0 +1,35 @@
+openapi: 3.0.0
+info:
+  title: ViaAPI Trivia
+  version: v1.0.0
+  license:
+    name: Trivia
+    url: 'https://www.viaapi.com/legal/licensing/trivia'
+  contact:
+    name: System Administrator
+    email: admin@viaapi.com
+    url: 'https://www.viaapi.com                                                      W'
+  termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
+  description: "This documentation covers all endpoints related to trivia data store of ViaAPI.\n\nIf you like to obtain our trivia data, you need to use one of the endpoints documented here.                 "
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: 'https://virtserver.swaggerhub.com/bodev/viaapi/v1.0.0'
+  - url: 'https://trivia.api.viaapi.com/v1.0'
+    description: Production
+  - url: 'https://trivia.api.dev.viaapi.com/v1.0'
+    description: Development / Testing Server
+paths: {}
+externalDocs:
+  url: 'https://api.docs.viaapi.com'
+components:
+  securitySchemes:
+    X-Api-Key:
+      type: apiKey
+      in: header
+      name: API Key
+      description: 'This is required for application access control. This is the API key defined for your application in your account page at https://www.viaapi.com/my-account/applications'
+    X-Session-Token:
+      name: Session Token
+      type: apiKey
+      in: header
+      description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
