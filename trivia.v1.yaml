@@ -113,13 +113,15 @@ paths:
             ?offset=0
         - schema:
             type: array
+            items:
+              type: string
             maxItems: 0
             minItems: 0
             uniqueItems: false
           in: query
           name: order
           description: |-
-            This paramter dictates the order of list.
+            This parameter dictates the order of list.
 
             **Operands:**
             - `+` ASCENDING
@@ -135,6 +137,8 @@ paths:
             ?order[]=+label.text&order[]=-dateCreated
         - schema:
             type: array
+            items:
+              type: string
           in: query
           name: status
           description: |-
@@ -146,6 +150,8 @@ paths:
             ?status[]=a&status[]=w
         - schema:
             type: array
+            items:
+              type: string
             minItems: 1
             maxItems: 2
           in: query
@@ -173,6 +179,9 @@ paths:
             List entries create between 21st and 27th of January 2020, both dates inclusive.
             ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
         - schema:
+            items:
+              type: string
+              format: "date-time"
             type: array
           in: query
           name: updatedAt
@@ -200,6 +209,8 @@ paths:
             ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
         - schema:
             type: array
+            items:
+              type: integer
           in: query
           name: difficultyLevel
           description: |-
@@ -226,6 +237,8 @@ paths:
             ?difficultyLevel[in]=3,5,8
         - schema:
             type: array
+            items:
+              type: integer
           in: query
           name: estimatedReadingTime
           description: |-
@@ -251,6 +264,8 @@ paths:
             ?estimatedReadingTime[gte]=30&estimatedReadingTime[lte]=60
         - schema:
             type: array
+            items:
+              type: string
           in: query
           name: q
           description: |-
