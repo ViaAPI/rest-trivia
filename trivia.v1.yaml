@@ -102,13 +102,13 @@ components:
             This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
 
             The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: '1'
+          example: 1
           minimum: 1
           maximum: 10
         estimatedReadTime:
           type: integer
           description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: '20'
+          example: 20
         tags:
           type: array
           minItems: 0
@@ -127,6 +127,8 @@ components:
         - estimatedReadTime
         - tags
         - label
+      x-tags:
+        - trivia
     ApiPagination:
       title: ApiPagination
       type: object
@@ -153,27 +155,23 @@ components:
         prevLink:
           description: "The query string that is required to obtain the previous page's items."
           example: 'offset=9&limit=50'
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
         nextLink:
           description: "The query string that is required to obtain the next page's items."
           example: 'offset=1&limit=50'
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
         lastLink:
           description: "The query string that is required to obtain the last page's items."
           example: 'offset=10&limit=50'
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
         firstLink:
           description: "The query string that is required to obtain the first page's items."
           example: 'offset=0&limit=50'
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
         totalItems:
           description: Number of total items based on given filter.
           example: 500
@@ -236,9 +234,8 @@ components:
         result:
           $ref: '#/components/schemas/ApiResult'
         sessionToken:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
           example: 1a79a4d60de6718e8e5b326e338ae533
         code:
@@ -262,7 +259,7 @@ components:
       properties:
         isCorrect:
           type: boolean
-          example: 'false'
+          example: false
           description: 'This is a flag field. If set to true, it means that this entry represents a correct choice.'
         label:
           $ref: '#/components/schemas/TQLabel'
@@ -336,21 +333,17 @@ components:
       description: This class is the main storage of trivia question related tags.
       properties:
         icon:
-          type:
-            - string
-            - 'null'
+          type: string
+          nullable: true
           description: 'Holds path to the icon related to tag. '
           example: cinema.svg
         title:
           type: string
-          description: |+
-            The actual text of tag.
-
-
+          description: The actual text of tag.
           example: cinema
         itemCount:
           type: integer
-          example: '150'
+          example: 150
           minimum: 0
           description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
       required:
