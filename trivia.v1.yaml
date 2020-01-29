@@ -73,7 +73,6 @@ paths:
       operationId: get-questions-mc-sa
       description: |-
         This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following prperties:
-
         - difficulty level
         - reading time
         - tags
@@ -97,7 +96,6 @@ paths:
           name: limit
           description: |-
             Number of items to be returned. No more than 200 items can be returned at one query.
-
             **Example:**
             ?limit=1000
         - schema:
@@ -122,19 +120,16 @@ paths:
           name: order
           description: |-
             This parameter dictates the order of list.
-
             **Operands:**
-            - `+` ASCENDING
-            - `-` DESCENDING
-
+            - asc: ASCENDING
+            - desc: DESCENDING
             **Available Options:**
             - dateCreated
             - dateUpdated
             - label.text
-
             **Example:**
             Sort questions by their labels ascending and by their creation time descending.
-            ?order[]=+label.text&order[]=-dateCreated
+            ?order[][asc]=label.text&order[][desc]=dateCreated
         - schema:
             type: array
             items:
@@ -158,11 +153,9 @@ paths:
           name: createdAt
           description: |-
             This parameter is used to filter entries by their creation times.
-
             **Acceptable Date Formats**:
             - YYYY-MM-DD
             - YYYY-MM-DD HH:ii:ss
-
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -170,7 +163,6 @@ paths:
             - lt: Less Than
             - lte: Less Than or Equal
             - nq: Not Equal
-
             **Example**:
             List entries created at 27th of January 2020.
 
@@ -181,17 +173,15 @@ paths:
         - schema:
             items:
               type: string
-              format: "date-time"
+              format: date-time
             type: array
           in: query
           name: updatedAt
           description: |-
             This parameter is used to filter entries by their update times.
-
             **Acceptable Date Formats**:
             - YYYY-MM-DD
             - YYYY-MM-DD HH:ii:ss
-
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -199,7 +189,6 @@ paths:
             - lt: Less Than
             - lte: Less Than or Equal
             - nq: Not Equal
-
             **Example**:
             List entries updated at 27th of January 2020.
 
@@ -215,7 +204,6 @@ paths:
           name: difficultyLevel
           description: |-
             This parameter is used to filter entries by their difficulty level.
-
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -224,7 +212,6 @@ paths:
             - lte: Less Than or Equal
             - nq: Not Equal
             - in: Use to summon arbitrary data.
-
             **Example**:
             List entries marked with a difficulty level of 9.
 
@@ -243,7 +230,6 @@ paths:
           name: estimatedReadingTime
           description: |-
             This parameter is used to filter entries by their estimated reading time.
-
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -251,7 +237,6 @@ paths:
             - lt: Less Than
             - lte: Less Than or Equal
             - nq: Not Equal
-
             **Example**:
             List entries that can be read within 30 seconds.
 
@@ -270,14 +255,11 @@ paths:
           name: q
           description: |-
             This parameter is used to run a search within the question or choice labels.
-
             **Keys**:
             - cho: choice
             - qst: question
-
             **Operands**:
             - `*`: Wildcard
-
             **Example**:
             Search questions with choice labels starting with "Bruce".
             ?q[cho]=Bruce*
