@@ -1,7 +1,7 @@
 openapi: 3.0.0
 tags:
   - name: trivia
-  - name: mc-sa
+  - name: panel-trivia
 info:
   title: ViaAPI Trivia
   version: v1.0.0
@@ -22,10 +22,9 @@ servers:
 paths:
   /questions/mc/sa:
     get:
-      summary: Your GET endpoint
+      summary: List Multi-Choice Single Answer Questions
       tags:
         - trivia
-        - mc-sa
       responses:
         '200':
           description: Successful response.
@@ -84,6 +83,8 @@ paths:
         You can search data based on the following properties:
         - label of question
         - label of choices
+
+        This endpoint only provides the most up-to-date version of each document.
       security:
         - X-Api-Key: []
       parameters:
@@ -272,10 +273,48 @@ paths:
 
             Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"
             ?q[qst][]=*Batman*&q[cho][]=Michael%20Keaton
+    post:
+      summary: Create New Multi-Choice Single Answer Question
+      operationId: post-questions-mc-sa
+      responses:
+        '200':
+          description: OK
+      description: |-
+        This endpoint is used to create a new multi-choice single answer trivia question entry.
+
+        **WARNING**:
+        A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TQMultiChoiceSingleVersionCreate'
+            examples:
+              Example:
+                value:
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - '#23:42'
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+        description: ''
+      tags:
+        - panel-trivia
+    parameters: []
   /tags:
     get:
-      summary: Your GET endpoint
-      tags: []
+      summary: List Trivia Tags
+      tags:
+        - trivia
       responses:
         '200':
           description: Successful response.
@@ -478,6 +517,70 @@ paths:
             List entries with item counts between 5 and 10.
 
             ?createdAt[gte]=5&createdAt[lte]=10
+  '/questions/mc/sa/{uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+    put:
+      summary: Update Existing Multi-Choice Single Answer Question
+      operationId: put-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+      description: |-
+        This endpoint is used to update an existing multi-choice single answer trivia question entry.
+
+        **WARNING**:
+        A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+      security:
+        - X-Api-Key: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: uuid
+          description: The UUID of the entry to be updated. This is used as an extra security measure and it should be equal to the UUID of the object provided within the request body.
+          required: true
+      tags:
+        - panel-trivia
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TQMultiChoiceSingleVersionUpdate'
+            examples:
+              Example:
+                value:
+                  uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                  status: a
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - title: movies
+                      icon: movies.png
+                      itemCount: 234
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+    delete:
+      summary: Delete Existing Multi-Choice Single Answer Question
+      operationId: delete-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+      description: 'This endpoint is used to mark an existing entry as "deleted".'
+      security:
+        - X-Api-Key: []
+      tags:
+        - panel-trivia
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
@@ -493,101 +596,6 @@ components:
       in: header
       description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
   schemas:
-    TQMultiChoiceSingle:
-      title: TQMultiChoiceSingle
-      type: object
-      description: This class is the main storage of multi choice trivia questions with only one correct answers.
-      x-examples:
-        Example:
-          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-          dateCreated: '2020-01-20T12:23:24Z'
-          dateUpdated: '2020-01-21T21:23:12Z'
-          status: a
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - title: movies
-              icon: movies.png
-              itemCount: 234
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
-        dateCreated:
-          type: string
-          description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
-          format: date-time
-        dateUpdated:
-          type: string
-          description: "The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to \"dateCreated\" property. However, it is updated later whenever a propery's value is updated for the given object (data row)."
-          format: date-time
-        status:
-          type: string
-          description: |-
-            This is the record's actual  (current) status.
-
-            - a: active (approved)
-            - d: deleted
-            - i: inactive (approved but unpublished)
-            - r: rejected
-            - **w: waiting for approval**
-          enum:
-            - a
-            - d
-            - i
-            - r
-            - w
-          example: w
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items:
-            $ref: '#/components/schemas/TQChoice'
-        banner:
-          $ref: '#/components/schemas/TQMedia'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            $ref: '#/components/schemas/TQTag'
-        label:
-          $ref: '#/components/schemas/TQLabel'
-      required:
-        - dateCreated
-        - dateUpdated
-        - status
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - trivia
     ApiPagination:
       title: ApiPagination
       type: object
@@ -871,3 +879,240 @@ components:
           icon: soccer.svg
           title: soccer
           itemCount: 2322
+      x-tags:
+        - trivia
+    TQMultiChoiceSingleVersionCreate:
+      title: TQMultiChoiceSingleVersionCreate
+      type: object
+      description: This class is the main storage of multi choice trivia questions with only one correct answers.
+      x-examples:
+        Example:
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - '#23:42'
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+      properties:
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            type: string
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - trivia
+    TQMultiChoiceSingle:
+      title: TQMultiChoiceSingle
+      type: object
+      description: "This class represents the version of TQMultiChoiceSingle class's \"create\" version."
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          dateCreated: '2020-01-20T12:23:24Z'
+          dateUpdated: '2020-01-21T21:23:12Z'
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        dateCreated:
+          type: string
+          description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
+          format: date-time
+        dateUpdated:
+          type: string
+          description: "The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to \"dateCreated\" property. However, it is updated later whenever a propery's value is updated for the given object (data row)."
+          format: date-time
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: '#/components/schemas/TQTag'
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - dateCreated
+        - dateUpdated
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - trivia
+    TQMultiChoiceSingleVersionUpdate:
+      title: TQMultiChoiceSingleVersionUpdate
+      type: object
+      description: "This class represents the version of TQMultiChoiceSingle class's \"create\" version."
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+      x-tags:
+        - trivia
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: '#/components/schemas/TQTag'
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
