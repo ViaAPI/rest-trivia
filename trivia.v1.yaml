@@ -581,6 +581,56 @@ paths:
         - X-Api-Key: []
       tags:
         - panel-trivia
+    get:
+      summary: ''
+      operationId: get-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+      description: This endpoint is used to retrieve a selected multi-choice single answer trivia question.
+      tags:
+        - trivia
+      security:
+        - X-Api-Key: []
+  '/questions/mc/sa/{uuid}/status/{status}':
+    parameters:
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: status
+        in: path
+        required: true
+    patch:
+      summary: Update Status of Multi-Choice Single Answer Question
+      operationId: patch-questions-mc-sa-uuid-status-status
+      responses:
+        '200':
+          description: OK
+      tags:
+        - panel-trivia
+      description: |-
+        This endpoint is used to update status of the question entry.
+
+        - a: approved & activated
+        - d: deleted
+        - i: inactive
+      security:
+        - X-Api-Key: []
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - a
+              - i
+              - d
+          in: query
+          name: status
+          description: The new status of the entry.
+          required: true
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
