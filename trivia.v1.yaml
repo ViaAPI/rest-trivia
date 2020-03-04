@@ -576,7 +576,8 @@ paths:
       responses:
         '200':
           description: OK
-      description: 'This endpoint is used to mark an existing entry as "deleted".'
+      description: |-
+        This endpoint is used to mark an existing entry as "deleted".
       security:
         - X-Api-Key: []
       tags:
