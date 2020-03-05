@@ -26,8 +26,39 @@ paths:
               examples:
                 Example:
                   value:
-                    code: '200.0000'
-                    message: ''
+                    code: '200.0401'
+                    message: You have been successfully logged in.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0002:
+                  value:
+                    code: '401.0002'
+                    message: 'Please check your username and password, and try again.'
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-0003:
+                  value:
+                    code: '401.0003'
+                    message: You have failed to login many times. Your account is susspended for 2 hours. You have been sent a security key to your primary contact option. You can either wait 2 hours or you can follow the instructions provided.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
                     result:
                       pagination: null
                       set: true
@@ -47,6 +78,47 @@ paths:
                   email: member@maildrop.cc
                   password: 123verysecure321...
                   termsAccepted: true
+      tags:
+        - Login
+  /logout:
+    post:
+      summary: ''
+      operationId: post-logout
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0402'
+                    message: You have been successfully logged out.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: './trivia.v1.yaml#/components/schemas/ApiResponse'
+              examples:
+                Example-0001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+      description: This endpoint is used for self-logout.
+      security:
+        - X-Api-Key: []
+        - X-Session-Token: []
       tags:
         - Login
 components:
