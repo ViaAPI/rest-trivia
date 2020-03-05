@@ -279,6 +279,19 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 3222
+                    sessionToken: null
       description: |-
         This endpoint is used to create a new multi-choice single answer trivia question entry.
 
@@ -340,26 +353,14 @@ paths:
                         pageCount: 10
                         currentPage: 1
                     set:
-                      - pagination: null
-                        set:
-                          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-                          dateCreated: '2020-01-20T12:23:24Z'
-                          dateUpdated: '2020-01-21T21:23:12Z'
-                          status: a
-                          banner:
-                            path: batman-logo.jpg
-                            type: i
-                          difficultyLevel: 1
-                          estimatedReadTime: 50
-                          tags:
-                            - title: movies
-                              icon: movies.png
-                              itemCount: 234
-                          label:
-                            audio: question-223423-2342342-2342.mp3
-                            video: question-223423-2342342-2342.mp4
-                            image: batman-logo.jpg
-                            text: Who among these Hollywood stars have not played the Batman character?
+                      - icon: soccer.svg
+                        title: soccer
+                        itemCount: 2322
+                        uuid: b914edfb-dadb-49f0-a729-08e882987e38
+                      - icon: history.svg
+                        title: history
+                        itemCount: 342
+                        uuid: 91bf5e5a-be48-400c-ac57-8c4dfdc6b283
       operationId: get-tags
       description: This endpoint returns a list of tags (TQTag objects) that are used to classify trivia questions.
       security:
@@ -517,7 +518,7 @@ paths:
             List entries with item counts between 5 and 10.
 
             ?createdAt[gte]=5&createdAt[lte]=10
-  '/questions/mc/sa/{uuid}':
+  '/question/mc/sa/{uuid}':
     parameters:
       - schema:
           type: string
@@ -530,6 +531,19 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 231
+                    sessionToken: null
       description: |-
         This endpoint is used to update an existing multi-choice single answer trivia question entry.
 
@@ -576,18 +590,115 @@ paths:
       responses:
         '200':
           description: OK
-      description: |-
-        This endpoint is used to mark an existing entry as "deleted".
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-00001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: You do not have enough permissions to access this feature.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+      description: 'This endpoint is used to mark an existing entry as "deleted".'
       security:
         - X-Api-Key: []
       tags:
         - panel-trivia
     get:
-      summary: ''
+      summary: Retrieve One Multi-Choice Single Answer Question
       operationId: get-questions-mc-sa-uuid
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set:
+                        uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                        dateCreated: '2020-01-20T12:23:24Z'
+                        dateUpdated: '2020-01-21T21:23:12Z'
+                        status: a
+                        banner:
+                          path: batman-logo.jpg
+                          type: i
+                        difficultyLevel: 1
+                        estimatedReadTime: 50
+                        tags:
+                          - title: movies
+                            icon: movies.png
+                            itemCount: 234
+                        label:
+                          audio: question-223423-2342342-2342.mp3
+                          video: question-223423-2342342-2342.mp4
+                          image: batman-logo.jpg
+                          text: Who among these Hollywood stars have not played the Batman character?
+                    sessionToken: null
       description: This endpoint is used to retrieve a selected multi-choice single answer trivia question.
       tags:
         - trivia
@@ -611,6 +722,19 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
       tags:
         - panel-trivia
       description: |-
@@ -763,7 +887,11 @@ components:
               items:
                 anyOf:
                   - $ref: '#/components/schemas/TQMultiChoiceSingle'
+                  - type: boolean
+                  - type: integer
             - $ref: '#/components/schemas/TQMultiChoiceSingle'
+            - type: boolean
+            - type: integer
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
     ApiResponse:
       title: ApiResponse
@@ -906,6 +1034,14 @@ components:
       title: TQTag
       type: object
       description: This class is the main storage of trivia question related tags.
+      x-examples:
+        Example:
+          icon: soccer.svg
+          title: soccer
+          itemCount: 2322
+          uuid: b914edfb-dadb-49f0-a729-08e882987e38
+      x-tags:
+        - trivia
       properties:
         icon:
           type: string
@@ -921,17 +1057,14 @@ components:
           example: 150
           minimum: 0
           description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
+        uuid:
+          type: string
+          description: System wide identification number.
+          format: uuid
       required:
         - icon
         - title
         - itemCount
-      x-examples:
-        Example:
-          icon: soccer.svg
-          title: soccer
-          itemCount: 2322
-      x-tags:
-        - trivia
     TQMultiChoiceSingleVersionCreate:
       title: TQMultiChoiceSingleVersionCreate
       type: object
