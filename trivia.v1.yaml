@@ -34,10 +34,10 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example:
+                Example-0000:
                   value:
                     code: '200.0000'
-                    message: ''
+                    message: Your request has been successfully completed.
                     result:
                       pagination:
                         isCircular: true
@@ -49,27 +49,98 @@ paths:
                         itemsPerPage: 10
                         pageCount: 10
                         currentPage: 1
-                    set:
-                      - pagination: null
-                        set:
-                          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-                          dateCreated: '2020-01-20T12:23:24Z'
-                          dateUpdated: '2020-01-21T21:23:12Z'
-                          status: a
-                          banner:
-                            path: batman-logo.jpg
-                            type: i
-                          difficultyLevel: 1
-                          estimatedReadTime: 50
-                          tags:
-                            - title: movies
-                              icon: movies.png
-                              itemCount: 234
-                          label:
-                            audio: question-223423-2342342-2342.mp3
-                            video: question-223423-2342342-2342.mp4
-                            image: batman-logo.jpg
-                            text: Who among these Hollywood stars have not played the Batman character?
+                      set:
+                        - pagination: null
+                          set:
+                            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                            dateCreated: '2020-01-20T12:23:24Z'
+                            dateUpdated: '2020-01-21T21:23:12Z'
+                            status: a
+                            banner:
+                              path: batman-logo.jpg
+                              type: i
+                            difficultyLevel: 1
+                            estimatedReadTime: 50
+                            tags:
+                              - title: movies
+                                icon: movies.png
+                                itemCount: 234
+                            label:
+                              audio: question-223423-2342342-2342.mp3
+                              video: question-223423-2342342-2342.mp4
+                              image: batman-logo.jpg
+                              text: Who among these Hollywood stars have not played the Batman character?
+                    sessionToken: null
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '412.0000'
+                    message: '"limit" parameter must be an integer value between 1 and 200.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0002:
+                  value:
+                    code: '412.0002'
+                    message: '"order" parameter has one or more unsupported operands. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0003:
+                  value:
+                    code: '412.0003'
+                    message: '"order" parameter has one or more unsupported options. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the createdAt. Please check related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0001:
+                  value:
+                    code: '412.0001'
+                    message: '"offset" parameter has one or more unsupported operands. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
       operationId: get-questions-mc-sa
       description: |-
         This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following prperties:
