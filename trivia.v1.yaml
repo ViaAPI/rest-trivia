@@ -2,6 +2,7 @@ openapi: 3.0.0
 tags:
   - name: trivia
   - name: panel-trivia
+  - name: Administration
 info:
   title: ViaAPI Trivia
   version: v1.0.0
@@ -25,6 +26,7 @@ paths:
       summary: List Multi-Choice Single Answer Questions
       tags:
         - trivia
+        - Administration
       responses:
         '200':
           description: Successful response.
@@ -363,6 +365,44 @@ paths:
                       pagination: null
                       set: 3222
                     sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: './authentication.v1.yaml#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+                Example-0001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: 'You do not have enough permissions to access this feature. '
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResult'
+              examples:
+                Example-7000:
+                  value:
+                    code: '401.7000'
+                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
       description: |-
         This endpoint is used to create a new multi-choice single answer trivia question entry.
 
@@ -630,7 +670,7 @@ paths:
           description: The UUID of the entry to be updated. This is used as an extra security measure and it should be equal to the UUID of the object provided within the request body.
           required: true
       tags:
-        - panel-trivia
+        - Administration
       requestBody:
         content:
           application/json:
@@ -685,25 +725,19 @@ paths:
                   value:
                     code: '401.0000'
                     message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result:
-                      pagination: null
-                      set: true
+                    result: null
                     sessionToken: null
                 Example-00001:
                   value:
                     code: '401.0001'
                     message: Your session is expired. Please re-login.
-                    result:
-                      pagination: null
-                      set: true
+                    result: null
                     sessionToken: null
                 Example-9000:
                   value:
                     code: '401.9000'
                     message: You do not have enough permissions to access this feature.
-                    result:
-                      pagination: null
-                      set: true
+                    result: null
                     sessionToken: null
         '412':
           description: Precondition Failed
@@ -716,23 +750,19 @@ paths:
                   value:
                     code: '412.0100'
                     message: Preliminary data validation failed. Please check related service documentation.
-                    result:
-                      pagination: null
-                      set: true
+                    result: null
                     sessionToken: null
                 Example-9995:
                   value:
                     code: '412.9995'
                     message: The supplied path parameter is invalid or a required path parameter is missing.
-                    result:
-                      pagination: null
-                      set: true
+                    result: null
                     sessionToken: null
       description: 'This endpoint is used to mark an existing entry as "deleted".'
       security:
         - X-Api-Key: []
       tags:
-        - panel-trivia
+        - Administration
     get:
       summary: Retrieve One Multi-Choice Single Answer Question
       operationId: get-questions-mc-sa-uuid
@@ -770,23 +800,77 @@ paths:
                           image: batman-logo.jpg
                           text: Who among these Hollywood stars have not played the Batman character?
                     sessionToken: null
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    result: null
+                    sessionToken: null
       description: This endpoint is used to retrieve a selected multi-choice single answer trivia question.
       tags:
         - trivia
+        - Administration
       security:
         - X-Api-Key: []
-  '/questions/mc/sa/{uuid}/status/{status}':
+  '/question/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
           type: string
         name: uuid
         in: path
         required: true
+        description: UUID of the entry which is being updated.
       - schema:
           type: string
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
         name: status
         in: path
         required: true
+        description: |-
+          Value of new status.
+
+          Allowed values are:
+
+          - a: active (approved)
+          - d: deleted
+          - i: inactive (approved but unpublished)
+          - r: rejected
+          - w: waiting for approval
+
+          NOTE THAT values a, d, i, r can only be set by users with right permissions.
     patch:
       summary: Update Status of Multi-Choice Single Answer Question
       operationId: patch-questions-mc-sa-uuid-status-status
@@ -798,16 +882,48 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example:
+                Example-0404:
                   value:
-                    code: '200.0000'
-                    message: Your request has been successfully completed.
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
                     result:
                       pagination: null
-                      set: true
+                      set: null
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '412.9000'
+                    message: You do not have enough permissions to access this feature.
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0004:
+                  value:
+                    code: '412.0004'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
                     sessionToken: null
       tags:
-        - panel-trivia
+        - Administration
       description: |-
         This endpoint is used to update status of the question entry.
 

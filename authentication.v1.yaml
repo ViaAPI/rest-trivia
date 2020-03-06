@@ -121,6 +121,81 @@ paths:
         - X-Session-Token: []
       tags:
         - Login
+  /password/reset/request:
+    post:
+      summary: Your GET endpoint
+      tags:
+        - Login
+      responses:
+        '200':
+          description: OK
+      operationId: get-password-reset-request
+      description: Use this endpoint to start a password reset request.
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetRequestForm'
+            examples:
+              Example:
+                value:
+                  username: '905325554433'
+                  deliveryMethod: sms
+        description: ''
+  '/password/reset/confirm/{confirmationKey}':
+    post:
+      summary: Your GET endpoint
+      tags:
+        - Login
+      responses:
+        '200':
+          description: OK
+      operationId: get-password-reset-confirm
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PasswordResetConfirmForm'
+            examples:
+              Example:
+                value:
+                  username: '905325554433'
+                  deliveryMethod: sms
+      description: Using this endpoint you can let the user set a new password for her/his account.
+      security:
+        - X-Api-Key: []
+    parameters:
+      - schema:
+          type: string
+        name: confirmationKey
+        in: path
+        required: true
+  '/account/activate/{activationKey}':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+      operationId: get-account-confirm
+      description: |-
+        This endpoint is used to activate new accounts. Activation key & link will be sent to the account using one of the following channels:
+
+        - E-Mail
+        - SMS
+      security:
+        - X-Api-Key: []
+      parameters: []
+    parameters:
+      - schema:
+          type: string
+          default: Jq1Xyr9f
+        name: activationKey
+        in: path
+        required: true
+        description: An 8 character long key that includes alphanumeric characters.
 components:
   schemas:
     ApiResponse:
@@ -864,6 +939,53 @@ components:
           username: member@maildrop.cc
           password: 123xyz
           termsAccepted: true
+    PasswordResetRequestForm:
+      title: PasswordResetRequestForm
+      type: object
+      description: Represents password reset request form.
+      properties:
+        username:
+          type: string
+          description: 'E-mail, or phone number of the user who wants to reset her/his password.'
+          example: member@mailinator.com
+        deliviryMethod:
+          type: string
+          description: sms or email.
+          enum:
+            - sms
+            - email
+          example: sms
+      required:
+        - username
+        - deliviryMethod
+      x-examples:
+        Example:
+          username: '905325554433'
+          deliveryMethod: sms
+      x-tags:
+        - Login
+    PasswordResetConfirmForm:
+      title: PasswordResetConfirmForm
+      type: object
+      description: Represents password reset request confirmation form.
+      properties:
+        confirmationCode:
+          type: string
+          description: Reset confirmation code
+          example: aR09oXxq
+        password:
+          type: string
+          description: "User's new password."
+          example: th15_is_v3rY_s3cU4E
+      required:
+        - confirmationCode
+        - password
+      x-examples:
+        Example:
+          confirmationCode: aR09oXxq
+          password: th15_is_v3rY_s3cU4E
+      x-tags:
+        - Login
   securitySchemes:
     X-Api-Key:
       type: apiKey
