@@ -443,7 +443,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
   '/{region}/tags':
     get:
       summary: List Trivia Tags
@@ -659,7 +659,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
   '/{region}/question/mc/sa/{uuid}':
     parameters:
       - schema:
@@ -677,7 +677,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     put:
       summary: Update Existing Multi-Choice Single Answer Question
       operationId: put-questions-mc-sa-uuid
@@ -922,7 +922,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     patch:
       summary: Update Status of Multi-Choice Single Answer Question
       operationId: patch-questions-mc-sa-uuid-status-status
