@@ -21,7 +21,7 @@ servers:
   - url: 'https://trivia.api.dev.viaapi.com/v1.0'
     description: Development / Testing Server
 paths:
-  /questions/mc/sa:
+  '/{region}/questions/mc/sa':
     get:
       summary: List Multi-Choice Single Answer Questions
       tags:
@@ -433,8 +433,18 @@ paths:
         description: ''
       tags:
         - panel-trivia
-    parameters: []
-  /tags:
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - en-use
+          default: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+  '/{region}/tags':
     get:
       summary: List Trivia Tags
       tags:
@@ -629,13 +639,45 @@ paths:
             List entries with item counts between 5 and 10.
 
             ?createdAt[gte]=5&createdAt[lte]=10
-  '/question/mc/sa/{uuid}':
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - tr-nc
+            - ru-ru
+            - es-es
+            - fr-fr
+            - es-ln
+            - es-xx
+            - en-xx
+            - en-us
+            - en-uk
+            - de-at
+            - de-de
+          default: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
+  '/{region}/question/mc/sa/{uuid}':
     parameters:
       - schema:
           type: string
         name: uuid
         in: path
         required: true
+        description: System attained id of the question.
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - en-us
+          default: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
     put:
       summary: Update Existing Multi-Choice Single Answer Question
       operationId: put-questions-mc-sa-uuid
@@ -840,7 +882,7 @@ paths:
         - Administration
       security:
         - X-Api-Key: []
-  '/question/mc/sa/{uuid}/status/{status}':
+  '/{region}/question/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
           type: string
@@ -871,6 +913,16 @@ paths:
           - w: waiting for approval
 
           NOTE THAT values a, d, i, r can only be set by users with right permissions.
+      - schema:
+          type: string
+          default: tr-tr
+          enum:
+            - tr-tr
+            - en-us
+        name: region
+        in: path
+        required: true
+        description: 'see https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes'
     patch:
       summary: Update Status of Multi-Choice Single Answer Question
       operationId: patch-questions-mc-sa-uuid-status-status
