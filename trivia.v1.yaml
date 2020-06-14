@@ -199,8 +199,10 @@ paths:
             - `+`: ASCENDING
             - `-`: DESCENDING
             **Available Options:**
-            - dateCreated
-            - dateUpdated
+            - createdAt
+            - updatedAt
+            - id
+            - difficultyLevel
             - label.text
             **Example:**
             Sort questions by their labels ascending and by their creation time descending.
@@ -346,6 +348,28 @@ paths:
 
             Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"
             ?q[qst][]=*Batman*&q[cho][]=Michael%20Keaton
+        - schema:
+            type: array
+          in: query
+          name: tags
+          description: |-
+            This parameter is used to filter entries by their tags.
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.
+            **Example**:
+
+            List entriestagged with tag of id 9.
+
+            ?tag[eq]=9
+
+            List entries taged with a tags of ids 3, 5 or 8.
+            ?difficultyLevel[in]=3,5,8
     post:
       summary: Create New Multi-Choice Single Answer Question
       operationId: post-questions-mc-sa
@@ -1208,10 +1232,34 @@ components:
       required:
         - isCorrect
       x-examples:
-        Example - A: {}
-        Example - B: {}
-        Example - C: {}
-        Exampe - D: {}
+        Example - A:
+          isCorrect: true
+          label:
+            audio: choiceA.wav
+            image: choiceA.jpg
+            text: Michael Keaton
+            video: choicesA.mp4
+        Example - B:
+          isCorrect: false
+          label:
+            audio: choiceB.wav
+            image: choiceB.jpg
+            text: Brad Pitt
+            video: choicesB.mp4
+        Example - C:
+          isCorrect: false
+          label:
+            audio: choiceC.wav
+            image: choiceC.jpg
+            text: Jackie Chan
+            video: choicesC.mp4
+        Exampe - D:
+          isCorrect: false
+          label:
+            audio: choiceD.wav
+            image: choiceD.jpg
+            text: Jack Nicholson
+            video: choicesD.mp4
       description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
     TQLabel:
       title: TQLabel
@@ -1241,7 +1289,7 @@ components:
       required:
         - text
       x-examples:
-        example-1:
+        Example 1:
           audio: question.wav
           image: question.jpg
           text: Who are you?
@@ -1322,6 +1370,31 @@ components:
             video: question-223423-2342342-2342.mp4
             image: batman-logo.jpg
             text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
       properties:
         choices:
           type: array
@@ -1385,6 +1458,31 @@ components:
             video: question-223423-2342342-2342.mp4
             image: batman-logo.jpg
             text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
       properties:
         uuid:
           type: string
@@ -1478,6 +1576,31 @@ components:
             video: question-223423-2342342-2342.mp4
             image: batman-logo.jpg
             text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
       x-tags:
         - trivia
       properties:
