@@ -2,7 +2,7 @@ openapi: 3.0.0
 tags:
   - name: trivia
   - name: panel-trivia
-  - name: Administration
+  - name: models
 info:
   title: ViaAPI Trivia
   version: v1.0.0
@@ -1020,7 +1020,7 @@ paths:
                     result: null
                     sessionToken: null
       tags:
-        - Administration
+        - panel-trivia
       description: |-
         This endpoint is used to update status of the question entry.
 
@@ -1073,8 +1073,6 @@ components:
           itemsPerPage: 10
           pageCount: 10
           currentPage: 1
-      x-tags:
-        - response
       properties:
         isCircular:
           description: 'If set to true, pagination''s next page link points the first page of collection.'
@@ -1137,12 +1135,12 @@ components:
         - itemsPerPage
         - pageCount
         - currentPage
+      x-tags:
+        - models
     ApiResult:
       title: ApiResult
       type: object
       description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
-      x-tags:
-        - response
       x-examples:
         Example:
           pagination: null
@@ -1180,6 +1178,8 @@ components:
             - type: boolean
             - type: integer
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
+      x-tags:
+        - models
     ApiResponse:
       title: ApiResponse
       type: object
@@ -1203,8 +1203,6 @@ components:
       required:
         - code
         - message
-      x-tags:
-        - response
       x-examples:
         Example:
           code: '200.0000'
@@ -1241,11 +1239,11 @@ components:
                   video: question-223423-2342342-2342.mp4
                   image: batman-logo.jpg
                   text: Who among these Hollywood stars have not played the Batman character?
+      x-tags:
+        - models
     TQChoice:
       title: TQChoice
       type: object
-      x-tags:
-        - helper
       properties:
         isCorrect:
           type: boolean
@@ -1285,6 +1283,8 @@ components:
             text: Jack Nicholson
             video: choicesD.mp4
       description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
+      x-tags:
+        - models
     TQLabel:
       title: TQLabel
       type: object
@@ -1319,12 +1319,10 @@ components:
           text: Who are you?
           video: question.mp4
       x-tags:
-        - helper
+        - models
     TQMedia:
       title: TQMedia
       type: object
-      x-tags:
-        - helper
       properties:
         path:
           type: string
@@ -1341,6 +1339,8 @@ components:
         In general, we do NOT store binary information withn the database. This means any file used as data is actually a file physically stored in our CDN network. We register the CDN path of files and type related information within our database(s).
 
         This class provides a foundation for keeping records of media entries within our document store.
+      x-tags:
+        - models
     TQTag:
       title: TQTag
       type: object
@@ -1351,8 +1351,6 @@ components:
           title: soccer
           itemCount: 2322
           uuid: b914edfb-dadb-49f0-a729-08e882987e38
-      x-tags:
-        - trivia
       properties:
         icon:
           type: string
@@ -1376,6 +1374,8 @@ components:
         - icon
         - title
         - itemCount
+      x-tags:
+        - models
     TQMultiChoiceSingleVersionCreate:
       title: TQMultiChoiceSingleVersionCreate
       type: object
@@ -1457,7 +1457,7 @@ components:
         - tags
         - label
       x-tags:
-        - trivia
+        - models
     TQMultiChoiceSingle:
       title: TQMultiChoiceSingle
       type: object
@@ -1577,7 +1577,7 @@ components:
         - tags
         - label
       x-tags:
-        - trivia
+        - models
     TQMultiChoiceSingleVersionUpdate:
       title: TQMultiChoiceSingleVersionUpdate
       type: object
@@ -1625,8 +1625,6 @@ components:
                 image: choiceD.jpg
                 text: Denzel Washington
                 video: choicesD.mp4
-      x-tags:
-        - trivia
       properties:
         uuid:
           type: string
@@ -1686,3 +1684,5 @@ components:
         - estimatedReadTime
         - tags
         - label
+      x-tags:
+        - models
