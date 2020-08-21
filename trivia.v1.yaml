@@ -29,7 +29,6 @@ paths:
       summary: List Multi-Choice Single Answer Questions
       tags:
         - trivia
-        - Administration
       responses:
         '200':
           description: Successful response.
@@ -161,6 +160,9 @@ paths:
         - label of choices
 
         This endpoint only provides the most up-to-date version of each document.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.png)
       security:
         - X-Api-Key: []
       parameters:
@@ -430,11 +432,14 @@ paths:
                     message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
                     result: null
                     sessionToken: null
-      description: |-
+      description: |
         This endpoint is used to create a new multi-choice single answer trivia question entry.
 
         **WARNING**:
         A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/post.questions.mc.sa.png)
       security:
         - X-Api-Key: []
       requestBody:
@@ -730,6 +735,10 @@ paths:
 
         **WARNING**:
         A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        ### Flow
+
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/put.questions.mc.sa.uuid.png)
       security:
         - X-Api-Key: []
       parameters:
@@ -739,8 +748,6 @@ paths:
           name: uuid
           description: The UUID of the entry to be updated. This is used as an extra security measure and it should be equal to the UUID of the object provided within the request body.
           required: true
-      tags:
-        - Administration
       requestBody:
         content:
           application/json:
@@ -765,6 +772,8 @@ paths:
                     video: question-223423-2342342-2342.mp4
                     image: batman-logo.jpg
                     text: Who among these Hollywood stars have not played the Batman character?
+      tags:
+        - panel-trivia
     delete:
       summary: Delete Existing Multi-Choice Single Answer Question
       operationId: delete-questions-mc-sa-uuid
@@ -837,7 +846,7 @@ paths:
       security:
         - X-Api-Key: []
       tags:
-        - Administration
+        - panel-trivia
     get:
       summary: Retrieve One Multi-Choice Single Answer Question
       operationId: get-questions-mc-sa-uuid
@@ -909,10 +918,13 @@ paths:
                     message: The supplied path parameter is invalid or a required path parameter is missing.
                     result: null
                     sessionToken: null
-      description: This endpoint is used to retrieve a selected multi-choice single answer trivia question.
+      description: |-
+        This endpoint is used to retrieve a selected multi-choice single answer trivia question.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.uuid.png)
       tags:
         - trivia
-        - Administration
       security:
         - X-Api-Key: []
   '/question/{region}/mc/sa/{uuid}/status/{status}':
@@ -1015,6 +1027,9 @@ paths:
         - a: approved & activated
         - d: deleted
         - i: inactive
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/patch.question.mc.sa.uuid.status.status.png)
       security:
         - X-Api-Key: []
       parameters:
