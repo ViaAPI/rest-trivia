@@ -14,14 +14,17 @@ info:
     email: admin@viaapi.com
     url: 'https://www.viaapi.com'
   termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
-  description: "This documentation covers all endpoints related to trivia data store of ViaAPI.\n\nIf you like to obtain our trivia data, you need to use one of the endpoints documented here.                 "
+  description: |-
+    This documentation covers all endpoints related to trivia data store of ViaAPI.
+
+    If you like to obtain our trivia data, you need to use one of the endpoints documented here.                 
 servers:
   - url: 'https://trivia.api.viaapi.com/v1.0'
     description: Production
   - url: 'https://trivia.api.dev.viaapi.com/v1.0'
     description: Development / Testing Server
 paths:
-  '/{region}/questions/mc/sa':
+  '/questions/{region}/mc/sa':
     get:
       summary: List Multi-Choice Single Answer Questions
       tags:
@@ -44,9 +47,9 @@ paths:
                       pagination:
                         isCircular: true
                         prevLink: null
-                        nextLink: 'offset=10&limit=10'
-                        lastLink: 'offset=90&limit=10'
-                        firstLink: 'offset=0&limit=10'
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
                         totalItems: 100
                         itemsPerPage: 10
                         pageCount: 10
@@ -394,7 +397,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './authentication.v1.yaml#/components/schemas/ApiResponse'
+                $ref: ./authentication.v1.yaml#/components/schemas/ApiResponse
               examples:
                 Example-0000:
                   value:
@@ -468,7 +471,7 @@ paths:
         in: path
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
-  '/{region}/tags':
+  '/tags/{region}':
     get:
       summary: List Trivia Tags
       tags:
@@ -490,9 +493,9 @@ paths:
                       pagination:
                         isCircular: true
                         prevLink: null
-                        nextLink: 'offset=10&limit=10'
-                        lastLink: 'offset=90&limit=10'
-                        firstLink: 'offset=0&limit=10'
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
                         totalItems: 100
                         itemsPerPage: 10
                         pageCount: 10
@@ -680,11 +683,12 @@ paths:
             - de-at
             - de-de
           default: tr-tr
+          example: tr-tr
         name: region
         in: path
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
-  '/{region}/question/mc/sa/{uuid}':
+  '/question/{region}/mc/sa/{uuid}':
     parameters:
       - schema:
           type: string
@@ -824,7 +828,7 @@ paths:
                     message: The supplied path parameter is invalid or a required path parameter is missing.
                     result: null
                     sessionToken: null
-      description: 'This endpoint is used to mark an existing entry as "deleted".'
+      description: This endpoint is used to mark an existing entry as "deleted".
       security:
         - X-Api-Key: []
       tags:
@@ -906,7 +910,7 @@ paths:
         - Administration
       security:
         - X-Api-Key: []
-  '/{region}/question/mc/sa/{uuid}/status/{status}':
+  '/question/{region}/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
           type: string
@@ -1042,9 +1046,9 @@ components:
         Example:
           isCircular: true
           prevLink: null
-          nextLink: 'offset=10&limit=10'
-          lastLink: 'offset=90&limit=10'
-          firstLink: 'offset=0&limit=10'
+          nextLink: offset=10&limit=10
+          lastLink: offset=90&limit=10
+          firstLink: offset=0&limit=10
           totalItems: 100
           itemsPerPage: 10
           pageCount: 10
@@ -1053,28 +1057,28 @@ components:
         - response
       properties:
         isCircular:
-          description: "If set to true, pagination's next page link points the first page of collection."
+          description: 'If set to true, pagination''s next page link points the first page of collection.'
           type: boolean
           example: true
           default: true
         prevLink:
-          description: "The query string that is required to obtain the previous page's items."
-          example: 'offset=9&limit=50'
+          description: The query string that is required to obtain the previous page's items.
+          example: offset=9&limit=50
           type: string
           nullable: true
         nextLink:
-          description: "The query string that is required to obtain the next page's items."
-          example: 'offset=1&limit=50'
+          description: The query string that is required to obtain the next page's items.
+          example: offset=1&limit=50
           type: string
           nullable: true
         lastLink:
-          description: "The query string that is required to obtain the last page's items."
-          example: 'offset=10&limit=50'
+          description: The query string that is required to obtain the last page's items.
+          example: offset=10&limit=50
           type: string
           nullable: true
         firstLink:
-          description: "The query string that is required to obtain the first page's items."
-          example: 'offset=0&limit=50'
+          description: The query string that is required to obtain the first page's items.
+          example: offset=0&limit=50
           type: string
           nullable: true
         totalItems:
@@ -1171,10 +1175,10 @@ components:
         code:
           type: string
           example: '200.0000'
-          description: "This is the API's internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes."
+          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
         message:
           type: string
-          description: "This is the API's internal response message."
+          description: This is the API's internal response message.
           example: ' Your request has been successfully completed.'
       required:
         - code
@@ -1189,9 +1193,9 @@ components:
             pagination:
               isCircular: true
               prevLink: null
-              nextLink: 'offset=10&limit=10'
-              lastLink: 'offset=90&limit=10'
-              firstLink: 'offset=0&limit=10'
+              nextLink: offset=10&limit=10
+              lastLink: offset=90&limit=10
+              firstLink: offset=0&limit=10
               totalItems: 100
               itemsPerPage: 10
               pageCount: 10
@@ -1276,7 +1280,7 @@ components:
           example: question.wav
         image:
           type: string
-          description: 'Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.'
+          description: Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.
           example: question.jpg
         text:
           type: string
@@ -1284,7 +1288,7 @@ components:
           example: Bruce Willis
         video:
           type: string
-          description: 'Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.'
+          description: Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.
           example: question.mp4
       required:
         - text
@@ -1309,7 +1313,7 @@ components:
         type:
           type: string
           example: i
-          description: "This is an indicator to flag file's type. It shows the user of the data whether the file in given path is an audio file, an image file, a video file, etc."
+          description: 'This is an indicator to flag file''s type. It shows the user of the data whether the file in given path is an audio file, an image file, a video file, etc.'
       required:
         - path
         - type
@@ -1437,7 +1441,7 @@ components:
     TQMultiChoiceSingle:
       title: TQMultiChoiceSingle
       type: object
-      description: "This class represents the version of TQMultiChoiceSingle class's \"create\" version."
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
       x-examples:
         Example:
           uuid: cfc21291-18f6-47cf-b714-ed87d150c076
@@ -1494,7 +1498,7 @@ components:
           format: date-time
         dateUpdated:
           type: string
-          description: "The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to \"dateCreated\" property. However, it is updated later whenever a propery's value is updated for the given object (data row)."
+          description: 'The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to "dateCreated" property. However, it is updated later whenever a propery''s value is updated for the given object (data row).'
           format: date-time
         status:
           type: string
@@ -1557,7 +1561,7 @@ components:
     TQMultiChoiceSingleVersionUpdate:
       title: TQMultiChoiceSingleVersionUpdate
       type: object
-      description: "This class represents the version of TQMultiChoiceSingle class's \"create\" version."
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
       x-examples:
         Example:
           uuid: cfc21291-18f6-47cf-b714-ed87d150c076
