@@ -828,7 +828,12 @@ paths:
                     message: The supplied path parameter is invalid or a required path parameter is missing.
                     result: null
                     sessionToken: null
-      description: This endpoint is used to mark an existing entry as "deleted".
+      description: |-
+        This endpoint is used to mark an existing entry as "deleted".
+
+        ### Flow
+
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/delete.questions.mc.sa.uuid.png)
       security:
         - X-Api-Key: []
       tags:

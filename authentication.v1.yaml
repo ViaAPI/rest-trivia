@@ -80,6 +80,8 @@ paths:
                   termsAccepted: true
       tags:
         - Login
+        - Authentication
+        - Account
   /logout:
     post:
       summary: ''
@@ -105,7 +107,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './trivia.v1.yaml#/components/schemas/ApiResponse'
+                $ref: ./trivia.v1.yaml#/components/schemas/ApiResponse
               examples:
                 Example-0001:
                   value:
@@ -121,11 +123,14 @@ paths:
         - X-Session-Token: []
       tags:
         - Login
+        - Account
+        - Authentication
   /password/reset/request:
     post:
       summary: Your GET endpoint
       tags:
         - Login
+        - Authentication
       responses:
         '200':
           description: OK
@@ -149,6 +154,7 @@ paths:
       summary: Your GET endpoint
       tags:
         - Login
+        - Account
       responses:
         '200':
           description: OK
@@ -175,7 +181,8 @@ paths:
   '/account/activate/{activationKey}':
     get:
       summary: Your GET endpoint
-      tags: []
+      tags:
+        - Account
       responses:
         '200':
           description: OK
@@ -213,10 +220,10 @@ components:
         code:
           type: string
           example: '200.0000'
-          description: "This is the API's internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes."
+          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
         message:
           type: string
-          description: "This is the API's internal response message."
+          description: This is the API's internal response message.
           example: ' Your request has been successfully completed.'
       required:
         - code
@@ -231,9 +238,9 @@ components:
             pagination:
               isCircular: true
               prevLink: null
-              nextLink: 'offset=10&limit=10'
-              lastLink: 'offset=90&limit=10'
-              firstLink: 'offset=0&limit=10'
+              nextLink: offset=10&limit=10
+              lastLink: offset=90&limit=10
+              firstLink: offset=0&limit=10
               totalItems: 100
               itemsPerPage: 10
               pageCount: 10
@@ -289,9 +296,9 @@ components:
         Example:
           isCircular: true
           prevLink: null
-          nextLink: 'offset=10&limit=10'
-          lastLink: 'offset=90&limit=10'
-          firstLink: 'offset=0&limit=10'
+          nextLink: offset=10&limit=10
+          lastLink: offset=90&limit=10
+          firstLink: offset=0&limit=10
           totalItems: 100
           itemsPerPage: 10
           pageCount: 10
@@ -300,28 +307,28 @@ components:
         - response
       properties:
         isCircular:
-          description: "If set to true, pagination's next page link points the first page of collection."
+          description: 'If set to true, pagination''s next page link points the first page of collection.'
           type: boolean
           example: true
           default: true
         prevLink:
-          description: "The query string that is required to obtain the previous page's items."
-          example: 'offset=9&limit=50'
+          description: The query string that is required to obtain the previous page's items.
+          example: offset=9&limit=50
           type: string
           nullable: true
         nextLink:
-          description: "The query string that is required to obtain the next page's items."
-          example: 'offset=1&limit=50'
+          description: The query string that is required to obtain the next page's items.
+          example: offset=1&limit=50
           type: string
           nullable: true
         lastLink:
-          description: "The query string that is required to obtain the last page's items."
-          example: 'offset=10&limit=50'
+          description: The query string that is required to obtain the last page's items.
+          example: offset=10&limit=50
           type: string
           nullable: true
         firstLink:
-          description: "The query string that is required to obtain the first page's items."
-          example: 'offset=0&limit=50'
+          description: The query string that is required to obtain the first page's items.
+          example: offset=0&limit=50
           type: string
           nullable: true
         totalItems:
@@ -490,12 +497,12 @@ components:
           description: E-mail of the admin user.
         password:
           type: string
-          example: 's0m3PasZwO4d!'
-          description: "User's password."
+          example: s0m3PasZwO4d!
+          description: User's password.
         isSuper:
           type: boolean
           example: false
-          description: "Indicates wheter this user is super user. A super user status overrides all of user's permissions and gives the user access to all functionalities."
+          description: Indicates wheter this user is super user. A super user status overrides all of user's permissions and gives the user access to all functionalities.
         consecutiveFailedLoginAttempts:
           type: integer
           description: The count of the recent failed login tries. The value resets to 0 when the user successfully logs into system.
@@ -524,7 +531,7 @@ components:
           email: no-reply@bodevoffice.com
           mobileNumber: +90-532-532-3232
           isSuper: false
-          password: '5oM3p@S5w04D!'
+          password: 5oM3p@S5w04D!
     FailedLoginAttempt:
       title: FailedLoginAttempt
       type: object
@@ -571,7 +578,7 @@ components:
           minimum: 1
         ipAddress:
           type: string
-          description: "User's password."
+          description: User's password.
           format: ipv4
           example: 127.0.0.1
         notes:
@@ -868,7 +875,7 @@ components:
           type: string
           format: date-time
           example: '2020-03-03T10:18:28+03:00'
-          description: "Timestamp of record's creation date."
+          description: Timestamp of record's creation date.
         updatedAt:
           type: string
           format: date-time
@@ -876,7 +883,7 @@ components:
           description: Date when the record is last updated.
         expirationDate:
           type: string
-          description: "The expiration date and time of the request. If the request hasn't finalied by this time, it will not be valid anymore."
+          description: 'The expiration date and time of the request. If the request hasn''t finalied by this time, it will not be valid anymore.'
           format: date-time
           example: '2020-03-03T10:18:28+03:00'
         status:
@@ -926,7 +933,7 @@ components:
           example: member@maildrop.cc
         password:
           type: string
-          description: "User's password."
+          description: User's password.
         termsAccepted:
           type: boolean
           example: false
@@ -975,7 +982,7 @@ components:
           example: aR09oXxq
         password:
           type: string
-          description: "User's new password."
+          description: User's new password.
           example: th15_is_v3rY_s3cU4E
       required:
         - confirmationCode
@@ -1001,6 +1008,8 @@ tags:
   - name: trivia
   - name: panel-trivia
   - name: Login
+  - name: Authentication
+  - name: Account
 servers:
   - url: 'https://auth.api.viaapi.com/v1.0'
     description: Production
