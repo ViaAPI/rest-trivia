@@ -30,7 +30,7 @@ paths:
     get:
       summary: List Multi-Choice Single Answer Questions
       tags:
-        - trivia
+        - trivia admin
       responses:
         '200':
           description: Successful response.
@@ -1248,7 +1248,7 @@ externalDocs:
 components:
   securitySchemes:
     X-Session-Key:
-      name: Session Key
+      name: X-Session-Key
       type: apiKey
       in: header
       description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
