@@ -1,0 +1,1885 @@
+openapi: 3.0.0
+tags:
+  - name: trivia
+  - name: panel-trivia
+  - name: models
+  - name: trivia admin
+  - name: Administration
+info:
+  title: ViaAPI Trivia Admin
+  version: v1.0.0
+  license:
+    name: Trivia
+    url: 'https://www.viaapi.com/legal/licensing/trivia'
+  contact:
+    name: System Administrator
+    email: admin@viaapi.com
+    url: 'https://www.viaapi.com'
+  termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
+  description: |-
+    This documentation covers all endpoints related to trivia data store of ViaAPI.
+
+    If you like to obtain our trivia data, you need to use one of the endpoints documented here.                 
+servers:
+  - url: 'https://trivia.admin.api.viaapi.com/v1.0'
+    description: Production
+  - url: 'http://trivia.admin.api.dev.viaapi.com/v1.0'
+    description: Development / Testing Server
+paths:
+  '/questions/{region}/mc/sa':
+    get:
+      summary: List Multi-Choice Single Answer Questions
+      tags:
+        - trivia
+      responses:
+        '200':
+          description: Successful response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination:
+                        isCircular: true
+                        prevLink: null
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
+                        totalItems: 100
+                        itemsPerPage: 10
+                        pageCount: 10
+                        currentPage: 1
+                      set:
+                        - pagination: null
+                          set:
+                            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                            dateCreated: '2020-01-20T12:23:24Z'
+                            dateUpdated: '2020-01-21T21:23:12Z'
+                            status: a
+                            banner:
+                              path: batman-logo.jpg
+                              type: i
+                            difficultyLevel: 1
+                            estimatedReadTime: 50
+                            tags:
+                              - title: movies
+                                icon: movies.png
+                                itemCount: 234
+                            label:
+                              audio: question-223423-2342342-2342.mp3
+                              video: question-223423-2342342-2342.mp4
+                              image: batman-logo.jpg
+                              text: Who among these Hollywood stars have not played the Batman character?
+                    sessionToken: null
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '412.0000'
+                    message: '"limit" parameter must be an integer value between 1 and 200.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0002:
+                  value:
+                    code: '412.0002'
+                    message: '"order" parameter has one or more unsupported operands. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0003:
+                  value:
+                    code: '412.0003'
+                    message: '"order" parameter has one or more unsupported options. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the createdAt. Please check related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+                Example-0001:
+                  value:
+                    code: '412.0001'
+                    message: '"offset" parameter has one or more unsupported operands. See related documentation for more information.'
+                    result:
+                      pagination: null
+                      set: []
+                    sessionToken: null
+      operationId: get-questions-mc-sa
+      description: |-
+        This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following prperties:
+        - difficulty level
+        - reading time
+        - tags
+        - status
+        - creation time
+        - update time
+
+        You can search data based on the following properties:
+        - label of question
+        - label of choices
+
+        This endpoint only provides the most up-to-date version of each document.
+
+        <!-- theme: danger -->
+        > ### Role Requirement
+        > 
+        > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.png)
+      security:
+        - X-Session-Key: []
+      parameters:
+        - schema:
+            type: integer
+            default: '50'
+            maximum: 200
+            minimum: 1
+            exclusiveMinimum: false
+          in: query
+          name: limit
+          description: |-
+            Number of items to be returned. No more than 200 items can be returned at one query.<br />
+            **Example:**
+            ?limit=100
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: offset
+          description: |-
+            The start point / row of the entries to be listed.<br />
+
+            **Example:**
+            ?offset=0
+        - schema:
+            type: array
+            items:
+              type: string
+            maxItems: 0
+            minItems: 0
+            uniqueItems: false
+          in: query
+          name: order
+          description: |-
+            This parameter dictates the order of list.<br />
+            **Operands:**<br />
+            - `+`: ASCENDING
+            - `-`: DESCENDING<br />
+            **Available Options:**<br />
+            - createdAt
+            - updatedAt
+            - id
+            - difficultyLevel
+            - label.text
+            **Example:**<br />
+            Sort questions by their labels ascending and by their creation time descending.<br />
+            ?order[]=+label.text&order[]=-dateCreated
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: status
+          description: |-
+            This parameter is used to filter questions by their statuses.<br />
+
+            **Example:**
+            Only retrieve questions with status "a" or "w".<br />
+
+            ?status[]=a&status[]=w
+        - schema:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            maxItems: 2
+          in: query
+          name: createdAt
+          description: |-
+            This parameter is used to filter entries by their creation times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: In
+            - nin: Not In<br />
+            **Example**:
+            List entries created at 27th of January 2020.<br />
+
+            ?createdAt[eq]=2020-01-27<br />
+
+            List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+        - schema:
+            items:
+              type: string
+              format: date-time
+            type: array
+          in: query
+          name: updatedAt
+          description: |-
+            This parameter is used to filter entries by their update times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br />
+            **Example**:
+            List entries updated at 27th of January 2020.<br />
+
+            ?updatedAt[eq]=2020-01-27<br />
+
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+        - schema:
+            type: array
+            items:
+              type: integer
+          in: query
+          name: difficultyLevel
+          description: |-
+            This parameter is used to filter entries by their difficulty level.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.<br />
+            **Example**:
+            List entries marked with a difficulty level of 9.<br />
+
+            ?difficultyLevel[eq]=9<br />
+
+            List entries marked with a difficulty level between 2 and 4 inclusive.<br />
+            ?difficultyLevel[gte]=2&createdAt[lte]=4
+
+            List entries marked with a difficulty level of 3, 5 and 8.<br />
+            ?difficultyLevel[in]=3,5,8
+        - schema:
+            type: array
+            items:
+              type: integer
+          in: query
+          name: estimatedReadingTime
+          description: |-
+            This parameter is used to filter entries by their estimated reading time.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br />
+            **Example**:
+            List entries that can be read within 30 seconds.<br />
+
+            ?estimatedReadingTime[eq]=30<br />
+
+            List entries that can be read less than 30 seconds.<br />
+            ?estimatedReadingTime[lt]=30<br />
+
+            List entriesthat can be read beween 30 to 60 seconds inclusive<br />
+            ?estimatedReadingTime[gte]=30&estimatedReadingTime[lte]=60
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: q
+          description: |-
+            This parameter is used to run a search within the question or choice labels.<br />
+            **Keys**:<br />
+            - cho: choice
+            - qst: question<br />
+            **Operands**:<br />
+            - `*`: Wildcard<br />
+            **Example**:
+            Search questions with choice labels starting with "Bruce".<br />
+            ?q[cho][]=Bruce*
+
+            Search questions with labels include "Batman"<br />
+            ?q[qst][]=*Batman*
+
+            Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
+            ?q[qst][]=*Batman*&q[cho][]=Michael%20Keaton
+        - schema:
+            type: array
+          in: query
+          name: tags
+          description: |-
+            This parameter is used to filter entries by their tags.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.<br />
+
+            **Example**:
+            List entriestagged with tag of id 9.<br />
+
+            ?tag[eq]=9
+
+            List entries taged with a tags of ids 3, 5 or 8.<br />
+            ?difficultyLevel[in]=3,5,8
+    post:
+      summary: Create New Multi-Choice Single Answer Question
+      operationId: post-questions-mc-sa
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 3222
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                title: ApiResponse
+                type: object
+                description: This is the standart response object. All of your request to ViaAPI will return this object.
+                properties:
+                  result:
+                    title: ApiResult
+                    type: object
+                    description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
+                    x-tags:
+                      - response
+                    x-examples:
+                      Example:
+                        pagination: null
+                        set:
+                          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                          dateCreated: '2020-01-20T12:23:24Z'
+                          dateUpdated: '2020-01-21T21:23:12Z'
+                          status: a
+                          banner:
+                            path: batman-logo.jpg
+                            type: i
+                          difficultyLevel: 1
+                          estimatedReadTime: 50
+                          tags:
+                            - title: movies
+                              icon: movies.png
+                              itemCount: 234
+                          label:
+                            audio: question-223423-2342342-2342.mp3
+                            video: question-223423-2342342-2342.mp4
+                            image: batman-logo.jpg
+                            text: Who among these Hollywood stars have not played the Batman character?
+                    properties:
+                      pagination:
+                        title: ApiPagination
+                        type: object
+                        description: 'If the result set is a list, then this object will guide you to paginate the result set. Note that a limit enforcement is in effect even if you do not provide a limit to the result set.'
+                        x-examples:
+                          Example:
+                            isCircular: true
+                            prevLink: null
+                            nextLink: offset=10&limit=10
+                            lastLink: offset=90&limit=10
+                            firstLink: offset=0&limit=10
+                            totalItems: 100
+                            itemsPerPage: 10
+                            pageCount: 10
+                            currentPage: 1
+                        x-tags:
+                          - response
+                        properties:
+                          isCircular:
+                            description: 'If set to true, pagination''s next page link points the first page of collection.'
+                            type: boolean
+                            example: true
+                            default: true
+                          prevLink:
+                            description: The query string that is required to obtain the previous page's items.
+                            example: offset=9&limit=50
+                            type: string
+                            nullable: true
+                          nextLink:
+                            description: The query string that is required to obtain the next page's items.
+                            example: offset=1&limit=50
+                            type: string
+                            nullable: true
+                          lastLink:
+                            description: The query string that is required to obtain the last page's items.
+                            example: offset=10&limit=50
+                            type: string
+                            nullable: true
+                          firstLink:
+                            description: The query string that is required to obtain the first page's items.
+                            example: offset=0&limit=50
+                            type: string
+                            nullable: true
+                          totalItems:
+                            description: Number of total items based on given filter.
+                            example: 500
+                            type: integer
+                            minimum: 1
+                            format: int32
+                          itemsPerPage:
+                            description: Number of results to be shown at each request. This is calculated base on the parameters submitted by request.
+                            example: 50
+                            type: integer
+                            minimum: 1
+                            format: int32
+                          pageCount:
+                            description: Total number of pages. This is calculated base on the parameters submitted by request.
+                            example: 1
+                            type: integer
+                            default: 1
+                            minimum: 1
+                            format: int32
+                          currentPage:
+                            description: Current page number. This is calculated base on the parameters submitted by request.
+                            example: 1
+                            type: integer
+                            default: 1
+                            minimum: 1
+                            format: int32
+                        required:
+                          - isCircular
+                          - prevLink
+                          - nextLink
+                          - lastLink
+                          - firstLink
+                          - totalItems
+                          - itemsPerPage
+                          - pageCount
+                          - currentPage
+                      set:
+                        anyOf:
+                          - type: array
+                            items:
+                              anyOf:
+                                - type: boolean
+                                - type: number
+                                - type: string
+                                - type: integer
+                          - type: boolean
+                        description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
+                  sessionToken:
+                    type: string
+                    description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
+                    example: 1a79a4d60de6718e8e5b326e338ae533
+                    nullable: true
+                  code:
+                    type: string
+                    example: '200.0000'
+                    description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
+                  message:
+                    type: string
+                    description: This is the API's internal response message.
+                    example: ' Your request has been successfully completed.'
+                required:
+                  - code
+                  - message
+                x-tags:
+                  - response
+                x-examples:
+                  Example:
+                    code: '200.0000'
+                    message: ''
+                    result:
+                      pagination:
+                        isCircular: true
+                        prevLink: null
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
+                        totalItems: 100
+                        itemsPerPage: 10
+                        pageCount: 10
+                        currentPage: 1
+                    set: true
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+                Example-0001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: 'You do not have enough permissions to access this feature. '
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResult'
+              examples:
+                Example-7000:
+                  value:
+                    code: '401.7000'
+                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+      description: |
+        This endpoint is used to create a new multi-choice single answer trivia question entry.
+
+        <!-- theme: warning -->
+        > ### WARNING:
+        > A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        <!-- theme: danger -->
+
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/post.questions.mc.sa.png)
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TQMultiChoiceSingleVersionCreate'
+            examples:
+              Example:
+                value:
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - '#23:42'
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+        description: ''
+      tags:
+        - panel-trivia
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - en-use
+          default: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+  '/tags/{region}':
+    get:
+      summary: List Trivia Tags
+      tags:
+        - trivia
+        - trivia admin
+        - Administration
+      responses:
+        '200':
+          description: Successful response.
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: ''
+                    result:
+                      pagination:
+                        isCircular: true
+                        prevLink: null
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
+                        totalItems: 100
+                        itemsPerPage: 10
+                        pageCount: 10
+                        currentPage: 1
+                    set:
+                      - icon: soccer.svg
+                        title: soccer
+                        itemCount: 2322
+                        uuid: b914edfb-dadb-49f0-a729-08e882987e38
+                      - icon: history.svg
+                        title: history
+                        itemCount: 342
+                        uuid: 91bf5e5a-be48-400c-ac57-8c4dfdc6b283
+      operationId: get-tags
+      description: |-
+        This endpoint returns a list of tags (TQTag objects) that are used to classify trivia questions.
+
+        <!-- theme: danger -->
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
+      security:
+        - X-Session-Key: []
+      parameters:
+        - schema:
+            type: integer
+            default: '50'
+            maximum: 200
+            minimum: 1
+            exclusiveMinimum: false
+          in: query
+          name: limit
+          description: |-
+            Number of items to be returned. No more than 200 items can be returned at one query.<br/>
+            **Example:**
+            ?limit=100
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: offset
+          description: |-
+            The start point / row of the entries to be listed.<br/>
+
+            **Example:**
+            ?offset=0
+        - schema:
+            type: array
+            items:
+              type: string
+            maxItems: 0
+            minItems: 0
+            uniqueItems: false
+          in: query
+          name: order
+          description: |-
+            This parameter dictates the order of list.<br/>
+            **Operands:**<br/>
+            - `+`: ASCENDING
+            - `-`: DESCENDING<br/>
+            **Available Options:**<br/>
+            - createdAt
+            - updatedAt
+            - title
+            - itemCount<br/>
+            **Example:**<br/>
+            Sort data by their title ascending and by their creation time descending.<br/>
+            ?order[]=+title&order[]=-createdAt
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: status
+          description: |-
+            This parameter is used to filter questions by their statuses.<br/>
+
+            **Example:**
+            Only retrieve questions with status "a" or "w".<br/>
+
+            ?status[]=a&status[]=w
+        - schema:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            maxItems: 2
+          in: query
+          name: createdAt
+          description: |-
+            This parameter is used to filter entries by their creation times.<br/>
+            **Acceptable Date Formats**:
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br/>
+            **Operands**:
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: In
+            - nin: Not In<br/>
+            **Example**:
+            List entries created at 27th of January 2020.<br/>
+
+            ?createdAt[eq]=2020-01-27<br/>
+
+            List entries created between 21st and 27th of January 2020, both dates inclusive.<br/>
+            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+        - schema:
+            items:
+              type: string
+              format: date-time
+            type: array
+          in: query
+          name: updatedAt
+          description: |-
+            This parameter is used to filter entries by their update times.<br/>
+            **Acceptable Date Formats**:<br/>
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br/>
+            **Operands**:<br/>
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br/>
+            **Example**:
+            List entries updated at 27th of January 2020.<br/>
+
+            ?updatedAt[eq]=2020-01-27<br/>
+
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.<br/>
+            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: q
+          description: |-
+            This parameter is used to run a search within the question or choice labels.<br/>
+            **Keys**:
+            - title: title<br/>
+            **Operands**:<br/>
+            - `*`: Wildcard
+            **Example**:<br/>
+            Search tags with title starting with "hist".<br/>
+            ?q[title][]=hist*
+
+            Search tags with labels include "tera"<br/>
+            ?q[title][]=*tera*<br/>
+
+            Search tags with titles include "tera" or with title equal to "literature"<br/>
+            ?q[title][]=*tera*&q[title][]=literature
+        - schema:
+            type: array
+          in: query
+          name: itemCount
+          description: |-
+            This parameter is used to filter entries by item counts.<br/>
+
+            **Operands**:<br/>
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal<br/>
+
+            **Example**:<br/>
+            List entries with item counts between 5 and 10.<br/>
+
+            ?createdAt[gte]=5&createdAt[lte]=10
+    parameters:
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - tr-nc
+            - ru-ru
+            - es-es
+            - fr-fr
+            - es-ln
+            - es-xx
+            - en-xx
+            - en-us
+            - en-uk
+            - de-at
+            - de-de
+          default: tr-tr
+          example: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+  '/question/{region}/mc/sa/{uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+        description: System attained id of the question.
+      - schema:
+          type: string
+          enum:
+            - tr-tr
+            - en-us
+          default: tr-tr
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+    put:
+      summary: Update Existing Multi-Choice Single Answer Question
+      operationId: put-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 231
+                    sessionToken: null
+      description: |-
+        This endpoint is used to update an existing multi-choice single answer trivia question entry.
+
+        <!-- theme: warning -->
+        > ### Warning
+        >
+        > A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE** at session.
+
+        ### Flow
+
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/put.questions.mc.sa.uuid.png)
+      security:
+        - X-Session-Key: []
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: uuid
+          description: The UUID of the entry to be updated. This is used as an extra security measure and it should be equal to the UUID of the object provided within the request body.
+          required: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TQMultiChoiceSingleVersionUpdate'
+            examples:
+              Example:
+                value:
+                  uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                  status: a
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - title: movies
+                      icon: movies.png
+                      itemCount: 234
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+      tags:
+        - panel-trivia
+    delete:
+      summary: Delete Existing Multi-Choice Single Answer Question
+      operationId: delete-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+                Example-00001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: You do not have enough permissions to access this feature.
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    result: null
+                    sessionToken: null
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    result: null
+                    sessionToken: null
+      description: |-
+        This endpoint is used to mark an existing entry as "deleted".
+
+        <!-- theme: danger -->
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_DELETE** at session.
+
+        ### Flow
+
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/delete.questions.mc.sa.uuid.png)
+      security:
+        - X-Session-Key: []
+      tags:
+        - panel-trivia
+      parameters: []
+    get:
+      summary: Retrieve One Multi-Choice Single Answer Question
+      operationId: get-questions-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set:
+                        uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                        dateCreated: '2020-01-20T12:23:24Z'
+                        dateUpdated: '2020-01-21T21:23:12Z'
+                        status: a
+                        banner:
+                          path: batman-logo.jpg
+                          type: i
+                        difficultyLevel: 1
+                        estimatedReadTime: 50
+                        tags:
+                          - title: movies
+                            icon: movies.png
+                            itemCount: 234
+                        label:
+                          audio: question-223423-2342342-2342.mp3
+                          video: question-223423-2342342-2342.mp4
+                          image: batman-logo.jpg
+                          text: Who among these Hollywood stars have not played the Batman character?
+                    sessionToken: null
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    result: null
+                    sessionToken: null
+      description: |-
+        This endpoint is used to retrieve a selected multi-choice single answer trivia question.
+
+        <!-- theme: danger -->
+
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_DISPLAY** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.uuid.png)
+      tags:
+        - trivia
+      security:
+        - X-Session-Key: []
+  '/question/{region}/mc/sa/{uuid}/status/{status}':
+    parameters:
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+        description: UUID of the entry which is being updated.
+      - schema:
+          type: string
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+        name: status
+        in: path
+        required: true
+        description: |-
+          Value of new status.
+
+          Allowed values are:
+
+          - a: active (approved)
+          - d: deleted
+          - i: inactive (approved but unpublished)
+          - r: rejected
+          - w: waiting for approval
+
+          NOTE THAT values a, d, i, r can only be set by users with right permissions.
+      - schema:
+          type: string
+          default: tr-tr
+          enum:
+            - tr-tr
+            - en-us
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+    patch:
+      summary: Update Status of Multi-Choice Single Answer Question
+      operationId: patch-questions-mc-sa-uuid-status-status
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No recods found matching your criteria.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '412.9000'
+                    message: You do not have enough permissions to access this feature.
+                    result: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0004:
+                  value:
+                    code: '412.0004'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result: null
+                    sessionToken: null
+      tags:
+        - panel-trivia
+      description: |-
+        This endpoint is used to update status of the question entry.
+
+        - a: approved & activated
+        - d: deleted
+        - i: inactive
+
+        <!-- theme: danger -->
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE_STATUS** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/patch.question.mc.sa.uuid.status.status.png)
+      security: []
+      parameters:
+        - schema:
+            type: string
+            enum:
+              - a
+              - i
+              - d
+          in: query
+          name: status
+          description: The new status of the entry.
+          required: true
+externalDocs:
+  url: 'https://api.docs.viaapi.com'
+components:
+  securitySchemes:
+    X-Session-Key:
+      name: Session Key
+      type: apiKey
+      in: header
+      description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
+  schemas:
+    ApiPagination:
+      title: ApiPagination
+      type: object
+      description: 'If the result set is a list, then this object will guide you to paginate the result set. Note that a limit enforcement is in effect even if you do not provide a limit to the result set.'
+      x-examples:
+        Example:
+          isCircular: true
+          prevLink: null
+          nextLink: offset=10&limit=10
+          lastLink: offset=90&limit=10
+          firstLink: offset=0&limit=10
+          totalItems: 100
+          itemsPerPage: 10
+          pageCount: 10
+          currentPage: 1
+      properties:
+        isCircular:
+          description: 'If set to true, pagination''s next page link points the first page of collection.'
+          type: boolean
+          example: true
+          default: true
+        prevLink:
+          description: The query string that is required to obtain the previous page's items.
+          example: offset=9&limit=50
+          type: string
+          nullable: true
+        nextLink:
+          description: The query string that is required to obtain the next page's items.
+          example: offset=1&limit=50
+          type: string
+          nullable: true
+        lastLink:
+          description: The query string that is required to obtain the last page's items.
+          example: offset=10&limit=50
+          type: string
+          nullable: true
+        firstLink:
+          description: The query string that is required to obtain the first page's items.
+          example: offset=0&limit=50
+          type: string
+          nullable: true
+        totalItems:
+          description: Number of total items based on given filter.
+          example: 500
+          type: integer
+          minimum: 1
+          format: int32
+        itemsPerPage:
+          description: Number of results to be shown at each request. This is calculated base on the parameters submitted by request.
+          example: 50
+          type: integer
+          minimum: 1
+          format: int32
+        pageCount:
+          description: Total number of pages. This is calculated base on the parameters submitted by request.
+          example: 1
+          type: integer
+          default: 1
+          minimum: 1
+          format: int32
+        currentPage:
+          description: Current page number. This is calculated base on the parameters submitted by request.
+          example: 1
+          type: integer
+          default: 1
+          minimum: 1
+          format: int32
+      required:
+        - isCircular
+        - prevLink
+        - nextLink
+        - lastLink
+        - firstLink
+        - totalItems
+        - itemsPerPage
+        - pageCount
+        - currentPage
+      x-tags:
+        - models
+    ApiResult:
+      title: ApiResult
+      type: object
+      description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
+      x-examples:
+        Example:
+          pagination: null
+          set:
+            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+            dateCreated: '2020-01-20T12:23:24Z'
+            dateUpdated: '2020-01-21T21:23:12Z'
+            status: a
+            banner:
+              path: batman-logo.jpg
+              type: i
+            difficultyLevel: 1
+            estimatedReadTime: 50
+            tags:
+              - title: movies
+                icon: movies.png
+                itemCount: 234
+            label:
+              audio: question-223423-2342342-2342.mp3
+              video: question-223423-2342342-2342.mp4
+              image: batman-logo.jpg
+              text: Who among these Hollywood stars have not played the Batman character?
+      properties:
+        pagination:
+          $ref: '#/components/schemas/ApiPagination'
+        set:
+          anyOf:
+            - type: array
+              items:
+                anyOf:
+                  - $ref: '#/components/schemas/TQMultiChoiceSingle'
+                  - type: boolean
+                  - type: integer
+            - $ref: '#/components/schemas/TQMultiChoiceSingle'
+            - type: boolean
+            - type: integer
+          description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
+      x-tags:
+        - models
+    ApiResponse:
+      title: ApiResponse
+      type: object
+      description: This is the standart response object. All of your request to ViaAPI will return this object.
+      properties:
+        result:
+          $ref: '#/components/schemas/ApiResult'
+        sessionToken:
+          type: string
+          description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
+          example: 1a79a4d60de6718e8e5b326e338ae533
+          nullable: true
+        code:
+          type: string
+          example: '200.0000'
+          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
+        message:
+          type: string
+          description: This is the API's internal response message.
+          example: ' Your request has been successfully completed.'
+      required:
+        - code
+        - message
+      x-examples:
+        Example:
+          code: '200.0000'
+          message: ''
+          result:
+            pagination:
+              isCircular: true
+              prevLink: null
+              nextLink: offset=10&limit=10
+              lastLink: offset=90&limit=10
+              firstLink: offset=0&limit=10
+              totalItems: 100
+              itemsPerPage: 10
+              pageCount: 10
+              currentPage: 1
+          set:
+            - pagination: null
+              set:
+                uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                dateCreated: '2020-01-20T12:23:24Z'
+                dateUpdated: '2020-01-21T21:23:12Z'
+                status: a
+                banner:
+                  path: batman-logo.jpg
+                  type: i
+                difficultyLevel: 1
+                estimatedReadTime: 50
+                tags:
+                  - title: movies
+                    icon: movies.png
+                    itemCount: 234
+                label:
+                  audio: question-223423-2342342-2342.mp3
+                  video: question-223423-2342342-2342.mp4
+                  image: batman-logo.jpg
+                  text: Who among these Hollywood stars have not played the Batman character?
+      x-tags:
+        - models
+    TQChoice:
+      title: TQChoice
+      type: object
+      properties:
+        isCorrect:
+          type: boolean
+          example: false
+          description: 'This is a flag field. If set to true, it means that this entry represents a correct choice.'
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - isCorrect
+      x-examples:
+        Example - A:
+          isCorrect: true
+          label:
+            audio: choiceA.wav
+            image: choiceA.jpg
+            text: Michael Keaton
+            video: choicesA.mp4
+        Example - B:
+          isCorrect: false
+          label:
+            audio: choiceB.wav
+            image: choiceB.jpg
+            text: Brad Pitt
+            video: choicesB.mp4
+        Example - C:
+          isCorrect: false
+          label:
+            audio: choiceC.wav
+            image: choiceC.jpg
+            text: Jackie Chan
+            video: choicesC.mp4
+        Exampe - D:
+          isCorrect: false
+          label:
+            audio: choiceD.wav
+            image: choiceD.jpg
+            text: Jack Nicholson
+            video: choicesD.mp4
+      description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
+      x-tags:
+        - models
+    TQLabel:
+      title: TQLabel
+      type: object
+      description: 'This is another helper model that puts labels into a standard body. Labels can be anything. Trivia questions, choices etc., they all have labels. Labels can be text, image, audio or video.'
+      properties:
+        audio:
+          type: string
+          description: |-
+            Audio property is used to provide voice instructions. This can be used for two distinct functionalities.
+
+            Enabling bling people to listen the trivia question,
+            Adding another media type to be used with qustions. For example a trivia question "In which Madonna album has this song been released for the first time?" should have its audio property filled with few seconds of sampling of the song.
+          example: question.wav
+        image:
+          type: string
+          description: Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.
+          example: question.jpg
+        text:
+          type: string
+          description: 'Text property is the standard and mandatory property. Text part of label is usually used to serve a readble content to people, and an indexable content to search engines.'
+          example: Bruce Willis
+        video:
+          type: string
+          description: Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.
+          example: question.mp4
+      required:
+        - text
+      x-examples:
+        Example 1:
+          audio: question.wav
+          image: question.jpg
+          text: Who are you?
+          video: question.mp4
+      x-tags:
+        - models
+    TQMedia:
+      title: TQMedia
+      type: object
+      properties:
+        path:
+          type: string
+          description: Holds the CDN path of the stored file.
+          example: file1.jpg
+        type:
+          type: string
+          example: i
+          description: 'This is an indicator to flag file''s type. It shows the user of the data whether the file in given path is an audio file, an image file, a video file, etc.'
+      required:
+        - path
+        - type
+      description: |-
+        In general, we do NOT store binary information withn the database. This means any file used as data is actually a file physically stored in our CDN network. We register the CDN path of files and type related information within our database(s).
+
+        This class provides a foundation for keeping records of media entries within our document store.
+      x-tags:
+        - models
+    TQTag:
+      title: TQTag
+      type: object
+      description: This class is the main storage of trivia question related tags.
+      x-examples:
+        Example:
+          icon: soccer.svg
+          title: soccer
+          itemCount: 2322
+          uuid: b914edfb-dadb-49f0-a729-08e882987e38
+      properties:
+        icon:
+          type: string
+          description: 'Holds path to the icon related to tag. '
+          example: cinema.svg
+          nullable: true
+        title:
+          type: string
+          description: The actual text of tag.
+          example: cinema
+        itemCount:
+          type: integer
+          example: 150
+          minimum: 0
+          description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
+        uuid:
+          type: string
+          description: System wide identification number.
+          format: uuid
+      required:
+        - icon
+        - title
+        - itemCount
+      x-tags:
+        - models
+    TQMultiChoiceSingleVersionCreate:
+      title: TQMultiChoiceSingleVersionCreate
+      type: object
+      description: This class is the main storage of multi choice trivia questions with only one correct answers.
+      x-examples:
+        Example:
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - '#23:42'
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      properties:
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            type: string
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - models
+    TQMultiChoiceSingle:
+      title: TQMultiChoiceSingle
+      type: object
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          dateCreated: '2020-01-20T12:23:24Z'
+          dateUpdated: '2020-01-21T21:23:12Z'
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        dateCreated:
+          type: string
+          description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
+          format: date-time
+        dateUpdated:
+          type: string
+          description: 'The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to "dateCreated" property. However, it is updated later whenever a propery''s value is updated for the given object (data row).'
+          format: date-time
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: '#/components/schemas/TQTag'
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - dateCreated
+        - dateUpdated
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - models
+    TQMultiChoiceSingleVersionUpdate:
+      title: TQMultiChoiceSingleVersionUpdate
+      type: object
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#/components/schemas/TQChoice'
+        banner:
+          $ref: '#/components/schemas/TQMedia'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: '#/components/schemas/TQTag'
+        label:
+          $ref: '#/components/schemas/TQLabel'
+      required:
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - models
+security:
+  - X-Session-Key: []
