@@ -1444,6 +1444,8 @@ components:
           username: member@maildrop.cc
           password: 123xyz
           termsAccepted: true
+      x-tags:
+        - models
     ApiResponse:
       title: ApiResponse
       type: object
