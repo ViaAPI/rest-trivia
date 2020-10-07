@@ -4,7 +4,7 @@ tags:
   - name: Question
   - name: Tag
 info:
-  title: ViaAPI Trivia Admin
+  title: ViaAPI Trivia Admin Api
   version: v1.0.0
   license:
     name: Trivia
@@ -145,7 +145,7 @@ paths:
                     sessionToken: null
       operationId: get-questions-mc-sa
       description: |-
-        This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following prperties:
+        This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following properties:
         - difficulty level
         - reading time
         - tags
@@ -163,9 +163,6 @@ paths:
         > ### Role Requirement
         > 
         > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.png)
       security:
         - X-Session-Key: []
       parameters:
@@ -605,9 +602,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/post.questions.mc.sa.png)
       security:
         - X-Session-Key: []
       requestBody:
@@ -682,7 +676,7 @@ paths:
                         uuid: 91bf5e5a-be48-400c-ac57-8c4dfdc6b283
       operationId: get-tags
       description: |-
-        This endpoint returns a list of tags (TQTag objects) that are used to classify trivia questions.
+        This endpoint returns a list of tags (TQTag objects) that are used to classify trivia tags.
 
         <!-- theme: danger -->
         > ### Role Requirements
@@ -761,7 +755,8 @@ paths:
             This parameter is used to filter entries by their creation times.<br/>
             **Acceptable Date Formats**:
             - YYYY-MM-DD
-            - YYYY-MM-DD HH:ii:ss<br/>
+            - YYYY-MM-DD HH:ii:ss
+
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -915,10 +910,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE** at session.
-
-        ### Flow
-
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/put.questions.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       parameters:
@@ -1024,10 +1015,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DELETE** at session.
-
-        ### Flow
-
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/delete.questions.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       parameters: []
@@ -1112,9 +1099,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DISPLAY** at session.
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       tags:
@@ -1222,9 +1206,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE_STATUS** at session.
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/patch.question.mc.sa.uuid.status.status.png)
       security: []
       parameters:
         - schema:
