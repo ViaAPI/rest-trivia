@@ -24,6 +24,73 @@ servers:
   - url: 'http://trivia.admin.api.dev.viaapi.com/v1.0'
     description: Development / Testing Server
 paths:
+  /login:
+    post:
+      summary: ''
+      operationId: post-login
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0401'
+                    message: You have been successfully logged in.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example-0002:
+                  value:
+                    code: '401.0002'
+                    message: 'Please check your username and password, and try again.'
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-0003:
+                  value:
+                    code: '401.0003'
+                    message: You have failed to login many times. Your account is susspended for 2 hours. You have been sent a security key to your primary contact option. You can either wait 2 hours or you can follow the instructions provided.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+      description: This endpoint is used to authenticate admin users with their username and password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginForm'
+            examples:
+              Example:
+                value:
+                  email: member@maildrop.cc
+                  password: 123verysecure321...
+                  termsAccepted: true
+        description: ''
+      tags:
+        - Authentication
+      parameters: []
   '/questions/{region}/mc/sa':
     get:
       summary: List Multi-Choice Single Answer Questions
@@ -1352,6 +1419,31 @@ components:
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
       x-tags:
         - models
+    LoginForm:
+      title: LoginForm
+      type: object
+      description: Represents login form and holds login related information.
+      properties:
+        email:
+          type: string
+          description: E-mail of the registered user.
+          format: email
+          example: member@maildrop.cc
+        password:
+          type: string
+          description: User's password.
+        termsAccepted:
+          type: boolean
+          example: false
+          description: Users selection about user agreement.
+      required:
+        - email
+        - password
+      x-examples:
+        Example:
+          username: member@maildrop.cc
+          password: 123xyz
+          termsAccepted: true
     ApiResponse:
       title: ApiResponse
       type: object
