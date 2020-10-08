@@ -4,7 +4,7 @@ tags:
   - name: Question
   - name: Tag
 info:
-  title: ViaAPI Trivia Admin Api
+  title: Trivia Admin Api
   version: v1.0.0
   license:
     name: Trivia
@@ -14,10 +14,7 @@ info:
     email: admin@viaapi.com
     url: 'https://www.viaapi.com'
   termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
-  description: |-
-    This documentation covers all endpoints related to trivia data store of ViaAPI.
-
-    If you like to obtain our trivia data, you need to use one of the endpoints documented here.                 
+  description: This documentation covers all admin endpoints.
 servers:
   - url: 'https://trivia.admin.api.viaapi.com/v1.0'
     description: Production
@@ -27,7 +24,7 @@ paths:
   /login:
     post:
       summary: ''
-      operationId: post-login
+      operationId: admin-post-login
       responses:
         '200':
           description: OK
@@ -248,7 +245,7 @@ paths:
                       pagination: null
                       set: null
                     sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-      operationId: get-questions-mc-sa
+      operationId: admin-get-questions-mc-sa
       description: |-
         This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following properties:
         - difficulty level
@@ -484,7 +481,7 @@ paths:
         - Question
     post:
       summary: Create New Multi-Choice Single Answer Question
-      operationId: post-questions-mc-sa
+      operationId: admin-post-questions-mc-sa
       responses:
         '200':
           description: OK
@@ -779,7 +776,7 @@ paths:
                         title: history
                         itemCount: 342
                         uuid: 91bf5e5a-be48-400c-ac57-8c4dfdc6b283
-      operationId: get-tags
+      operationId: admin-get-tags
       description: |-
         This endpoint returns a list of tags (TQTag objects) that are used to classify trivia tags.
 
@@ -985,7 +982,7 @@ paths:
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     put:
       summary: Update Existing Multi-Choice Single Answer Question
-      operationId: put-questions-mc-sa-uuid
+      operationId: admin-put-questions-mc-sa-uuid
       responses:
         '200':
           description: OK
@@ -1030,6 +1027,14 @@ paths:
                   value:
                     code: '401.7000'
                     message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
                     result:
                       pagination: null
                       set: null
@@ -1082,7 +1087,7 @@ paths:
         - Question
     delete:
       summary: Delete Existing Multi-Choice Single Answer Question
-      operationId: delete-questions-mc-sa-uuid
+      operationId: admin-delete-questions-mc-sa-uuid
       responses:
         '200':
           description: OK
@@ -1106,23 +1111,21 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example-0000:
-                  value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
                 Example-00001:
                   value:
                     code: '401.0001'
                     message: Your session is expired. Please re-login.
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-9000:
                   value:
                     code: '401.9000'
                     message: You do not have enough permissions to access this feature.
-                    result: null
+                    result:
+                      pagination: null
+                      set: null
                     sessionToken: null
         '412':
           description: Precondition Failed
@@ -1135,14 +1138,18 @@ paths:
                   value:
                     code: '412.0100'
                     message: Preliminary data validation failed. Please check related service documentation.
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-9995:
                   value:
                     code: '412.9995'
                     message: The supplied path parameter is invalid or a required path parameter is missing.
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
       description: |-
         This endpoint is used to mark an existing entry as "deleted".
 
@@ -1157,7 +1164,7 @@ paths:
         - Question
     get:
       summary: Retrieve One Multi-Choice Single Answer Question
-      operationId: get-questions-mc-sa-uuid
+      operationId: admin-get-questions-mc-sa-uuid
       responses:
         '200':
           description: OK
@@ -1285,7 +1292,7 @@ paths:
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     patch:
       summary: Update Status of Multi-Choice Single Answer Question
-      operationId: patch-questions-mc-sa-uuid-status-status
+      operationId: admin-patch-questions-mc-sa-uuid-status-status
       responses:
         '200':
           description: OK
@@ -1309,18 +1316,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example-0000:
-                  value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
                 Example-9000:
                   value:
                     code: '412.9000'
                     message: You do not have enough permissions to access this feature.
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '412':
           description: Precondition Failed
           content:
@@ -1328,12 +1331,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example-0004:
+                Example-0100:
                   value:
-                    code: '412.0004'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
       description: |-
         This endpoint is used to update status of the question entry.
 
