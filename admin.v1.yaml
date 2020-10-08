@@ -788,6 +788,9 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.get.tags.png)
       parameters:
         - schema:
             type: integer
