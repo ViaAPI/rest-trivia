@@ -85,7 +85,11 @@ paths:
                       pagination: null
                       set: null
                     sessionToken: null
-      description: This endpoint is used to authenticate admin users with their username and password.
+      description: |-
+        This endpoint is used to authenticate admin users with their username and password.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.post.login.png)
       requestBody:
         content:
           application/json:
