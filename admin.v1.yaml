@@ -42,7 +42,28 @@ paths:
                     message: You have been successfully logged in.
                     result:
                       pagination: null
-                      set: true
+                      set:
+                        id: '1'
+                        uuid: 861511f1-f3b0-11ea-bc5d-0242ac120005
+                        status: a
+                        email: tayfun.temizel@bodevoffice.com
+                        name: Tayfun
+                        middleName: ''
+                        surname: Temizel
+                        isSuper: 'y'
+                        roles:
+                          - ROLE_TRIVIA_TAG_CREATE
+                          - ROLE_TRIVIA_TAG_APPROVE
+                          - ROLE_TRIVIA_TAG_SAVE
+                          - ROLE_TRIVIA_TAG_DELETE
+                          - ROLE_TRIVIA_QUESTION_CREATE
+                          - ROLE_TRIVIA_QUESTION_DELETE
+                          - ROLE_TRIVIA_QUESTION_UPDATE_STATUS
+                          - ROLE_TRIVIA_QUESTION_UPDATE
+                          - ROLE_TRIVIA_QUESTION_DISPLAY
+                          - ROLE_TRIVIA_QUESTION_APPROVE
+                          - ROLE_TRIVIA_GRANTED_APP
+                          - ROLE_TRIVIA_QUESTION_EDIT
                     sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '401':
           description: Unauthorized
@@ -57,7 +78,7 @@ paths:
                     message: 'Please check your username and password, and try again.'
                     result:
                       pagination: null
-                      set: true
+                      set: null
                     sessionToken: null
                 Example-0003:
                   value:
@@ -65,15 +86,7 @@ paths:
                     message: You have failed to login many times. Your account is susspended for 2 hours. You have been sent a security key to your primary contact option. You can either wait 2 hours or you can follow the instructions provided.
                     result:
                       pagination: null
-                      set: true
-                    sessionToken: null
-                Example-0000:
-                  value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result:
-                      pagination: null
-                      set: true
+                      set: null
                     sessionToken: null
       description: This endpoint is used to authenticate admin users with their username and password.
       requestBody:
@@ -119,35 +132,60 @@ paths:
                         pageCount: 10
                         currentPage: 1
                       set:
-                        - pagination: null
-                          set:
-                            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-                            dateCreated: '2020-01-20T12:23:24Z'
-                            dateUpdated: '2020-01-21T21:23:12Z'
-                            status: a
-                            banner:
-                              path: batman-logo.jpg
-                              type: i
-                            difficultyLevel: 1
-                            estimatedReadTime: 50
-                            tags:
-                              - title: movies
-                                icon: movies.png
-                                itemCount: 234
-                            label:
-                              audio: question-223423-2342342-2342.mp3
-                              video: question-223423-2342342-2342.mp4
-                              image: batman-logo.jpg
-                              text: Who among these Hollywood stars have not played the Batman character?
-                    sessionToken: null
+                        - id: 5f7ae654f49cb6078151b14a
+                          createdAt: '2020-10-05 09:24:21'
+                          updatedAt: '2020-10-05 09:24:21'
+                          status: w
+                          banner: null
+                          choices:
+                            - isCorrect: false
+                              label:
+                                text: Finike
+                                audio: null
+                                image: null
+                                video: null
+                            - isCorrect: false
+                              label:
+                                text: Alanya
+                                audio: null
+                                image: null
+                                video: null
+                            - isCorrect: true
+                              label:
+                                text: Demre
+                                audio: null
+                                image: null
+                                video: null
+                            - isCorrect: false
+                              label:
+                                text: Aksu
+                                audio: null
+                                image: null
+                                video: null
+                          difficultyLevel: 6
+                          estimatedReadTime: 32
+                          tags:
+                            - id: 5f7ae645f49cb6078151b135
+                              createdAt: '2020-10-05 09:24:21'
+                              updatedAt: '2020-10-05 09:24:21'
+                              status: w
+                              icon: null
+                              itemCount: 0
+                              title: myth
+                          label:
+                            text: Noel Baba efsanesinin Antalya'nın hangi ilçesinde yaşayan Psikopos Nikola'ya dayandığı düşünülmektedir?
+                            audio: null
+                            image: null
+                            video: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-0404:
                   value:
                     code: '200.0404'
                     message: No recods found matching your criteria.
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '401':
           description: Unauthorized
           content:
@@ -155,14 +193,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example-0000:
+                Example-0001:
                   value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
                     result:
                       pagination: null
                       set: []
-                    sessionToken: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '412':
           description: Precondition Failed
           content:
@@ -176,40 +214,40 @@ paths:
                     message: '"limit" parameter must be an integer value between 1 and 200.'
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-0002:
                   value:
                     code: '412.0002'
                     message: '"order" parameter has one or more unsupported operands. See related documentation for more information.'
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-0003:
                   value:
                     code: '412.0003'
                     message: '"order" parameter has one or more unsupported options. See related documentation for more information.'
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-9999:
                   value:
                     code: '412.9999'
                     message: 'The value, operands, or options are not valid for the createdAt. Please check related documentation for more information.'
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-0001:
                   value:
                     code: '412.0001'
                     message: '"offset" parameter has one or more unsupported operands. See related documentation for more information.'
                     result:
                       pagination: null
-                      set: []
-                    sessionToken: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
       operationId: get-questions-mc-sa
       description: |-
         This endpoint provides a list of "multi-choice single correct answer" trivia questions. You can summon data filtered by the following properties:
@@ -462,7 +500,7 @@ paths:
                     result:
                       pagination: null
                       set: 3222
-                    sessionToken: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '401':
           description: Unauthorized
           content:
@@ -626,24 +664,22 @@ paths:
                         currentPage: 1
                     set: true
               examples:
-                Example-0000:
-                  value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
                 Example-0001:
                   value:
                     code: '401.0001'
                     message: Your session is expired. Please re-login.
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-9000:
                   value:
                     code: '401.9000'
                     message: 'You do not have enough permissions to access this feature. '
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '412':
           description: Precondition Failed
           content:
@@ -655,8 +691,10 @@ paths:
                   value:
                     code: '401.7000'
                     message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
       description: |
         This endpoint is used to create a new multi-choice single answer trivia question entry.
 
@@ -749,8 +787,6 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
-      security:
-        - X-Session-Key: []
       parameters:
         - schema:
             type: integer
@@ -966,6 +1002,38 @@ paths:
                       pagination: null
                       set: 231
                     sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example-0001:
+                  value:
+                    code: '401.0001'
+                    message: ''
+                    result:
+                      pagination: null
+                      set: Your session is expired. Please re-login.
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example-9995:
+                  value:
+                    code: '401.7000'
+                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
       description: |-
         This endpoint is used to update an existing multi-choice single answer trivia question entry.
 
@@ -1098,7 +1166,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example:
+                Example-0000:
                   value:
                     code: '200.0000'
                     message: Your request has been successfully completed.
@@ -1123,7 +1191,7 @@ paths:
                           video: question-223423-2342342-2342.mp4
                           image: batman-logo.jpg
                           text: Who among these Hollywood stars have not played the Batman character?
-                    sessionToken: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
                 Example-0404:
                   value:
                     code: '200.0404'
@@ -1131,7 +1199,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-                    sessionToken: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '401':
           description: Unauthorized
           content:
@@ -1139,12 +1207,14 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
               examples:
-                Example-0000:
+                Example-0001:
                   value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result: null
-                    sessionToken: null
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '412':
           description: Precondition Failed
           content:
@@ -1156,7 +1226,9 @@ paths:
                   value:
                     code: '412.9995'
                     message: The supplied path parameter is invalid or a required path parameter is missing.
-                    result: null
+                    result:
+                      pagination: null
+                      set: null
                     sessionToken: null
       description: |-
         This endpoint is used to retrieve a selected multi-choice single answer trivia question.
@@ -1273,7 +1345,8 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE_STATUS** at session.
-      security: []
+      security:
+        - X-Session-Key: []
       parameters:
         - schema:
             type: string
@@ -1952,5 +2025,3 @@ components:
         - label
       x-tags:
         - models
-security:
-  - X-Session-Key: []
