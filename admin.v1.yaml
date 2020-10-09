@@ -1258,6 +1258,9 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DISPLAY** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.get.questions.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       tags:
