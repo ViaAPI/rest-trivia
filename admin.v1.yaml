@@ -1478,7 +1478,7 @@ components:
         - pageCount
         - currentPage
       x-tags:
-        - models
+        - Models
     ApiResult:
       title: ApiResult
       type: object
@@ -1521,7 +1521,7 @@ components:
             - type: integer
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
       x-tags:
-        - models
+        - Models
     LoginForm:
       title: LoginForm
       type: object
@@ -1548,7 +1548,7 @@ components:
           password: 123xyz
           termsAccepted: true
       x-tags:
-        - models
+        - Models
     ApiResponse:
       title: ApiResponse
       type: object
@@ -1609,7 +1609,7 @@ components:
                   image: batman-logo.jpg
                   text: Who among these Hollywood stars have not played the Batman character?
       x-tags:
-        - models
+        - Models
     TQChoice:
       title: TQChoice
       type: object
@@ -1653,7 +1653,7 @@ components:
             video: choicesD.mp4
       description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
       x-tags:
-        - models
+        - Models
     TQLabel:
       title: TQLabel
       type: object
@@ -1688,7 +1688,7 @@ components:
           text: Who are you?
           video: question.mp4
       x-tags:
-        - models
+        - Models
     TQMedia:
       title: TQMedia
       type: object
@@ -1709,7 +1709,7 @@ components:
 
         This class provides a foundation for keeping records of media entries within our document store.
       x-tags:
-        - models
+        - Models
     TQTag:
       title: TQTag
       type: object
@@ -1744,7 +1744,7 @@ components:
         - title
         - itemCount
       x-tags:
-        - models
+        - Models
     TQMultiChoiceSingleVersionCreate:
       title: TQMultiChoiceSingleVersionCreate
       type: object
@@ -1826,7 +1826,7 @@ components:
         - tags
         - label
       x-tags:
-        - models
+        - Models
     TQMultiChoiceSingle:
       title: TQMultiChoiceSingle
       type: object
@@ -1946,7 +1946,7 @@ components:
         - tags
         - label
       x-tags:
-        - models
+        - Models
     TQMultiChoiceSingleVersionUpdate:
       title: TQMultiChoiceSingleVersionUpdate
       type: object
@@ -2054,4 +2054,4 @@ components:
         - tags
         - label
       x-tags:
-        - models
+        - Models
