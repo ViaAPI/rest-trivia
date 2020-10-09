@@ -699,7 +699,7 @@ paths:
                       pagination: null
                       set: null
                     sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-      description: |
+      description: |-
         This endpoint is used to create a new multi-choice single answer trivia question entry.
 
         <!-- theme: warning -->
@@ -711,6 +711,9 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.post.questions.mc.sa.png)
       security:
         - X-Session-Key: []
       requestBody:
@@ -1060,6 +1063,9 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.put.question.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       parameters:
@@ -1169,7 +1175,7 @@ paths:
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DELETE** at session.
 
         ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.delete.questions.mc.sa.uuid.png)
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.delete.question.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       parameters: []
@@ -1260,7 +1266,7 @@ paths:
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DISPLAY** at session.
 
         ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.get.questions.mc.sa.uuid.png)
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.get.question.mc.sa.uuid.png)
       security:
         - X-Session-Key: []
       tags:
@@ -1366,6 +1372,9 @@ paths:
         > ### Role Requirements
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE_STATUS** at session.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.patch.question.mc.sa.uuid.status.status.png)
       security:
         - X-Session-Key: []
       parameters:
