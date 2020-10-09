@@ -1,8 +1,8 @@
 openapi: 3.0.0
 tags:
-  - name: trivia
-  - name: panel-trivia
   - name: models
+  - name: Trivia
+  - name: Panel
 info:
   title: ViaAPI Trivia
   version: v1.0.0
@@ -27,8 +27,6 @@ paths:
   '/questions/{region}/mc/sa':
     get:
       summary: List Multi-Choice Single Answer Questions
-      tags:
-        - trivia
       responses:
         '200':
           description: Successful response.
@@ -400,6 +398,8 @@ paths:
 
             List entries taged with a tags of ids 3, 5 or 8.
             ?difficultyLevel[in]=3,5,8
+      tags:
+        - Trivia
     post:
       summary: Create New Multi-Choice Single Answer Question
       operationId: post-questions-mc-sa
@@ -491,7 +491,7 @@ paths:
                     text: Who among these Hollywood stars have not played the Batman character?
         description: ''
       tags:
-        - panel-trivia
+        - Panel
     parameters:
       - schema:
           type: string
@@ -506,8 +506,6 @@ paths:
   '/tags/{region}':
     get:
       summary: List Trivia Tags
-      tags:
-        - trivia
       responses:
         '200':
           description: Successful response.
@@ -698,6 +696,8 @@ paths:
             List entries with item counts between 5 and 10.
 
             ?createdAt[gte]=5&createdAt[lte]=10
+      tags:
+        - Trivia
     parameters:
       - schema:
           type: string
@@ -802,7 +802,7 @@ paths:
                     image: batman-logo.jpg
                     text: Who among these Hollywood stars have not played the Batman character?
       tags:
-        - panel-trivia
+        - Panel
     delete:
       summary: Delete Existing Multi-Choice Single Answer Question
       operationId: delete-questions-mc-sa-uuid
@@ -877,7 +877,7 @@ paths:
       security:
         - X-Api-Key: []
       tags:
-        - panel-trivia
+        - Panel
     get:
       summary: Retrieve One Multi-Choice Single Answer Question
       operationId: get-questions-mc-sa-uuid
@@ -958,10 +958,10 @@ paths:
 
         ### Flow
         ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/get.questions.mc.sa.uuid.png)
-      tags:
-        - trivia
       security:
         - X-Api-Key: []
+      tags:
+        - Trivia
   '/question/{region}/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
@@ -1054,8 +1054,6 @@ paths:
                     message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
                     result: null
                     sessionToken: null
-      tags:
-        - panel-trivia
       description: |-
         This endpoint is used to update status of the question entry.
 
@@ -1078,6 +1076,8 @@ paths:
           name: status
           description: The new status of the entry.
           required: true
+      tags:
+        - Panel
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
