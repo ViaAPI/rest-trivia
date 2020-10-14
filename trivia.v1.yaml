@@ -627,10 +627,10 @@ paths:
             **Example**:
             List entries created at 27th of January 2020.
 
-            ?createdAt[eq]=2020-01-27
+            ?createdAt[[eq]]=2020-01-27
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.
-            ?createdAt\[gte\]=2020-01-21&createdAt\[lte\]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
         - schema:
             items:
               type: string
