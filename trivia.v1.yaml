@@ -273,10 +273,10 @@ paths:
             **Example**:
             List entries created at 27th of January 2020.<br />
 
-            ?createdAt[eq]=2020-01-27<br />
+            ?createdAt[[eq]]=2020-01-27<br />
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
         - schema:
             items:
               type: string
@@ -299,10 +299,10 @@ paths:
             **Example**:
             List entries updated at 27th of January 2020.<br />
 
-            ?updatedAt[eq]=2020-01-27<br />
+            ?updatedAt[[eq]]=2020-01-27<br />
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
         - schema:
             type: array
             items:
@@ -369,13 +369,13 @@ paths:
             - `*`: Wildcard
             **Example**:
             Search questions with choice labels starting with "Bruce".
-            ?q[cho][]=Bruce*
+            ?q[[cho]][]=Bruce\*
 
             Search questions with labels include "Batman"
-            ?q[qst][]=*Batman*
+            ?q[[qst]][]=\*Batman\*
 
-            Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"
-            ?q[qst][]=*Batman*&q[cho][]=Michael%20Keaton
+            Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
+            ?q[[qst]][]=\*Batman\*&q[[cho]][]=Michael%20Keaton
         - schema:
             type: array
           in: query
@@ -394,10 +394,10 @@ paths:
 
             List entriestagged with tag of id 9.
 
-            ?tag[eq]=9
+            ?tag[[eq]]=9
 
             List entries taged with a tags of ids 3, 5 or 8.
-            ?difficultyLevel[in]=3,5,8
+            ?difficultyLevel[[in]]=3,5,8
       tags:
         - Trivia
     post:
@@ -653,10 +653,10 @@ paths:
             **Example**:
             List entries updated at 27th of January 2020.
 
-            ?updatedAt[eq]=2020-01-27
+            ?updatedAt[[eq]=2020-01-27
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.
-            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
         - schema:
             type: array
             items:
@@ -671,13 +671,13 @@ paths:
             - `*`: Wildcard
             **Example**:
             Search tags with title starting with "hist".
-            ?q[title][]=hist*
+            ?q[[title]][]=hist\*
 
             Search tags with labels include "tera"
-            ?q[title][]=*tera*
+            ?q[[title]][]=\*tera\*
 
             Search tags with titles include "tera" or with title equal to "literature"
-            ?q[title][]=*tera*&q[title][]=literature
+            ?q[[title]][]=\*tera\*&q[[title]][]=literature
         - schema:
             type: array
           in: query
@@ -695,7 +695,7 @@ paths:
             **Example**:
             List entries with item counts between 5 and 10.
 
-            ?createdAt[gte]=5&createdAt[lte]=10
+            ?createdAt[[gte]]=5&createdAt[[lte]]=10
       tags:
         - Trivia
     parameters:

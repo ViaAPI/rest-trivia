@@ -359,10 +359,10 @@ paths:
             **Example**:
             List entries created at 27th of January 2020.<br />
 
-            ?createdAt[eq]=2020-01-27<br />
+            ?createdAt[[eq]]=2020-01-27<br />
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
         - schema:
             items:
               type: string
@@ -385,10 +385,10 @@ paths:
             **Example**:
             List entries updated at 27th of January 2020.<br />
 
-            ?updatedAt[eq]=2020-01-27<br />
+            ?updatedAt[[eq]]=2020-01-27<br />
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
         - schema:
             type: array
             items:
@@ -408,13 +408,13 @@ paths:
             **Example**:
             List entries marked with a difficulty level of 9.<br />
 
-            ?difficultyLevel[eq]=9<br />
+            ?difficultyLevel[[eq]]=9<br />
 
             List entries marked with a difficulty level between 2 and 4 inclusive.<br />
-            ?difficultyLevel[gte]=2&createdAt[lte]=4
+            ?difficultyLevel[[gte]]=2&createdAt[[lte]]=4
 
             List entries marked with a difficulty level of 3, 5 and 8.<br />
-            ?difficultyLevel[in]=3,5,8
+            ?difficultyLevel[[in]]=3,5,8
         - schema:
             type: array
             items:
@@ -433,13 +433,13 @@ paths:
             **Example**:
             List entries that can be read within 30 seconds.<br />
 
-            ?estimatedReadingTime[eq]=30<br />
+            ?estimatedReadingTime[[eq]]=30<br />
 
             List entries that can be read less than 30 seconds.<br />
-            ?estimatedReadingTime[lt]=30<br />
+            ?estimatedReadingTime[[lt]]=30<br />
 
             List entriesthat can be read beween 30 to 60 seconds inclusive<br />
-            ?estimatedReadingTime[gte]=30&estimatedReadingTime[lte]=60
+            ?estimatedReadingTime[[gte]]=30&estimatedReadingTime[[lte]]=60
         - schema:
             type: array
             items:
@@ -455,13 +455,13 @@ paths:
             - `*`: Wildcard<br />
             **Example**:
             Search questions with choice labels starting with "Bruce".<br />
-            ?q[cho][]=Bruce*
+            ?q[[cho]][]=Bruce\*
 
             Search questions with labels include "Batman"<br />
-            ?q[qst][]=*Batman*
+            ?q[[qst]][]=\*Batman\*
 
             Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
-            ?q[qst][]=*Batman*&q[cho][]=Michael%20Keaton
+            ?q[[qst]][]=\*Batman\*&q[[cho]][]=Michael%20Keaton
         - schema:
             type: array
           in: query
@@ -480,10 +480,10 @@ paths:
             **Example**:
             List entriestagged with tag of id 9.<br />
 
-            ?tag[eq]=9
+            ?tag[[eq]]=9
 
             List entries taged with a tags of ids 3, 5 or 8.<br />
-            ?difficultyLevel[in]=3,5,8
+            ?difficultyLevel[[in]]=3,5,8
       tags:
         - Question
     post:
