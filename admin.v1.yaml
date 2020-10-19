@@ -480,10 +480,10 @@ paths:
             **Example**:
             List entriestagged with tag of id 9.<br />
 
-            ?tag[[eq]]=9
+            ?tags[[eq]]=9
 
             List entries taged with a tags of ids 3, 5 or 8.<br />
-            ?difficultyLevel[[in]]=3,5,8
+            ?tags[[in]]=3,5,8
       tags:
         - Question
     post:
@@ -882,10 +882,10 @@ paths:
             **Example**:
             List entries created at 27th of January 2020.<br/>
 
-            ?createdAt[eq]=2020-01-27<br/>
+            ?createdAt[[eq]]=2020-01-27<br/>
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.<br/>
-            ?createdAt[gte]=2020-01-21&createdAt[lte]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
         - schema:
             items:
               type: string
@@ -908,10 +908,10 @@ paths:
             **Example**:
             List entries updated at 27th of January 2020.<br/>
 
-            ?updatedAt[eq]=2020-01-27<br/>
+            ?updatedAt[[eq]]=2020-01-27<br/>
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br/>
-            ?updatedAt[gte]=2020-01-21&updatedAt[lte]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
         - schema:
             type: array
             items:
@@ -926,13 +926,13 @@ paths:
             - `*`: Wildcard
             **Example**:<br/>
             Search tags with title starting with "hist".<br/>
-            ?q[title][]=hist*
+            ?q[[title]][]=hist\*
 
             Search tags with labels include "tera"<br/>
-            ?q[title][]=*tera*<br/>
+            ?q[[title]][]=\*tera\*<br/>
 
             Search tags with titles include "tera" or with title equal to "literature"<br/>
-            ?q[title][]=*tera*&q[title][]=literature
+            ?q[[title]][]=\*tera\*&q[[title]][]=literature
         - schema:
             type: array
           in: query
@@ -950,7 +950,7 @@ paths:
             **Example**:<br/>
             List entries with item counts between 5 and 10.<br/>
 
-            ?createdAt[gte]=5&createdAt[lte]=10
+            ?itemCount[[gte]]=5&itemCount[[lte]]=10
       tags:
         - Tag
     parameters:

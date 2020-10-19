@@ -19,9 +19,9 @@ info:
 
     If you like to obtain our trivia data, you need to use one of the endpoints documented here.                 
 servers:
-  - url: 'https://trivia.api.viaapi.com/v1.0'
+  - url: 'https://trivia.api.viaapi.com/v1'
     description: Production
-  - url: 'https://trivia.api.dev.viaapi.com/v1.0'
+  - url: 'https://trivia.api.dev.viaapi.com/v1'
     description: Development / Testing Server
 paths:
   '/questions/{region}/mc/sa':
@@ -361,17 +361,17 @@ paths:
           in: query
           name: q
           description: |-
-            This parameter is used to run a search within the question or choice labels.
+            This parameter is used to run a search within the question or choice labels.<br />
             **Keys**:
             - cho: choice
-            - qst: question
+            - qst: question<br />
             **Operands**:
-            - `*`: Wildcard
+            - `*`: Wildcard<br />
             **Example**:
-            Search questions with choice labels starting with "Bruce".
+            Search questions with choice labels starting with "Bruce".<br />
             ?q[[cho]][]=Bruce\*
 
-            Search questions with labels include "Batman"
+            Search questions with labels include "Batman"<br />
             ?q[[qst]][]=\*Batman\*
 
             Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
@@ -381,7 +381,7 @@ paths:
           in: query
           name: tags
           description: |-
-            This parameter is used to filter entries by their tags.
+            This parameter is used to filter entries by their tags.<br />
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -389,15 +389,15 @@ paths:
             - lt: Less Than
             - lte: Less Than or Equal
             - nq: Not Equal
-            - in: Use to summon arbitrary data.
+            - in: Use to summon arbitrary data.<br />
             **Example**:
 
-            List entriestagged with tag of id 9.
+            List entriestagged with tag of id 9.<br />
 
-            ?tag[[eq]]=9
+            ?tags[[eq]]=9<br />
 
-            List entries taged with a tags of ids 3, 5 or 8.
-            ?difficultyLevel[[in]]=3,5,8
+            List entries taged with a tags of ids 3, 5 or 8.<br />
+            ?tags[[in]]=3,5,8
       tags:
         - Trivia
     post:
@@ -553,7 +553,7 @@ paths:
           in: query
           name: limit
           description: |-
-            Number of items to be returned. No more than 200 items can be returned at one query.
+            Number of items to be returned. No more than 200 items can be returned at one query.<br />
             **Example:**
             ?limit=100
         - schema:
@@ -563,7 +563,7 @@ paths:
           in: query
           name: offset
           description: |-
-            The start point / row of the entries to be listed.
+            The start point / row of the entries to be listed.<br />
 
             **Example:**
             ?offset=0
@@ -577,17 +577,17 @@ paths:
           in: query
           name: order
           description: |-
-            This parameter dictates the order of list.
+            This parameter dictates the order of list.<br />
             **Operands:**
             - `+`: ASCENDING
-            - `-`: DESCENDING
+            - `-`: DESCENDING<br />
             **Available Options:**
             - createdAt
             - updatedAt
             - title
-            - itemCount
+            - itemCount<br />
             **Example:**
-            Sort data by their title ascending and by their creation time descending.
+            Sort data by their title ascending and by their creation time descending.<br />
             ?order[]=+title&order[]=-createdAt
         - schema:
             type: array
@@ -596,10 +596,10 @@ paths:
           in: query
           name: status
           description: |-
-            This parameter is used to filter questions by their statuses.
+            This parameter is used to filter questions by their statuses.<br />
 
             **Example:**
-            Only retrieve questions with status "a" or "w".
+            Only retrieve questions with status "a" or "w".<br />
 
             ?status[]=a&status[]=w
         - schema:
@@ -611,10 +611,10 @@ paths:
           in: query
           name: createdAt
           description: |-
-            This parameter is used to filter entries by their creation times.
+            This parameter is used to filter entries by their creation times.<br />
             **Acceptable Date Formats**:
             - YYYY-MM-DD
-            - YYYY-MM-DD HH:ii:ss
+            - YYYY-MM-DD HH:ii:ss<br />
             **Operands**:
             - eq: Equal
             - gt: Greater Than
@@ -623,13 +623,13 @@ paths:
             - lte: Less Than or Equal
             - nq: Not Equal
             - in: In
-            - nin: Not In
+            - nin: Not In<br />
             **Example**:
-            List entries created at 27th of January 2020.
+            List entries created at 27th of January 2020.<br />
 
-            ?createdAt[[eq]]=2020-01-27
+            ?createdAt[[eq]]=2020-01-27<br />
 
-            List entries created between 21st and 27th of January 2020, both dates inclusive.
+            List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
             ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
         - schema:
             items:
@@ -639,23 +639,23 @@ paths:
           in: query
           name: updatedAt
           description: |-
-            This parameter is used to filter entries by their update times.
+            This parameter is used to filter entries by their update times.<br />
             **Acceptable Date Formats**:
             - YYYY-MM-DD
-            - YYYY-MM-DD HH:ii:ss
+            - YYYY-MM-DD HH:ii:ss<br />
             **Operands**:
             - eq: Equal
             - gt: Greater Than
             - gte: Greater Than or Equal
             - lt: Less Than
             - lte: Less Than or Equal
-            - nq: Not Equal
+            - nq: Not Equal<br />
             **Example**:
-            List entries updated at 27th of January 2020.
+            List entries updated at 27th of January 2020.<br />
 
-            ?updatedAt[[eq]=2020-01-27
+            ?updatedAt[[eq]=2020-01-27<br />
 
-            List entries updated between 21st and 27th of January 2020, both dates inclusive.
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
             ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
         - schema:
             type: array
@@ -664,38 +664,38 @@ paths:
           in: query
           name: q
           description: |-
-            This parameter is used to run a search within the question or choice labels.
+            This parameter is used to run a search within the question or choice labels.<br />
             **Keys**:
-            - title: title
+            - title: title<br />
             **Operands**:
-            - `*`: Wildcard
+            - `*`: Wildcard<br />
             **Example**:
-            Search tags with title starting with "hist".
-            ?q[[title]][]=hist\*
+            Search tags with title starting with "hist".<br />
+            ?q[[title]][]=hist\*<br />
 
-            Search tags with labels include "tera"
+            Search tags with labels include "tera"<br />
             ?q[[title]][]=\*tera\*
 
-            Search tags with titles include "tera" or with title equal to "literature"
+            Search tags with titles include "tera" or with title equal to "literature"<br />
             ?q[[title]][]=\*tera\*&q[[title]][]=literature
         - schema:
             type: array
           in: query
           name: itemCount
           description: |-
-            This parameter is used to filter entries by item counts.
+            This parameter is used to filter entries by item counts.<br />
 
             **Operands**:
             - eq: Equal
             - gt: Greater Than
             - gte: Greater Than or Equal
             - lt: Less Than
-            - lte: Less Than or Equal
+            - lte: Less Than or Equal<br />
 
             **Example**:
-            List entries with item counts between 5 and 10.
+            List entries with item counts between 5 and 10.<br />
 
-            ?createdAt[[gte]]=5&createdAt[[lte]]=10
+            ?itemCount[[gte]]=5&itemCount[[lte]]=10
       tags:
         - Trivia
     parameters:
