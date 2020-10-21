@@ -374,7 +374,7 @@ paths:
             Search questions with labels include "Batman"<br />
             ?q[[qst]][]=\*Batman\*
 
-            Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
+            Search questions with labels include "Batman" or with choice labels equal to "Michael Keaton"<br />
             ?q[[qst]][]=\*Batman\*&q[[cho]][]=Michael%20Keaton
         - schema:
             type: array
@@ -653,7 +653,7 @@ paths:
             **Example**:
             List entries updated at 27th of January 2020.<br />
 
-            ?updatedAt[[eq]=2020-01-27<br />
+            ?updatedAt[[eq]]=2020-01-27<br />
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
             ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
