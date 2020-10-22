@@ -322,13 +322,13 @@ paths:
             **Example**:
             List entries marked with a difficulty level of 9.<br />
 
-            ?difficultyLevel[eq]=9<br />
+            ?difficultyLevel[[eq]]=9<br />
 
             List entries marked with a difficulty level between 2 and 4 inclusive.<br />
-            ?difficultyLevel[gte]=2&createdAt[lte]=4<br />
+            ?difficultyLevel[[gte]]=2&difficultyLevel[lte]=4<br />
 
             List entries marked with a difficulty level of 3, 5 and 8.<br />
-            ?difficultyLevel[in]=3,5,8
+            ?difficultyLevel[[in]]=3,5,8
         - schema:
             type: array
             items:
@@ -347,13 +347,13 @@ paths:
             **Example**:
             List entries that can be read within 30 seconds.<br />
 
-            ?estimatedReadingTime[eq]=30<br />
+            ?estimatedReadingTime[[eq]]=30<br />
 
             List entries that can be read less than 30 seconds.<br />
-            ?estimatedReadingTime[lt]=30
+            ?estimatedReadingTime[[lt]]=30
 
             List entriesthat can be read beween 30 to 60 seconds inclusive<br />
-            ?estimatedReadingTime[gte]=30&estimatedReadingTime[lte]=60
+            ?estimatedReadingTime[[gte]]=30&estimatedReadingTime[[lte]]=60
         - schema:
             type: array
             items:
