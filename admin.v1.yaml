@@ -16,9 +16,9 @@ info:
   termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
   description: This documentation covers all admin endpoints.
 servers:
-  - url: 'https://trivia.admin.api.viaapi.com/v1.0'
+  - url: 'https://trivia.admin.api.viaapi.com/v1'
     description: Production
-  - url: 'http://trivia.admin.api.dev.viaapi.com/v1.0'
+  - url: 'http://trivia.admin.api.dev.viaapi.com/v1'
     description: Development / Testing Server
 paths:
   /login:
@@ -362,7 +362,12 @@ paths:
             ?createdAt[[eq]]=2020-01-27<br />
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?createdAt={"eq": "2020-01-21"}**
         - schema:
             items:
               type: string
@@ -388,7 +393,12 @@ paths:
             ?updatedAt[[eq]]=2020-01-27<br />
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
-            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?updatedAt={"eq": "2020-01-21"}**
         - schema:
             type: array
             items:
@@ -414,7 +424,12 @@ paths:
             ?difficultyLevel[[gte]]=2&createdAt[[lte]]=4
 
             List entries marked with a difficulty level of 3, 5 and 8.<br />
-            ?difficultyLevel[[in]]=3,5,8
+            ?difficultyLevel[[in]]=3,5,8<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?difficultyLevel={"in": "3,5,8"}**
         - schema:
             type: array
             items:
@@ -439,7 +454,12 @@ paths:
             ?estimatedReadingTime[[lt]]=30<br />
 
             List entriesthat can be read beween 30 to 60 seconds inclusive<br />
-            ?estimatedReadingTime[[gte]]=30&estimatedReadingTime[[lte]]=60
+            ?estimatedReadingTime[[gte]]=30&estimatedReadingTime[[lte]]=60<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?estimatedReadingTime={"gte": 30, "lte": 60}**
         - schema:
             type: array
             items:
@@ -461,7 +481,12 @@ paths:
             ?q[[qst]][]=\*Batman\*
 
             Search questions with labels include "Batman" and with choice labels equal to "Michael Keaton"<br />
-            ?q[[qst]][]=\*Batman\*&q[[cho]][]=Michael%20Keaton
+            ?q[[qst]][]=\*Batman\*&q[[cho]][]=Michael%20Keaton<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?q={"cho": ["Batman"], "qst": ["Batman"]}**
         - schema:
             type: array
           in: query
@@ -483,7 +508,12 @@ paths:
             ?tags[[eq]]=9
 
             List entries taged with a tags of ids 3, 5 or 8.<br />
-            ?tags[[in]]=3,5,8
+            ?tags[[in]]=3,5,8<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?tags={"in": "3,5,8"}**
       tags:
         - Question
     post:
@@ -885,7 +915,12 @@ paths:
             ?createdAt[[eq]]=2020-01-27<br/>
 
             List entries created between 21st and 27th of January 2020, both dates inclusive.<br/>
-            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?createdAt={"eq": "2020-01-21"}**
         - schema:
             items:
               type: string
@@ -911,7 +946,12 @@ paths:
             ?updatedAt[[eq]]=2020-01-27<br/>
 
             List entries updated between 21st and 27th of January 2020, both dates inclusive.<br/>
-            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?updatedAt={"eq": "2020-01-21"}**
         - schema:
             type: array
             items:
@@ -932,7 +972,12 @@ paths:
             ?q[[title]][]=\*tera\*<br/>
 
             Search tags with titles include "tera" or with title equal to "literature"<br/>
-            ?q[[title]][]=\*tera\*&q[[title]][]=literature
+            ?q[[title]][]=\*tera\*&q[[title]][]=literature<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?q={"cho": ["tera\*"], "qst": ["tera\*"]}**
         - schema:
             type: array
           in: query
@@ -950,7 +995,12 @@ paths:
             **Example**:<br/>
             List entries with item counts between 5 and 10.<br/>
 
-            ?itemCount[[gte]]=5&itemCount[[lte]]=10
+            ?itemCount[[gte]]=5&itemCount[[lte]]=10<br>
+
+            <!-- theme: warning -->
+            > **Alternative Usage**
+            > 
+            > Also we can use **?itemCount={"gte": "5", "lte": 10}**
       tags:
         - Tag
     parameters:
