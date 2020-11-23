@@ -47,7 +47,8 @@ paths:
                         nextLink: offset=10&limit=10
                         lastLink: offset=90&limit=10
                         firstLink: offset=0&limit=10
-                        totalItems: 100
+                        totalItems: 1000
+                        filteredItems: 100
                         itemsPerPage: 10
                         pageCount: 10
                         currentPage: 1
@@ -526,7 +527,8 @@ paths:
                         nextLink: offset=10&limit=10
                         lastLink: offset=90&limit=10
                         firstLink: offset=0&limit=10
-                        totalItems: 100
+                        totalItems: 1000
+                        filteredItems: 100
                         itemsPerPage: 10
                         pageCount: 10
                         currentPage: 1
@@ -1108,6 +1110,8 @@ components:
           itemsPerPage: 10
           pageCount: 10
           currentPage: 1
+      x-tags:
+        - Models
       properties:
         isCircular:
           description: 'If set to true, pagination''s next page link points the first page of collection.'
@@ -1135,7 +1139,7 @@ components:
           type: string
           nullable: true
         totalItems:
-          description: Number of total items based on given filter.
+          description: Number of total items for all records.
           example: 500
           type: integer
           minimum: 1
@@ -1160,6 +1164,9 @@ components:
           default: 1
           minimum: 1
           format: int32
+        filteredItems:
+          type: integer
+          description: Number of total items based on given filter.
       required:
         - isCircular
         - prevLink
@@ -1170,8 +1177,6 @@ components:
         - itemsPerPage
         - pageCount
         - currentPage
-      x-tags:
-        - Models
     ApiResult:
       title: ApiResult
       type: object

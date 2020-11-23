@@ -128,7 +128,8 @@ paths:
                         nextLink: offset=10&limit=10
                         lastLink: offset=90&limit=10
                         firstLink: offset=0&limit=10
-                        totalItems: 100
+                        totalItems: 1000
+                        filteredItems: 100
                         itemsPerPage: 10
                         pageCount: 10
                         currentPage: 1
@@ -803,7 +804,8 @@ paths:
                         nextLink: offset=10&limit=10
                         lastLink: offset=90&limit=10
                         firstLink: offset=0&limit=10
-                        totalItems: 100
+                        totalItems: 1000
+                        filteredItems: 100
                         itemsPerPage: 10
                         pageCount: 10
                         currentPage: 1
