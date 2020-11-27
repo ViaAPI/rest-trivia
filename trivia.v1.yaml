@@ -34,7 +34,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -112,7 +112,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -127,7 +127,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -410,7 +410,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example:
                   value:
@@ -425,7 +425,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: ./authentication.v1.yaml#/components/schemas/ApiResponse
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -448,7 +448,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResult'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-7000:
                   value:
@@ -474,7 +474,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TQMultiChoiceSingleVersionCreate'
+              $ref: ./TriviaModels/TQMultiChoiceSingleVersionCreate.v1.yaml
             examples:
               Example:
                 value:
@@ -514,7 +514,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example:
                   value:
@@ -749,7 +749,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example:
                   value:
@@ -783,7 +783,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/TQMultiChoiceSingleVersionUpdate'
+              $ref: ./TriviaModels/TQMultiChoiceSingleVersionUpdate.v1.yaml
             examples:
               Example:
                 value:
@@ -814,7 +814,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example:
                   value:
@@ -829,7 +829,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -852,7 +852,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0100:
                   value:
@@ -889,7 +889,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example:
                   value:
@@ -930,7 +930,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -945,7 +945,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-9995:
                   value:
@@ -1014,7 +1014,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0404:
                   value:
@@ -1029,7 +1029,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0000:
                   value:
@@ -1048,7 +1048,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
                 Example-0004:
                   value:
@@ -1094,635 +1094,4 @@ components:
       type: apiKey
       in: header
       description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
-  schemas:
-    ApiPagination:
-      title: ApiPagination
-      type: object
-      description: 'If the result set is a list, then this object will guide you to paginate the result set. Note that a limit enforcement is in effect even if you do not provide a limit to the result set.'
-      x-examples:
-        Example:
-          isCircular: true
-          prevLink: null
-          nextLink: offset=10&limit=10
-          lastLink: offset=90&limit=10
-          firstLink: offset=0&limit=10
-          totalItems: 100
-          itemsPerPage: 10
-          pageCount: 10
-          currentPage: 1
-      x-tags:
-        - Models
-      properties:
-        isCircular:
-          description: 'If set to true, pagination''s next page link points the first page of collection.'
-          type: boolean
-          example: true
-          default: true
-        prevLink:
-          description: The query string that is required to obtain the previous page's items.
-          example: offset=9&limit=50
-          type: string
-          nullable: true
-        nextLink:
-          description: The query string that is required to obtain the next page's items.
-          example: offset=1&limit=50
-          type: string
-          nullable: true
-        lastLink:
-          description: The query string that is required to obtain the last page's items.
-          example: offset=10&limit=50
-          type: string
-          nullable: true
-        firstLink:
-          description: The query string that is required to obtain the first page's items.
-          example: offset=0&limit=50
-          type: string
-          nullable: true
-        totalItems:
-          description: Number of total items for all records.
-          example: 500
-          type: integer
-          minimum: 1
-          format: int32
-        itemsPerPage:
-          description: Number of results to be shown at each request. This is calculated base on the parameters submitted by request.
-          example: 50
-          type: integer
-          minimum: 1
-          format: int32
-        pageCount:
-          description: Total number of pages. This is calculated base on the parameters submitted by request.
-          example: 1
-          type: integer
-          default: 1
-          minimum: 1
-          format: int32
-        currentPage:
-          description: Current page number. This is calculated base on the parameters submitted by request.
-          example: 1
-          type: integer
-          default: 1
-          minimum: 1
-          format: int32
-        filteredItems:
-          type: integer
-          description: Number of total items based on given filter.
-      required:
-        - isCircular
-        - prevLink
-        - nextLink
-        - lastLink
-        - firstLink
-        - totalItems
-        - itemsPerPage
-        - pageCount
-        - currentPage
-    ApiResult:
-      title: ApiResult
-      type: object
-      description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
-      x-examples:
-        Example:
-          pagination: null
-          set:
-            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-            dateCreated: '2020-01-20T12:23:24Z'
-            dateUpdated: '2020-01-21T21:23:12Z'
-            status: a
-            banner:
-              path: batman-logo.jpg
-              type: i
-            difficultyLevel: 1
-            estimatedReadTime: 50
-            tags:
-              - title: movies
-                icon: movies.png
-                itemCount: 234
-            label:
-              audio: question-223423-2342342-2342.mp3
-              video: question-223423-2342342-2342.mp4
-              image: batman-logo.jpg
-              text: Who among these Hollywood stars have not played the Batman character?
-      properties:
-        pagination:
-          $ref: '#/components/schemas/ApiPagination'
-        set:
-          anyOf:
-            - type: array
-              items:
-                anyOf:
-                  - $ref: '#/components/schemas/TQMultiChoiceSingle'
-                  - type: boolean
-                  - type: integer
-            - $ref: '#/components/schemas/TQMultiChoiceSingle'
-            - type: boolean
-            - type: integer
-          description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
-      x-tags:
-        - Models
-    ApiResponse:
-      title: ApiResponse
-      type: object
-      description: This is the standart response object. All of your request to ViaAPI will return this object.
-      properties:
-        result:
-          $ref: '#/components/schemas/ApiResult'
-        sessionToken:
-          type: string
-          description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
-          example: 1a79a4d60de6718e8e5b326e338ae533
-          nullable: true
-        code:
-          type: string
-          example: '200.0000'
-          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
-        message:
-          type: string
-          description: This is the API's internal response message.
-          example: ' Your request has been successfully completed.'
-      required:
-        - code
-        - message
-      x-examples:
-        Example:
-          code: '200.0000'
-          message: ''
-          result:
-            pagination:
-              isCircular: true
-              prevLink: null
-              nextLink: offset=10&limit=10
-              lastLink: offset=90&limit=10
-              firstLink: offset=0&limit=10
-              totalItems: 100
-              itemsPerPage: 10
-              pageCount: 10
-              currentPage: 1
-          set:
-            - pagination: null
-              set:
-                uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-                dateCreated: '2020-01-20T12:23:24Z'
-                dateUpdated: '2020-01-21T21:23:12Z'
-                status: a
-                banner:
-                  path: batman-logo.jpg
-                  type: i
-                difficultyLevel: 1
-                estimatedReadTime: 50
-                tags:
-                  - title: movies
-                    icon: movies.png
-                    itemCount: 234
-                label:
-                  audio: question-223423-2342342-2342.mp3
-                  video: question-223423-2342342-2342.mp4
-                  image: batman-logo.jpg
-                  text: Who among these Hollywood stars have not played the Batman character?
-      x-tags:
-        - Models
-    TQChoice:
-      title: TQChoice
-      type: object
-      properties:
-        isCorrect:
-          type: boolean
-          example: false
-          description: 'This is a flag field. If set to true, it means that this entry represents a correct choice.'
-        label:
-          $ref: '#/components/schemas/TQLabel'
-      required:
-        - isCorrect
-      x-examples:
-        Example - A:
-          isCorrect: true
-          label:
-            audio: choiceA.wav
-            image: choiceA.jpg
-            text: Michael Keaton
-            video: choicesA.mp4
-        Example - B:
-          isCorrect: false
-          label:
-            audio: choiceB.wav
-            image: choiceB.jpg
-            text: Brad Pitt
-            video: choicesB.mp4
-        Example - C:
-          isCorrect: false
-          label:
-            audio: choiceC.wav
-            image: choiceC.jpg
-            text: Jackie Chan
-            video: choicesC.mp4
-        Exampe - D:
-          isCorrect: false
-          label:
-            audio: choiceD.wav
-            image: choiceD.jpg
-            text: Jack Nicholson
-            video: choicesD.mp4
-      description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
-      x-tags:
-        - Models
-    TQLabel:
-      title: TQLabel
-      type: object
-      description: 'This is another helper model that puts labels into a standard body. Labels can be anything. Trivia questions, choices etc., they all have labels. Labels can be text, image, audio or video.'
-      properties:
-        audio:
-          type: string
-          description: |-
-            Audio property is used to provide voice instructions. This can be used for two distinct functionalities.
-
-            Enabling bling people to listen the trivia question,
-            Adding another media type to be used with qustions. For example a trivia question "In which Madonna album has this song been released for the first time?" should have its audio property filled with few seconds of sampling of the song.
-          example: question.wav
-        image:
-          type: string
-          description: Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.
-          example: question.jpg
-        text:
-          type: string
-          description: 'Text property is the standard and mandatory property. Text part of label is usually used to serve a readble content to people, and an indexable content to search engines.'
-          example: Bruce Willis
-        video:
-          type: string
-          description: Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.
-          example: question.mp4
-      required:
-        - text
-      x-examples:
-        Example 1:
-          audio: question.wav
-          image: question.jpg
-          text: Who are you?
-          video: question.mp4
-      x-tags:
-        - Models
-    TQMedia:
-      title: TQMedia
-      type: object
-      properties:
-        path:
-          type: string
-          description: Holds the CDN path of the stored file.
-          example: file1.jpg
-        type:
-          type: string
-          example: i
-          description: 'This is an indicator to flag file''s type. It shows the user of the data whether the file in given path is an audio file, an image file, a video file, etc.'
-      required:
-        - path
-        - type
-      description: |-
-        In general, we do NOT store binary information withn the database. This means any file used as data is actually a file physically stored in our CDN network. We register the CDN path of files and type related information within our database(s).
-
-        This class provides a foundation for keeping records of media entries within our document store.
-      x-tags:
-        - Models
-    TQTag:
-      title: TQTag
-      type: object
-      description: This class is the main storage of trivia question related tags.
-      x-examples:
-        Example:
-          icon: soccer.svg
-          title: soccer
-          itemCount: 2322
-          uuid: b914edfb-dadb-49f0-a729-08e882987e38
-      properties:
-        icon:
-          type: string
-          description: 'Holds path to the icon related to tag. '
-          example: cinema.svg
-          nullable: true
-        title:
-          type: string
-          description: The actual text of tag.
-          example: cinema
-        itemCount:
-          type: integer
-          example: 150
-          minimum: 0
-          description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
-        uuid:
-          type: string
-          description: System wide identification number.
-          format: uuid
-      required:
-        - icon
-        - title
-        - itemCount
-      x-tags:
-        - Models
-    TQMultiChoiceSingleVersionCreate:
-      title: TQMultiChoiceSingleVersionCreate
-      type: object
-      description: This class is the main storage of multi choice trivia questions with only one correct answers.
-      x-examples:
-        Example:
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - '#23:42'
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-          choices:
-            - isCorrect: false
-              label:
-                audio: choiceC.wav
-                image: choiceC.jpg
-                text: Jackie Chan
-                video: choicesC.mp4
-            - isCorrect: true
-              label:
-                audio: choiceA.wav
-                image: choiceA.jpg
-                text: Michael Keaton
-                video: choicesA.mp4
-            - isCorrect: false
-              label:
-                audio: choiceB.wav
-                image: choiceB.jpg
-                text: Michael Douglas
-                video: choicesB.mp4
-            - isCorrect: false
-              label:
-                audio: choiceD.wav
-                image: choiceD.jpg
-                text: Denzel Washington
-                video: choicesD.mp4
-      properties:
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items:
-            $ref: '#/components/schemas/TQChoice'
-        banner:
-          $ref: '#/components/schemas/TQMedia'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            type: string
-        label:
-          $ref: '#/components/schemas/TQLabel'
-      required:
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - Models
-    TQMultiChoiceSingle:
-      title: TQMultiChoiceSingle
-      type: object
-      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
-      x-examples:
-        Example:
-          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-          dateCreated: '2020-01-20T12:23:24Z'
-          dateUpdated: '2020-01-21T21:23:12Z'
-          status: a
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - title: movies
-              icon: movies.png
-              itemCount: 234
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-          choices:
-            - isCorrect: false
-              label:
-                audio: choiceC.wav
-                image: choiceC.jpg
-                text: Jackie Chan
-                video: choicesC.mp4
-            - isCorrect: true
-              label:
-                audio: choiceA.wav
-                image: choiceA.jpg
-                text: Michael Keaton
-                video: choicesA.mp4
-            - isCorrect: false
-              label:
-                audio: choiceB.wav
-                image: choiceB.jpg
-                text: Michael Douglas
-                video: choicesB.mp4
-            - isCorrect: false
-              label:
-                audio: choiceD.wav
-                image: choiceD.jpg
-                text: Denzel Washington
-                video: choicesD.mp4
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
-        dateCreated:
-          type: string
-          description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
-          format: date-time
-        dateUpdated:
-          type: string
-          description: 'The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to "dateCreated" property. However, it is updated later whenever a propery''s value is updated for the given object (data row).'
-          format: date-time
-        status:
-          type: string
-          description: |-
-            This is the record's actual  (current) status.
-
-            - a: active (approved)
-            - d: deleted
-            - i: inactive (approved but unpublished)
-            - r: rejected
-            - **w: waiting for approval**
-          enum:
-            - a
-            - d
-            - i
-            - r
-            - w
-          example: w
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items:
-            $ref: '#/components/schemas/TQChoice'
-        banner:
-          $ref: '#/components/schemas/TQMedia'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            $ref: '#/components/schemas/TQTag'
-        label:
-          $ref: '#/components/schemas/TQLabel'
-      required:
-        - dateCreated
-        - dateUpdated
-        - status
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - Models
-    TQMultiChoiceSingleVersionUpdate:
-      title: TQMultiChoiceSingleVersionUpdate
-      type: object
-      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
-      x-examples:
-        Example:
-          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-          status: a
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - title: movies
-              icon: movies.png
-              itemCount: 234
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-          choices:
-            - isCorrect: false
-              label:
-                audio: choiceC.wav
-                image: choiceC.jpg
-                text: Jackie Chan
-                video: choicesC.mp4
-            - isCorrect: true
-              label:
-                audio: choiceA.wav
-                image: choiceA.jpg
-                text: Michael Keaton
-                video: choicesA.mp4
-            - isCorrect: false
-              label:
-                audio: choiceB.wav
-                image: choiceB.jpg
-                text: Michael Douglas
-                video: choicesB.mp4
-            - isCorrect: false
-              label:
-                audio: choiceD.wav
-                image: choiceD.jpg
-                text: Denzel Washington
-                video: choicesD.mp4
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
-        status:
-          type: string
-          description: |-
-            This is the record's actual  (current) status.
-
-            - a: active (approved)
-            - d: deleted
-            - i: inactive (approved but unpublished)
-            - r: rejected
-            - **w: waiting for approval**
-          enum:
-            - a
-            - d
-            - i
-            - r
-            - w
-          example: w
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items:
-            $ref: '#/components/schemas/TQChoice'
-        banner:
-          $ref: '#/components/schemas/TQMedia'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            $ref: '#/components/schemas/TQTag'
-        label:
-          $ref: '#/components/schemas/TQLabel'
-      required:
-        - status
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - Models
+  schemas: {}
