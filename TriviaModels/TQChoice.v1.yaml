@@ -1,44 +1,44 @@
-      title: TQChoice
-      type: object
-      properties:
-        isCorrect:
-          type: boolean
-          example: false
-          description: 'This is a flag field. If set to true, it means that this entry represents a correct choice.'
-        label:
-          $ref: "#./TriviaModels/TQLabel.v1.yaml"
-      required:
-        - isCorrect
-      x-examples:
-        Example - A:
-          isCorrect: true
-          label:
-            audio: choiceA.wav
-            image: choiceA.jpg
-            text: Michael Keaton
-            video: choicesA.mp4
-        Example - B:
-          isCorrect: false
-          label:
-            audio: choiceB.wav
-            image: choiceB.jpg
-            text: Brad Pitt
-            video: choicesB.mp4
-        Example - C:
-          isCorrect: false
-          label:
-            audio: choiceC.wav
-            image: choiceC.jpg
-            text: Jackie Chan
-            video: choicesC.mp4
-        Exampe - D:
-          isCorrect: false
-          label:
-            audio: choiceD.wav
-            image: choiceD.jpg
-            text: Jack Nicholson
-            video: choicesD.mp4
-      description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
-      x-tags:
-        - Models
-  
+title: TQChoice
+type: object
+properties:
+  isCorrect:
+    type: boolean
+    example: false
+    description: 'This is a flag field. If set to true, it means that this entry represents a correct choice.'
+  label:
+    $ref: '#./TriviaModels/TQLabel.v1.yaml'
+required:
+  - isCorrect
+x-examples:
+  Example - A:
+    isCorrect: true
+    label:
+      audio: choiceA.wav
+      image: choiceA.jpg
+      text: Michael Keaton
+      video: choicesA.mp4
+  Example - B:
+    isCorrect: false
+    label:
+      audio: choiceB.wav
+      image: choiceB.jpg
+      text: Brad Pitt
+      video: choicesB.mp4
+  Example - C:
+    isCorrect: false
+    label:
+      audio: choiceC.wav
+      image: choiceC.jpg
+      text: Jackie Chan
+      video: choicesC.mp4
+  Exampe - D:
+    isCorrect: false
+    label:
+      audio: choiceD.wav
+      image: choiceD.jpg
+      text: Jack Nicholson
+      video: choicesD.mp4
+description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
+x-tags:
+  - Models
+  - TriviaModels
