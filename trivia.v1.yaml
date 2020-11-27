@@ -4,7 +4,7 @@ tags:
   - name: Trivia
   - name: Panel
 info:
-  title: ViaAPI Trivia
+  title: Trivia API
   version: v1.0.0
   license:
     name: Trivia

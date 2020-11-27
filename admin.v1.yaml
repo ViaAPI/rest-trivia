@@ -4,7 +4,7 @@ tags:
   - name: Question
   - name: Tag
 info:
-  title: Trivia Admin Api
+  title: Admin API
   version: v1.0.0
   license:
     name: Trivia
@@ -38,7 +38,7 @@ paths:
                     code: '200.0401'
                     message: You have been successfully logged in.
                     result:
-                      pagination: null
+                      pagination: 'null'
                       set:
                         id: '1'
                         uuid: 861511f1-f3b0-11ea-bc5d-0242ac120005
@@ -1540,8 +1540,8 @@ components:
           pagination: null
           set:
             uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-            dateCreated: '2020-01-20T12:23:24Z'
-            dateUpdated: '2020-01-21T21:23:12Z'
+            createdAt: '2020-01-20T12:23:24Z'
+            updatedAt: '2020-01-21T21:23:12Z'
             status: a
             banner:
               path: batman-logo.jpg
@@ -1557,9 +1557,17 @@ components:
               video: question-223423-2342342-2342.mp4
               image: batman-logo.jpg
               text: Who among these Hollywood stars have not played the Batman character?
+      x-tags:
+        - Models
       properties:
         pagination:
-          $ref: '#/components/schemas/ApiPagination'
+          oneOf:
+            - $ref: ./trivia.v1.yaml#/components/schemas/ApiPagination
+            - type: string
+              properties: {}
+              default: 'null'
+              example: 'null'
+              description: null value
         set:
           anyOf:
             - type: array
@@ -1572,8 +1580,6 @@ components:
             - type: boolean
             - type: integer
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
-      x-tags:
-        - Models
     LoginForm:
       title: LoginForm
       type: object
@@ -1886,8 +1892,8 @@ components:
       x-examples:
         Example:
           uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-          dateCreated: '2020-01-20T12:23:24Z'
-          dateUpdated: '2020-01-21T21:23:12Z'
+          createdAt: '2020-01-20T12:23:24Z'
+          updatedAt: '2020-01-21T21:23:12Z'
           status: a
           banner:
             path: batman-logo.jpg
@@ -1928,16 +1934,18 @@ components:
                 image: choiceD.jpg
                 text: Denzel Washington
                 video: choicesD.mp4
+      x-tags:
+        - Models
       properties:
         uuid:
           type: string
           format: uuid
           description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
-        dateCreated:
+        createdAt:
           type: string
           description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
           format: date-time
-        dateUpdated:
+        updatedAt:
           type: string
           description: 'The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to "dateCreated" property. However, it is updated later whenever a propery''s value is updated for the given object (data row).'
           format: date-time
@@ -1988,8 +1996,8 @@ components:
         label:
           $ref: '#/components/schemas/TQLabel'
       required:
-        - dateCreated
-        - dateUpdated
+        - createdAt
+        - updatedAt
         - status
         - choices
         - banner
@@ -1997,8 +2005,6 @@ components:
         - estimatedReadTime
         - tags
         - label
-      x-tags:
-        - Models
     TQMultiChoiceSingleVersionUpdate:
       title: TQMultiChoiceSingleVersionUpdate
       type: object
@@ -2107,3 +2113,101 @@ components:
         - label
       x-tags:
         - Models
+    LoginResponse:
+      title: LoginResponse
+      type: object
+      x-examples:
+        Example-1:
+          id: 1
+          uuid: 861511f1-f3b0-11ea-bc5d-0242ac120005
+          status: a
+          email: support@viaapi.com
+          firstName: Tayfun
+          middleName: ''
+          lastName: Temizel
+          isSuper: 'y'
+          roles:
+            - ROLE_TQ_MCS_APPROVE
+            - ROLE_TQ_MCS_CREATE
+            - ROLE_TQ_MCS_DELETE
+            - ROLE_TQ_MCS_DELETE_PERM
+            - ROLE_TQ_MCS_UPDATE
+            - ROLE_TQ_MCS_VIEW
+            - ROLE_TQ_TAG_APPROVE
+            - ROLE_TQ_TAG_CREATE
+            - ROLE_TQ_TAG_DELETE
+            - ROLE_TQ_TAG_DELETE_PERM
+            - ROLE_TQ_TAG_UPDATE
+            - ROLE_TQ_TAG_VIEW
+        Example-2:
+          id: 32
+          uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
+          status: a
+          email: support@viaapi.com
+          firstName: John
+          middleName: Johnny Johnathan
+          lastName: Johannesson
+          isSuper: true
+          roles:
+            - ROLE_TQ_MCS_APPROVE
+      description: This object holds relevant details about a user after succesfull login.
+      x-tags:
+        - Models
+      properties:
+        id:
+          type: integer
+          minimum: 1
+          example: 32
+          description: System defined id.
+        uuid:
+          type: string
+          format: uuid
+          description: System defined uuid.
+        status:
+          type: string
+          description: Record status.
+          enum:
+            - a
+            - i
+            - d
+          example: a
+        email:
+          type: string
+          format: email
+          example: support@viaapi.com
+          description: User's e-mail address.
+          nullable: true
+        firstName:
+          type: string
+          example: John
+          description: User's first name.
+          nullable: true
+        middleName:
+          type: string
+          example: Johnny Johnathan
+          description: User's middle name.
+          nullable: true
+        lastName:
+          type: string
+          description: User's last name.
+          example: Johannesson
+          nullable: true
+        isSuper:
+          type: boolean
+          description: |
+            Indicates if the user is a super admin or not.
+        roles:
+          type: array
+          minItems: 1
+          description: 'full list of available roles can be found here: https://app.archbee.io/public/PdSMT5o4wNDFkh__I9wQp/admin-user-roles'
+          items:
+            type: string
+            enum:
+              - ROLE_TQ_MCS_APPROVE
+              - ROLE_TQ_MCS_UPDATE
+              - ROLE_TQ_TAG_DELETE_PERM
+              - ROLE_TQ_TAG_UPDATE
+              - ROLE_TQ_TAG_VIEW
+      required:
+        - status
+        - isSuper
