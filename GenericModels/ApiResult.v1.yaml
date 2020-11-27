@@ -1,0 +1,58 @@
+title: ApiResult
+type: object
+description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
+x-tags:
+  - response
+x-examples:
+  Example:
+    pagination: 'null'
+    set:
+      uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+      dateCreated: '2020-01-20T12:23:24Z'
+      dateUpdated: '2020-01-21T21:23:12Z'
+      status: a
+      banner:
+        path: batman-logo.jpg
+        type: i
+      difficultyLevel: 1
+      estimatedReadTime: 50
+      tags:
+        - title: movies
+          icon: movies.png
+          itemCount: 234
+      label:
+        audio: question-223423-2342342-2342.mp3
+        video: question-223423-2342342-2342.mp4
+        image: batman-logo.jpg
+        text: Who among these Hollywood stars have not played the Batman character?
+properties:
+  pagination:
+    anyOf:
+      - $ref: ./ApiPagination.v1.yaml
+      - type: string
+        nullable: true
+        description: this is added to simulate null value.
+        example: 'null'
+        enum:
+          - 'null'
+  set:
+    anyOf:
+      - type: array
+        items:
+          anyOf:
+            - type: boolean
+            - type: number
+            - type: string
+            - type: integer
+            - type: object
+            - $ref: ../admin.v1.yaml#/components/schemas/LoginResponse
+      - type: boolean
+      - type: object
+      - type: string
+        nullable: true
+        description: this is added to simulate null value.
+        example: 'null'
+        enum:
+          - 'null'
+      - $ref: ../admin.v1.yaml#/components/schemas/LoginResponse
+    description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.

@@ -22,7 +22,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#./GenericModels/ApiResponse'
               examples:
                 Example:
                   value:
@@ -37,7 +37,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#./GenericModels/ApiResponse'
               examples:
                 Example-0002:
                   value:
@@ -92,7 +92,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ApiResponse'
+                $ref: '#./GenericModels/ApiResponse'
               examples:
                 Example:
                   value:
@@ -114,7 +114,7 @@ paths:
                     code: '401.0001'
                     message: Your session is expired. Please re-login.
                     result:
-                      pagination: null
+                      pagination: "null"
                       set: true
                     sessionToken: null
       description: This endpoint is used for self-logout.
@@ -205,168 +205,6 @@ paths:
         description: An 8 character long key that includes alphanumeric characters.
 components:
   schemas:
-    ApiResponse:
-      title: ApiResponse
-      type: object
-      description: This is the standart response object. All of your request to ViaAPI will return this object.
-      properties:
-        result:
-          $ref: '#/components/schemas/ApiResult'
-        sessionToken:
-          type: string
-          description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
-          example: 1a79a4d60de6718e8e5b326e338ae533
-          nullable: true
-        code:
-          type: string
-          example: '200.0000'
-          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
-        message:
-          type: string
-          description: This is the API's internal response message.
-          example: ' Your request has been successfully completed.'
-      required:
-        - code
-        - message
-      x-tags:
-        - response
-      x-examples:
-        Example:
-          code: '200.0000'
-          message: ''
-          result:
-            pagination:
-              isCircular: true
-              prevLink: null
-              nextLink: offset=10&limit=10
-              lastLink: offset=90&limit=10
-              firstLink: offset=0&limit=10
-              totalItems: 100
-              itemsPerPage: 10
-              pageCount: 10
-              currentPage: 1
-          set: true
-    ApiResult:
-      title: ApiResult
-      type: object
-      description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
-      x-tags:
-        - response
-      x-examples:
-        Example:
-          pagination: null
-          set:
-            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-            dateCreated: '2020-01-20T12:23:24Z'
-            dateUpdated: '2020-01-21T21:23:12Z'
-            status: a
-            banner:
-              path: batman-logo.jpg
-              type: i
-            difficultyLevel: 1
-            estimatedReadTime: 50
-            tags:
-              - title: movies
-                icon: movies.png
-                itemCount: 234
-            label:
-              audio: question-223423-2342342-2342.mp3
-              video: question-223423-2342342-2342.mp4
-              image: batman-logo.jpg
-              text: Who among these Hollywood stars have not played the Batman character?
-      properties:
-        pagination:
-          $ref: '#/components/schemas/ApiPagination'
-        set:
-          anyOf:
-            - type: array
-              items:
-                anyOf:
-                  - type: boolean
-                  - type: number
-                  - type: string
-                  - type: integer
-            - type: boolean
-          description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
-    ApiPagination:
-      title: ApiPagination
-      type: object
-      description: 'If the result set is a list, then this object will guide you to paginate the result set. Note that a limit enforcement is in effect even if you do not provide a limit to the result set.'
-      x-examples:
-        Example:
-          isCircular: true
-          prevLink: null
-          nextLink: offset=10&limit=10
-          lastLink: offset=90&limit=10
-          firstLink: offset=0&limit=10
-          totalItems: 100
-          itemsPerPage: 10
-          pageCount: 10
-          currentPage: 1
-      x-tags:
-        - response
-      properties:
-        isCircular:
-          description: 'If set to true, pagination''s next page link points the first page of collection.'
-          type: boolean
-          example: true
-          default: true
-        prevLink:
-          description: The query string that is required to obtain the previous page's items.
-          example: offset=9&limit=50
-          type: string
-          nullable: true
-        nextLink:
-          description: The query string that is required to obtain the next page's items.
-          example: offset=1&limit=50
-          type: string
-          nullable: true
-        lastLink:
-          description: The query string that is required to obtain the last page's items.
-          example: offset=10&limit=50
-          type: string
-          nullable: true
-        firstLink:
-          description: The query string that is required to obtain the first page's items.
-          example: offset=0&limit=50
-          type: string
-          nullable: true
-        totalItems:
-          description: Number of total items based on given filter.
-          example: 500
-          type: integer
-          minimum: 1
-          format: int32
-        itemsPerPage:
-          description: Number of results to be shown at each request. This is calculated base on the parameters submitted by request.
-          example: 50
-          type: integer
-          minimum: 1
-          format: int32
-        pageCount:
-          description: Total number of pages. This is calculated base on the parameters submitted by request.
-          example: 1
-          type: integer
-          default: 1
-          minimum: 1
-          format: int32
-        currentPage:
-          description: Current page number. This is calculated base on the parameters submitted by request.
-          example: 1
-          type: integer
-          default: 1
-          minimum: 1
-          format: int32
-      required:
-        - isCircular
-        - prevLink
-        - nextLink
-        - lastLink
-        - firstLink
-        - totalItems
-        - itemsPerPage
-        - pageCount
-        - currentPage
     Language:
       title: Language
       type: object

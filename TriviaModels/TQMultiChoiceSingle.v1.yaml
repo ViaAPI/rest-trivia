@@ -1,0 +1,119 @@
+      title: TQMultiChoiceSingle
+      type: object
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          createdAt: '2020-01-20T12:23:24Z'
+          updatedAt: '2020-01-21T21:23:12Z'
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      x-tags:
+        - Models
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        createdAt:
+          type: string
+          description: 'The creation time of the data row. It is auto assigned by the system during row creation, and it cannot be changed afterwards.'
+          format: date-time
+        updatedAt:
+          type: string
+          description: 'The last update time of the data row. It is auto assigned by the system during row creation, and at first it is equal to "dateCreated" property. However, it is updated later whenever a propery''s value is updated for the given object (data row).'
+          format: date-time
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: "#./TriviaModels/TQChoice.v1.yaml"
+        banner:
+          $ref: "#./TriviaModels/TQMedia.v1.yaml"
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: "#./TriviaModels/TQTag.v1.yaml"
+        label:
+          $ref: "#./TriviaModels/TQLabel.v1.yaml"
+      required:
+        - createdAt
+        - updatedAt
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label

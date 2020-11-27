@@ -1,0 +1,20 @@
+      title: TQMedia
+      type: object
+      properties:
+        path:
+          type: string
+          description: Holds the CDN path of the stored file.
+          example: file1.jpg
+        type:
+          type: string
+          example: i
+          description: 'This is an indicator to flag file''s type. It shows the user of the data whether the file in given path is an audio file, an image file, a video file, etc.'
+      required:
+        - path
+        - type
+      description: |-
+        In general, we do NOT store binary information withn the database. This means any file used as data is actually a file physically stored in our CDN network. We register the CDN path of files and type related information within our database(s).
+
+        This class provides a foundation for keeping records of media entries within our document store.
+      x-tags:
+        - Models

@@ -1,0 +1,40 @@
+title: ApiResponse
+type: object
+description: This is the standart response object. All of your request to ViaAPI will return this object.
+properties:
+  result:
+    $ref: '#./GenericModels/ApiResult.v1.yaml'
+  sessionToken:
+    type: string
+    description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
+    example: 1a79a4d60de6718e8e5b326e338ae533
+    nullable: true
+  code:
+    type: string
+    example: '200.0000'
+    description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
+  message:
+    type: string
+    description: This is the API's internal response message.
+    example: ' Your request has been successfully completed.'
+required:
+  - code
+  - message
+x-examples:
+  Example:
+    code: '200.0000'
+    message: ''
+    result:
+      pagination:
+        isCircular: true
+        prevLink: null
+        nextLink: offset=10&limit=10
+        lastLink: offset=90&limit=10
+        firstLink: offset=0&limit=10
+        totalItems: 100
+        itemsPerPage: 10
+        pageCount: 10
+        currentPage: 1
+    set: true
+x-tags:
+  - Models

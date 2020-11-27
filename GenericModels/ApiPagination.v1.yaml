@@ -1,0 +1,79 @@
+      title: ApiPagination
+      type: object
+      description: 'If the result set is a list, then this object will guide you to paginate the result set. Note that a limit enforcement is in effect even if you do not provide a limit to the result set.'
+      x-examples:
+        Example:
+          isCircular: true
+          prevLink: null
+          nextLink: offset=10&limit=10
+          lastLink: offset=90&limit=10
+          firstLink: offset=0&limit=10
+          totalItems: 100
+          itemsPerPage: 10
+          pageCount: 10
+          currentPage: 1
+      x-tags:
+        - response
+      properties:
+        isCircular:
+          description: 'If set to true, pagination''s next page link points the first page of collection.'
+          type: boolean
+          example: true
+          default: true
+        prevLink:
+          description: The query string that is required to obtain the previous page's items.
+          example: offset=9&limit=50
+          type: string
+          nullable: true
+        nextLink:
+          description: The query string that is required to obtain the next page's items.
+          example: offset=1&limit=50
+          type: string
+          nullable: true
+        lastLink:
+          description: The query string that is required to obtain the last page's items.
+          example: offset=10&limit=50
+          type: string
+          nullable: true
+        firstLink:
+          description: The query string that is required to obtain the first page's items.
+          example: offset=0&limit=50
+          type: string
+          nullable: true
+        totalItems:
+          description: Number of total items based on given filter.
+          example: 500
+          type: integer
+          minimum: 1
+          format: int32
+        itemsPerPage:
+          description: Number of results to be shown at each request. This is calculated base on the parameters submitted by request.
+          example: 50
+          type: integer
+          minimum: 1
+          format: int32
+        pageCount:
+          description: Total number of pages. This is calculated base on the parameters submitted by request.
+          example: 1
+          type: integer
+          default: 1
+          minimum: 1
+          format: int32
+        currentPage:
+          description: Current page number. This is calculated base on the parameters submitted by request.
+          example: 1
+          type: integer
+          default: 1
+          minimum: 1
+          format: int32
+      required:
+        - isCircular
+        - prevLink
+        - nextLink
+        - lastLink
+        - firstLink
+        - totalItems
+        - itemsPerPage
+        - pageCount
+        - currentPage
+    
