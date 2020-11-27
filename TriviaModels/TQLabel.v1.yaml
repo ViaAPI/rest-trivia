@@ -1,35 +1,34 @@
-      title: TQLabel
-      type: object
-      description: 'This is another helper model that puts labels into a standard body. Labels can be anything. Trivia questions, choices etc., they all have labels. Labels can be text, image, audio or video.'
-      properties:
-        audio:
-          type: string
-          description: |-
-            Audio property is used to provide voice instructions. This can be used for two distinct functionalities.
+title: TQLabel
+type: object
+description: 'This is another helper model that puts labels into a standard body. Labels can be anything. Trivia questions, choices etc., they all have labels. Labels can be text, image, audio or video.'
+properties:
+  audio:
+    type: string
+    description: |-
+      Audio property is used to provide voice instructions. This can be used for two distinct functionalities.
 
-            Enabling bling people to listen the trivia question,
-            Adding another media type to be used with qustions. For example a trivia question "In which Madonna album has this song been released for the first time?" should have its audio property filled with few seconds of sampling of the song.
-          example: question.wav
-        image:
-          type: string
-          description: Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.
-          example: question.jpg
-        text:
-          type: string
-          description: 'Text property is the standard and mandatory property. Text part of label is usually used to serve a readble content to people, and an indexable content to search engines.'
-          example: Bruce Willis
-        video:
-          type: string
-          description: Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.
-          example: question.mp4
-      required:
-        - text
-      x-examples:
-        Example 1:
-          audio: question.wav
-          image: question.jpg
-          text: Who are you?
-          video: question.mp4
-      x-tags:
-        - Models
-   
+      Enabling bling people to listen the trivia question,
+      Adding another media type to be used with qustions. For example a trivia question "In which Madonna album has this song been released for the first time?" should have its audio property filled with few seconds of sampling of the song.
+    example: question.wav
+  image:
+    type: string
+    description: Image property is used to provide static visual content to viewers. For example a trivia qustion "Who is the artist on the picture?" should have its image property filled.
+    example: question.jpg
+  text:
+    type: string
+    description: 'Text property is the standard and mandatory property. Text part of label is usually used to serve a readble content to people, and an indexable content to search engines.'
+    example: Bruce Willis
+  video:
+    type: string
+    description: Video property is used to provide animated visual content to viewwers. For example a trivia question "To which 1960 movie does this scene belong?" should have its video property fille with few seconds of sampling of the movie.
+    example: question.mp4
+required:
+  - text
+x-examples:
+  Example 1:
+    audio: question.wav
+    image: question.jpg
+    text: Who are you?
+    video: question.mp4
+x-tags:
+  - Models - Trivia

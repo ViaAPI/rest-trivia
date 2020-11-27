@@ -40,5 +40,4 @@ x-examples:
       video: choicesD.mp4
 description: 'This class can be seen as a helper class for TQ...Question series of classes that hold the actual trivia data AND their answers. '
 x-tags:
-  - Models
-  - TriviaModels
+  - Models - Trivia

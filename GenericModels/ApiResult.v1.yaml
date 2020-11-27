@@ -1,8 +1,6 @@
 title: ApiResult
 type: object
 description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
-x-tags:
-  - response
 x-examples:
   Example:
     pagination: 'null'
@@ -56,3 +54,5 @@ properties:
           - 'null'
       - $ref: ../admin.v1.yaml#/components/schemas/LoginResponse
     description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
+x-tags:
+  - Models - Generic

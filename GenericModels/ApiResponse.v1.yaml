@@ -37,4 +37,4 @@ x-examples:
         currentPage: 1
     set: true
 x-tags:
-  - Models
+  - Models - Generic

@@ -1,34 +1,34 @@
-      title: TQTag
-      type: object
-      description: This class is the main storage of trivia question related tags.
-      x-examples:
-        Example:
-          icon: soccer.svg
-          title: soccer
-          itemCount: 2322
-          uuid: b914edfb-dadb-49f0-a729-08e882987e38
-      properties:
-        icon:
-          type: string
-          description: 'Holds path to the icon related to tag. '
-          example: cinema.svg
-          nullable: true
-        title:
-          type: string
-          description: The actual text of tag.
-          example: cinema
-        itemCount:
-          type: integer
-          example: 150
-          minimum: 0
-          description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
-        uuid:
-          type: string
-          description: System wide identification number.
-          format: uuid
-      required:
-        - icon
-        - title
-        - itemCount
-      x-tags:
-        - Models
+title: TQTag
+type: object
+description: This class is the main storage of trivia question related tags.
+x-examples:
+  Example:
+    icon: soccer.svg
+    title: soccer
+    itemCount: 2322
+    uuid: b914edfb-dadb-49f0-a729-08e882987e38
+properties:
+  icon:
+    type: string
+    description: 'Holds path to the icon related to tag. '
+    example: cinema.svg
+    nullable: true
+  title:
+    type: string
+    description: The actual text of tag.
+    example: cinema
+  itemCount:
+    type: integer
+    example: 150
+    minimum: 0
+    description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
+  uuid:
+    type: string
+    description: System wide identification number.
+    format: uuid
+required:
+  - icon
+  - title
+  - itemCount
+x-tags:
+  - Models - Trivia
