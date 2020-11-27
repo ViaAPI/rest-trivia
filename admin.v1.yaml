@@ -40,27 +40,16 @@ paths:
                     result:
                       pagination: 'null'
                       set:
-                        id: '1'
-                        uuid: 861511f1-f3b0-11ea-bc5d-0242ac120005
+                        id: 32
+                        uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
                         status: a
-                        email: tayfun.temizel@bodevoffice.com
-                        name: Tayfun
-                        middleName: ''
-                        surname: Temizel
-                        isSuper: 'y'
+                        email: support@viaapi.com
+                        firstName: John
+                        middleName: Johnny Johnathan
+                        lastName: Johannesson
+                        isSuper: true
                         roles:
-                          - ROLE_TRIVIA_TAG_CREATE
-                          - ROLE_TRIVIA_TAG_APPROVE
-                          - ROLE_TRIVIA_TAG_SAVE
-                          - ROLE_TRIVIA_TAG_DELETE
-                          - ROLE_TRIVIA_QUESTION_CREATE
-                          - ROLE_TRIVIA_QUESTION_DELETE
-                          - ROLE_TRIVIA_QUESTION_UPDATE_STATUS
-                          - ROLE_TRIVIA_QUESTION_UPDATE
-                          - ROLE_TRIVIA_QUESTION_DISPLAY
-                          - ROLE_TRIVIA_QUESTION_APPROVE
-                          - ROLE_TRIVIA_GRANTED_APP
-                          - ROLE_TRIVIA_QUESTION_EDIT
+                          - ROLE_TQ_MCS_APPROVE
                     sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
         '401':
           description: Unauthorized
@@ -1564,7 +1553,6 @@ components:
           oneOf:
             - $ref: ./trivia.v1.yaml#/components/schemas/ApiPagination
             - type: string
-              properties: {}
               default: 'null'
               example: 'null'
               description: null value
@@ -1576,9 +1564,11 @@ components:
                   - $ref: '#/components/schemas/TQMultiChoiceSingle'
                   - type: boolean
                   - type: integer
+                  - $ref: '#/components/schemas/LoginResponse'
             - $ref: '#/components/schemas/TQMultiChoiceSingle'
             - type: boolean
             - type: integer
+            - $ref: '#/components/schemas/LoginResponse'
           description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
     LoginForm:
       title: LoginForm
