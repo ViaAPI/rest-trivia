@@ -834,17 +834,14 @@ paths:
             **Example**:<br/>
             Search tags with title starting with "hist".<br/>
             ?q[[title]][]=hist\*
-
             Search tags with labels include "tera"<br/>
             ?q[[title]][]=\*tera\*<br/>
-
             Search tags with titles include "tera" or with title equal to "literature"<br/>
-            ?q[[title]][]=\*tera\*&q[[title]][]=literature<br>
+            ?q[[title]][]=\*tera\*&q[[title]][]=literature<br/>
 
             <!-- theme: warning -->
-            > **Alternative Usage**
-            > 
-            > Also we can use **?q={"cho": ["tera\*"], "qst": ["tera\*"]}**
+            > **Alternative Usage**<br/>
+            > Also we can use **?q={"title": ["tera*"]}**
         - schema:
             type: array
           in: query
