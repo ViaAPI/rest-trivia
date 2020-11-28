@@ -1129,7 +1129,36 @@ paths:
         description: ''
       tags:
         - Panel
-
+  '/tag/{region}/{uuid}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: uuid
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-tag-region-uuid
+  '/tag/{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+    post:
+      summary: ''
+      operationId: post-tag-region
+      responses:
+        '200':
+          description: OK
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
