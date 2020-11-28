@@ -401,98 +401,6 @@ paths:
             ?tags[[in]]=3,5,8
       tags:
         - Trivia
-    post:
-      summary: Create New Multi-Choice Single Answer Question
-      operationId: post-questions-mc-sa
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example:
-                  value:
-                    code: '200.0000'
-                    message: Your request has been successfully completed.
-                    result:
-                      pagination: null
-                      set: 3222
-                    sessionToken: null
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example-0000:
-                  value:
-                    code: '401.0000'
-                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: null
-                Example-9000:
-                  value:
-                    code: '401.9000'
-                    message: 'You do not have enough permissions to access this feature. '
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: null
-        '412':
-          description: Precondition Failed
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example-7000:
-                  value:
-                    code: '412.7000'
-                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: null
-      description: |
-        This endpoint is used to create a new multi-choice single answer trivia question entry.
-
-        <!-- theme: warning -->
-        > **WARNING**:
-        > 
-        >A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/post.questions.mc.sa.png)
-      security:
-        - X-Api-Key: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: ./TriviaModels/TQMultiChoiceSingleVersionCreate.v1.yaml
-            examples:
-              Example:
-                value:
-                  banner:
-                    path: batman-logo.jpg
-                    type: i
-                  difficultyLevel: 1
-                  estimatedReadTime: 50
-                  tags:
-                    - '#23:42'
-                  label:
-                    audio: question-223423-2342342-2342.mp3
-                    video: question-223423-2342342-2342.mp4
-                    image: batman-logo.jpg
-                    text: Who among these Hollywood stars have not played the Batman character?
-        description: ''
-      tags:
-        - Panel
     parameters:
       - schema:
           type: string
@@ -1080,6 +988,148 @@ paths:
           required: true
       tags:
         - Panel
+  '/tags/{region}/merge':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+    patch:
+      summary: Merge Tags
+      operationId: patch-tags-region-merge
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result: 'null'
+                    set: 'null'
+      tags:
+        - Trivia
+      description: Use this operation to merge one tag into another. Merging means removing the tag and associating all questions related to deleted tag with the merged tag.
+      parameters:
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: tag
+          description: Tag to be merged.
+          required: true
+        - schema:
+            type: string
+            format: uuid
+          in: query
+          name: into
+          description: Tag which will remain after the opration.
+          required: true
+  '/question/{region}/mc/sa':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+    post:
+      summary: Create New Multi-Choice Single Answer Question
+      operationId: post-questions-mc-sa
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 3222
+                    sessionToken: null
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '401.0000'
+                    message: 'You must register your application before accessing this endpoint. Please check your API key. If problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: 'You do not have enough permissions to access this feature. '
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-7000:
+                  value:
+                    code: '412.7000'
+                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+      description: |
+        This endpoint is used to create a new multi-choice single answer trivia question entry.
+
+        <!-- theme: warning -->
+        > **WARNING**:
+        > 
+        >A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/post.questions.mc.sa.png)
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./TriviaModels/TQMultiChoiceSingleVersionCreate.v1.yaml
+            examples:
+              Example:
+                value:
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - '#23:42'
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+        description: ''
+      tags:
+        - Panel
+
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
