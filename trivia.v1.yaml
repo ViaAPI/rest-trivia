@@ -449,6 +449,11 @@ paths:
                         title: history
                         itemCount: 342
                         uuid: 91bf5e5a-be48-400c-ac57-8c4dfdc6b283
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+              examples: {}
       operationId: get-tags
       description: This endpoint returns a list of tags (TQTag objects) that are used to classify trivia questions.
       security:
@@ -1142,10 +1147,41 @@ paths:
         in: path
         required: true
     get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
+      summary: Retrieve One Trivia Tag
+      tags:
+        - Trivia
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination:
+                        isCircular: true
+                        prevLink: null
+                        nextLink: offset=10&limit=10
+                        lastLink: offset=90&limit=10
+                        firstLink: offset=0&limit=10
+                        totalItems: 1000
+                        filteredItems: 1
+                        itemsPerPage: 1
+                        pageCount: 1
+                        currentPage: 1
+                      set:
+                        icon: soccer.svg
+                        title: soccer
+                        itemCount: 2322
+                        uuid: b914edfb-dadb-49f0-a729-08e882987e38
+                    sessionToken: null
       operationId: get-tag-region-uuid
+      description: Use this endpoint to retrieve one trivia tag by its uuid.
   '/tag/{region}':
     parameters:
       - schema:
@@ -1153,12 +1189,41 @@ paths:
         name: region
         in: path
         required: true
+        description: Region maps the database  where the operation will be performed.
     post:
-      summary: ''
+      summary: Create New Tag
       operationId: post-tag-region
       responses:
         '200':
-          description: OK
+          description: 'When the creation process is successful, the uuid of the created record.'
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: 'null'
+                      set: 5f7ae654f49cb6078151b14a
+                    sessionToken: null
+      description: Use this endpoint to create a new trivia tag entry.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./TriviaModels/TQTag.v1.yaml
+            examples:
+              Example-0000:
+                value:
+                  icon: cinema.svg
+                  title: cinema
+                  itemCount: 150
+        description: Holds TQTag object without the system given id.
+      tags:
+        - Trivia
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:

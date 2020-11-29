@@ -21,7 +21,7 @@ required:
   - code
   - message
 x-examples:
-  Example:
+  Example-200.0000:
     code: '200.0000'
     message: ''
     result:
