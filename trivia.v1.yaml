@@ -1215,6 +1215,30 @@ paths:
                   itemCount: 150
                   uuid: 095be615-a8ad-4c33-8e9c-c7612fbf6c9f
         description: Body must have a sing TQTag object.
+      tags:
+        - Trivia
+    delete:
+      summary: ''
+      operationId: delete-tag-region-uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: null
+      tags:
+        - Trivia
+      description: Use this endpoint to mark an existing trivia tag entry as deleted.
   '/tag/{region}':
     parameters:
       - schema:
