@@ -841,7 +841,7 @@ paths:
 
             <!-- theme: warning -->
             > **Alternative Usage**<br/>
-            > Also we can use **?q={"title": ["tera*"]}**
+            > Also we can use **?q={"title": [["tera*"]]}**
         - schema:
             type: array
           in: query
