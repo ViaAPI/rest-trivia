@@ -1,0 +1,383 @@
+openapi: 3.0.0
+tags:
+  - name: models
+  - name: Trivia
+  - name: Panel
+info:
+  title: Portal API
+  version: v1.0.0
+  license:
+    name: Viaapi
+    url: 'https://www.viaapi.com/legal/licensing/viaapi'
+  contact:
+    name: System Administrator
+    email: admin@viaapi.com
+    url: 'https://www.viaapi.com'
+  termsOfService: 'https://www.viaapi.com/legal/global'
+  description: 'This documentation covers all endpoints related to portal of ViaAPI.            '
+servers:
+  - url: 'https://portal.api.viaapi.com/v1'
+    description: Production
+  - url: 'https://portal.api.dev.viaapi.com/v1'
+    description: Development / Testing Server
+paths:
+  /login:
+    parameters: []
+    post:
+      summary: Login
+      operationId: post-portal-login
+      responses:
+        '200':
+          description: When the creation process is successful it returns user data with logged session token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse_V1'
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0401'
+                    message: You have been successfully logged in.
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set:
+                        id: '2'
+                        uuid: 28d668ce-3df2-11eb-a653-0242ac130002
+                        status: a
+                        email: support@bodevoffice.com
+                        firstName: BO
+                        middleName: null
+                        lastName: Development
+                        mobileNumber: '+905438127108'
+                        client:
+                          uuid: 11dd3505-3df2-11eb-a653-0242ac130002
+                          title: Odit Teknoloji
+                          phone:
+                            number: '5302926676'
+                            countryCode: '+90'
+                          email: support@oditteknoloji.com
+                          status: a
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse_V1'
+              examples:
+                Example-0002:
+                  value:
+                    code: '401.0002'
+                    message: 'Please check your username and password, and try again.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+      description: Use this endpoint to login for client portal.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login_V1'
+            examples:
+              Example-0000:
+                value:
+                  email: support@bodevoffice.com
+                  password: bodev
+                  staySigned: true
+        description: Holds Login object.
+      tags:
+        - Trivia
+externalDocs:
+  url: 'https://api.docs.viaapi.com'
+components:
+  securitySchemes:
+    X-Session-Key:
+      name: X-Session-Key
+      type: apiKey
+      in: header
+      description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
+  schemas:
+    ApiResponse_V1:
+      title: ApiResponse
+      type: object
+      description: This is the standart response object. All of your request to ViaAPI will return this object.
+      properties:
+        result:
+          $ref: '#./GenericModels/ApiResult.v1.yaml'
+        sessionToken:
+          type: string
+          description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
+          example: 1a79a4d60de6718e8e5b326e338ae533
+          nullable: true
+        code:
+          type: string
+          example: '200.0000'
+          description: 'This is the API''s internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes.'
+        message:
+          type: string
+          description: This is the API's internal response message.
+          example: ' Your request has been successfully completed.'
+      required:
+        - code
+        - message
+      x-examples:
+        Example-200.0000:
+          code: '200.0000'
+          message: ''
+          result:
+            pagination:
+              isCircular: true
+              prevLink: null
+              nextLink: offset=10&limit=10
+              lastLink: offset=90&limit=10
+              firstLink: offset=0&limit=10
+              totalItems: 100
+              itemsPerPage: 10
+              pageCount: 10
+              currentPage: 1
+          set: true
+      x-tags:
+        - Models - Generic
+    TQMultiChoiceSingleVersionCreate_V1:
+      title: TQMultiChoiceSingleVersionCreate
+      type: object
+      description: This class is the main storage of multi choice trivia questions with only one correct answers.
+      x-examples:
+        Example:
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - '#23:42'
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      properties:
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items: '#./TriviaModels/TQChoice.v1.yaml'
+        banner:
+          $ref: '#./TriviaModels/TQMedia.v1.yaml'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            type: string
+        label:
+          $ref: '#./TriviaModels/TQLabel.v1.yaml'
+      required:
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - Models - Trivia
+    TQMultiChoiceSingleVersionUpdate_V1:
+      title: TQMultiChoiceSingleVersionUpdate
+      type: object
+      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
+      x-examples:
+        Example:
+          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+          status: a
+          banner:
+            path: batman-logo.jpg
+            type: i
+          difficultyLevel: 1
+          estimatedReadTime: 50
+          tags:
+            - title: movies
+              icon: movies.png
+              itemCount: 234
+          label:
+            audio: question-223423-2342342-2342.mp3
+            video: question-223423-2342342-2342.mp4
+            image: batman-logo.jpg
+            text: Who among these Hollywood stars have not played the Batman character?
+          choices:
+            - isCorrect: false
+              label:
+                audio: choiceC.wav
+                image: choiceC.jpg
+                text: Jackie Chan
+                video: choicesC.mp4
+            - isCorrect: true
+              label:
+                audio: choiceA.wav
+                image: choiceA.jpg
+                text: Michael Keaton
+                video: choicesA.mp4
+            - isCorrect: false
+              label:
+                audio: choiceB.wav
+                image: choiceB.jpg
+                text: Michael Douglas
+                video: choicesB.mp4
+            - isCorrect: false
+              label:
+                audio: choiceD.wav
+                image: choiceD.jpg
+                text: Denzel Washington
+                video: choicesD.mp4
+      properties:
+        uuid:
+          type: string
+          format: uuid
+          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
+        status:
+          type: string
+          description: |-
+            This is the record's actual  (current) status.
+
+            - a: active (approved)
+            - d: deleted
+            - i: inactive (approved but unpublished)
+            - r: rejected
+            - **w: waiting for approval**
+          enum:
+            - a
+            - d
+            - i
+            - r
+            - w
+          example: w
+        choices:
+          type: array
+          minItems: 2
+          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
+          items:
+            $ref: '#./TriviaModels/TQChoice.v1.yaml'
+        banner:
+          $ref: '#./TriviaModels/TQMedia.v1.yaml'
+        difficultyLevel:
+          type: integer
+          description: |-
+            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
+
+            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
+          example: 1
+          minimum: 1
+          maximum: 10
+        estimatedReadTime:
+          type: integer
+          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
+          example: 20
+        tags:
+          type: array
+          minItems: 0
+          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
+          items:
+            $ref: '#./TriviaModels/TQTag.v1.yaml'
+        label:
+          $ref: '#./TriviaModels/TQLabel.v1.yaml'
+      required:
+        - status
+        - choices
+        - banner
+        - difficultyLevel
+        - estimatedReadTime
+        - tags
+        - label
+      x-tags:
+        - Models - Trivia
+    TQTag_V1:
+      title: TQTag
+      type: object
+      description: This class is the main storage of trivia question related tags.
+      x-examples:
+        Example:
+          icon: soccer.svg
+          title: soccer
+          itemCount: 2322
+          uuid: b914edfb-dadb-49f0-a729-08e882987e38
+      properties:
+        icon:
+          type: string
+          description: 'Holds path to the icon related to tag. '
+          example: cinema.svg
+          nullable: true
+        title:
+          type: string
+          description: The actual text of tag.
+          example: cinema
+        itemCount:
+          type: integer
+          example: 150
+          minimum: 0
+          description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
+        uuid:
+          type: string
+          description: System wide identification number.
+          format: uuid
+      required:
+        - icon
+        - title
+        - itemCount
+      x-tags:
+        - Models - Trivia
+    Login_V1:
+      title: Login_V1
+      type: object
+      description: This class is used for login.
+      properties:
+        email:
+          type: string
+          description: ''
+          format: email
+        password:
+          type: string
+        staySigned:
+          type:
+            - 'null'
+            - boolean
+      required:
+        - email
+        - password
