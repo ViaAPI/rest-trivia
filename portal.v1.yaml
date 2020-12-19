@@ -1,8 +1,8 @@
 openapi: 3.0.0
 tags:
   - name: models
-  - name: Trivia
   - name: Panel
+  - name: Portal
 info:
   title: Portal API
   version: v1.0.0
@@ -34,7 +34,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse_V1'
               examples:
-                Example-0000:
+                Example-0401:
                   value:
                     code: '200.0401'
                     message: You have been successfully logged in.
@@ -73,6 +73,32 @@ paths:
                     result:
                       pagination: null
                       set: null
+        '412':
+          description: Precondition failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                    error:
+                      type: validation
+                      content: email
       description: Use this endpoint to login for client portal.
       requestBody:
         content:
@@ -80,14 +106,118 @@ paths:
             schema:
               $ref: '#/components/schemas/Login_V1'
             examples:
-              Example-0000:
+              Example Request:
                 value:
                   email: support@bodevoffice.com
                   password: bodev
                   staySigned: true
         description: Holds Login object.
       tags:
-        - Trivia
+        - Portal
+  /register:
+    post:
+      summary: Register
+      operationId: post-portal-register
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0401:
+                  value:
+                    code: '200.0401'
+                    message: You have been successfully logged in.
+                    sessionToken: f5d7ebd4b6d8017148651db908737cdb79391416917f66d92aa557e7d539d2ce
+                    result:
+                      pagination: null
+                      set:
+                        id: '9'
+                        uuid: 94487ecf-1d4a-4d54-bcf0-90fed5674dd7
+                        status: a
+                        email: john.doe@bodevoffice.com
+                        firstName: John
+                        middleName: null
+                        lastName: Doe
+                        mobileNumber: ''
+                        client:
+                          uuid: 5457499d-1cab-446b-8c2c-ab822820ad06
+                          title: John
+                          phone: null
+                          email: john.doe@bodevoffice.com
+                          status: a
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0004:
+                  value:
+                    code: '401.0004'
+                    message: You have registered before with this email. Please try to log in.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+      description: Use this endpoint to register for client portal.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  description: Email information
+                  format: email
+                password:
+                  type: string
+                  description: Password information
+                firstName:
+                  type: string
+                  description: First Name of user.
+                lastName:
+                  type: string
+                  description: Last Name of user. This field can be null.
+              required:
+                - email
+                - password
+                - firstName
+            examples:
+              example-1:
+                value:
+                  email: user@example.com
+                  password: '1234'
+                  firstName: John
+                  lastName: Doe
+        description: ''
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
@@ -139,234 +269,15 @@ components:
           set: true
       x-tags:
         - Models - Generic
-    TQMultiChoiceSingleVersionCreate_V1:
-      title: TQMultiChoiceSingleVersionCreate
-      type: object
-      description: This class is the main storage of multi choice trivia questions with only one correct answers.
-      x-examples:
-        Example:
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - '#23:42'
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-          choices:
-            - isCorrect: false
-              label:
-                audio: choiceC.wav
-                image: choiceC.jpg
-                text: Jackie Chan
-                video: choicesC.mp4
-            - isCorrect: true
-              label:
-                audio: choiceA.wav
-                image: choiceA.jpg
-                text: Michael Keaton
-                video: choicesA.mp4
-            - isCorrect: false
-              label:
-                audio: choiceB.wav
-                image: choiceB.jpg
-                text: Michael Douglas
-                video: choicesB.mp4
-            - isCorrect: false
-              label:
-                audio: choiceD.wav
-                image: choiceD.jpg
-                text: Denzel Washington
-                video: choicesD.mp4
-      properties:
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items: '#./TriviaModels/TQChoice.v1.yaml'
-        banner:
-          $ref: '#./TriviaModels/TQMedia.v1.yaml'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            type: string
-        label:
-          $ref: '#./TriviaModels/TQLabel.v1.yaml'
-      required:
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - Models - Trivia
-    TQMultiChoiceSingleVersionUpdate_V1:
-      title: TQMultiChoiceSingleVersionUpdate
-      type: object
-      description: This class represents the version of TQMultiChoiceSingle class's "create" version.
-      x-examples:
-        Example:
-          uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-          status: a
-          banner:
-            path: batman-logo.jpg
-            type: i
-          difficultyLevel: 1
-          estimatedReadTime: 50
-          tags:
-            - title: movies
-              icon: movies.png
-              itemCount: 234
-          label:
-            audio: question-223423-2342342-2342.mp3
-            video: question-223423-2342342-2342.mp4
-            image: batman-logo.jpg
-            text: Who among these Hollywood stars have not played the Batman character?
-          choices:
-            - isCorrect: false
-              label:
-                audio: choiceC.wav
-                image: choiceC.jpg
-                text: Jackie Chan
-                video: choicesC.mp4
-            - isCorrect: true
-              label:
-                audio: choiceA.wav
-                image: choiceA.jpg
-                text: Michael Keaton
-                video: choicesA.mp4
-            - isCorrect: false
-              label:
-                audio: choiceB.wav
-                image: choiceB.jpg
-                text: Michael Douglas
-                video: choicesB.mp4
-            - isCorrect: false
-              label:
-                audio: choiceD.wav
-                image: choiceD.jpg
-                text: Denzel Washington
-                video: choicesD.mp4
-      properties:
-        uuid:
-          type: string
-          format: uuid
-          description: 'A unique document id. This will be assigned automatically during row creation, and it cannot be changed afterwards. So do not try to include this in your CREATE and UPDATE operations.'
-        status:
-          type: string
-          description: |-
-            This is the record's actual  (current) status.
-
-            - a: active (approved)
-            - d: deleted
-            - i: inactive (approved but unpublished)
-            - r: rejected
-            - **w: waiting for approval**
-          enum:
-            - a
-            - d
-            - i
-            - r
-            - w
-          example: w
-        choices:
-          type: array
-          minItems: 2
-          description: 'This property holds a list of choices that can be selected as the correct answer by players. There should be at least 1 choice, but for game mechanics a minimum of 2 is actually required, 4 is suggested and no more than 5 is recommended.'
-          items:
-            $ref: '#./TriviaModels/TQChoice.v1.yaml'
-        banner:
-          $ref: '#./TriviaModels/TQMedia.v1.yaml'
-        difficultyLevel:
-          type: integer
-          description: |-
-            This is a little of a relative and manually entered "feeling based" value. It is used to categorize questions based on their difficulty levels. It takes a positive number between 1 and 10.
-
-            The data entry personnel must decide the difficulty level. They have special instructions on tagging the difficulty level.
-          example: 1
-          minimum: 1
-          maximum: 10
-        estimatedReadTime:
-          type: integer
-          description: This field is used as a recommendation engine. It provides estimated read time of the question and choiced in seconds.
-          example: 20
-        tags:
-          type: array
-          minItems: 0
-          description: 'Tagging enables us to categorize trivia questions into logical and smaller groups. With tags we can serve data in different thematic packages such as "NFL", "Woman in Politics", etc.'
-          items:
-            $ref: '#./TriviaModels/TQTag.v1.yaml'
-        label:
-          $ref: '#./TriviaModels/TQLabel.v1.yaml'
-      required:
-        - status
-        - choices
-        - banner
-        - difficultyLevel
-        - estimatedReadTime
-        - tags
-        - label
-      x-tags:
-        - Models - Trivia
-    TQTag_V1:
-      title: TQTag
-      type: object
-      description: This class is the main storage of trivia question related tags.
-      x-examples:
-        Example:
-          icon: soccer.svg
-          title: soccer
-          itemCount: 2322
-          uuid: b914edfb-dadb-49f0-a729-08e882987e38
-      properties:
-        icon:
-          type: string
-          description: 'Holds path to the icon related to tag. '
-          example: cinema.svg
-          nullable: true
-        title:
-          type: string
-          description: The actual text of tag.
-          example: cinema
-        itemCount:
-          type: integer
-          example: 150
-          minimum: 0
-          description: This property holds a list of item counts showing how many trivia questions have been associated with this record / tag. This is not a chargable attribute.
-        uuid:
-          type: string
-          description: System wide identification number.
-          format: uuid
-      required:
-        - icon
-        - title
-        - itemCount
-      x-tags:
-        - Models - Trivia
     Login_V1:
       title: Login_V1
       type: object
       description: This class is used for login.
+      x-examples:
+        example-1:
+          email: user@example.com
+          password: string
+          staySigned: null
       properties:
         email:
           type: string
@@ -375,9 +286,7 @@ components:
         password:
           type: string
         staySigned:
-          type:
-            - 'null'
-            - boolean
+          type: boolean
       required:
         - email
         - password
