@@ -220,7 +220,7 @@ paths:
         description: ''
   /password/reset:
     post:
-      summary: ''
+      summary: Attempt Reset Password
       operationId: post-portal-password-reset
       responses:
         '200':
@@ -288,6 +288,90 @@ paths:
                 value:
                   email: user@example.com
         description: Body must contain email.
+  /profile:
+    put:
+      summary: Update User Profile Informations
+      operationId: post-profile
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set:
+                        id: '2'
+                        uuid: 28d668ce-3df2-11eb-a653-0242ac130002
+                        status: a
+                        email: support@bodevoffice.com
+                        firstName: Test
+                        middleName: null
+                        lastName: BO
+                        mobileNumber: '+905302926676'
+            application/xml:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value: ''
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      description: This endpoint updates user profile.
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+                firstName:
+                  type: string
+                lastName:
+                  type: string
+              required:
+                - email
+                - firstName
+                - lastName
+            examples:
+              Example:
+                value:
+                  email: user@example.com
+                  firstName: BO
+                  lastName: Development
+        description: ''
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
