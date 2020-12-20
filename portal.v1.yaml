@@ -218,6 +218,76 @@ paths:
                   firstName: John
                   lastName: Doe
         description: ''
+  /password/reset:
+    post:
+      summary: ''
+      operationId: post-portal-password-reset
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+                Example-0403:
+                  value:
+                    code: '200.0403'
+                    message: We could not find an account with your credentials.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+        '412':
+          description: Precondition Failed
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '"email" is required. Please supply a value for this parameter.'
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+      description: This endpoint creates an password reset recovery so that client can reset password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                  format: email
+              required:
+                - email
+            examples:
+              Example:
+                value:
+                  email: user@example.com
+        description: Body must contain email.
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
