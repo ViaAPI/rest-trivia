@@ -218,6 +218,8 @@ paths:
                   firstName: John
                   lastName: Doe
         description: ''
+      tags:
+        - Portal
   /password/reset:
     post:
       summary: Attempt Reset Password
@@ -288,6 +290,8 @@ paths:
                 value:
                   email: user@example.com
         description: Body must contain email.
+      tags:
+        - Portal
   /profile:
     put:
       summary: Update User Profile Informations
@@ -372,6 +376,8 @@ paths:
                   firstName: BO
                   lastName: Development
         description: ''
+      tags:
+        - Portal
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
@@ -444,3 +450,5 @@ components:
       required:
         - email
         - password
+      x-tags:
+        - Models - Generic
