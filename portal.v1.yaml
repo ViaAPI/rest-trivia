@@ -378,6 +378,77 @@ paths:
         description: ''
       tags:
         - Portal
+  /password:
+    put:
+      summary: ''
+      operationId: put-portal-password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: d03bf674e2382183d520883c9989a02b3cc7ad27c7fa3dcdbb761afd60a04eeb
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0008:
+                  value:
+                    code: '412.0008'
+                    message: Current password is invalid. Please sure true and try again.
+                    sessionToken: d03bf674e2382183d520883c9989a02b3cc7ad27c7fa3dcdbb761afd60a04eeb
+                    result:
+                      pagination: null
+                      set: null
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: d03bf674e2382183d520883c9989a02b3cc7ad27c7fa3dcdbb761afd60a04eeb
+                    result:
+                      pagination: null
+                      set: null
+      description: Updates user password.
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                currentPassword:
+                  type: string
+                newPassword:
+                  type: string
+                newPasswordConfirm:
+                  type: string
+                  description: This value **must be same with newPassword value**
+              required:
+                - currentPassword
+                - newPassword
+                - newPasswordConfirm
+            examples:
+              example-1:
+                value:
+                  currentPassword: '123123'
+                  newPassword: '111111'
+                  newPasswordConfirm: '111111'
+    get:
+      summary: Update Password
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
