@@ -516,6 +516,7 @@ paths:
                         status: a
                         title: Public2 Key
                         apiKey: 65a6442d56a40d98a6915941e3a12806
+                        createdAt: '25.12.2020 13:49:39'
             application/xml:
               schema:
                 $ref: ./GenericModels/ApiResponse.v1.yaml
@@ -542,6 +543,97 @@ paths:
         - X-Session-Key: []
       tags:
         - Portal
+  /api-tokens:
+    get:
+      summary: List Api Tokens of Client
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: İşleminiz başarıyla tamamlanmıştır.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set:
+                        - id: 6
+                          status: a
+                          title: Public2 Key
+                          apiKey: 65a6442d56a40d98a6915941e3a12806
+                          createdAt: '25.12.2020 13:49:39'
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-portal-api-tokens
+      description: List api tokens of a client
+      security:
+        - X-Session-Key: []
+  /api-token:
+    post:
+      summary: Create Api Token
+      operationId: post-portal-api-token
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set:
+                        id: 7
+                        status: a
+                        title: Public Key
+                        apiKey: aac1ec8d06a3d744e59a3f821a74a2f7
+                        createdAt: '25.12.2020 14:10:13'
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the {{ field }}. Please check related documentation for more information.'
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Portal
+      description: Create an api token
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
