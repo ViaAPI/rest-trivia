@@ -447,9 +447,6 @@ paths:
                   currentPassword: '123123'
                   newPassword: '111111'
                   newPasswordConfirm: '111111'
-    get:
-      summary: Update Password
-      description: ''
   '/api-token/{id}':
     parameters:
       - schema:
@@ -457,11 +454,6 @@ paths:
         name: id
         in: path
         required: true
-    get:
-      summary: Your GET endpoint
-      tags: []
-      responses: {}
-      operationId: get-api-token-id
     delete:
       summary: Delete Api Token
       operationId: delete-portal-api-token-id
@@ -497,6 +489,57 @@ paths:
                       pagination: null
                       set: null
       description: Delete an api token
+      tags:
+        - Portal
+      security:
+        - X-Session-Key: []
+    put:
+      summary: Update Api Token
+      operationId: put-portal-api-token-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set:
+                        id: 6
+                        status: a
+                        title: Public2 Key
+                        apiKey: 65a6442d56a40d98a6915941e3a12806
+            application/xml:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value: ''
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: null
+      description: Update an api token
+      security:
+        - X-Session-Key: []
       tags:
         - Portal
 externalDocs:
