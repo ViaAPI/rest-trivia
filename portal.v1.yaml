@@ -449,6 +449,56 @@ paths:
                   newPasswordConfirm: '111111'
     get:
       summary: Update Password
+      description: ''
+  '/api-token/{id}':
+    parameters:
+      - schema:
+          type: integer
+        name: id
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-api-token-id
+    delete:
+      summary: Delete Api Token
+      operationId: delete-portal-api-token-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: null
+      description: Delete an api token
+      tags:
+        - Portal
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
