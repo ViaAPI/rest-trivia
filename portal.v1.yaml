@@ -820,6 +820,309 @@ paths:
       description: List countries
       security:
         - X-Session-Key: []
+  '/location/country/{id}/states':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: List Country States
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - status: a
+                          country:
+                            id: 1
+                            isoCode: tr
+                            isoCode2: tr
+                            flag: tr
+                            longitude: null
+                            latitude: null
+                            status: a
+                            name: Turkey
+                            slug: turkey
+                          name: State 1
+                          slug: state1
+      operationId: get-portal-location-country-id-states
+      description: List country states
+  '/location/country/{id}/cities':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: List Country Cities
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - id: 1
+                          status: a
+                          country:
+                            id: 1
+                            isoCode: tr
+                            isoCode2: tr
+                            flag: tr
+                            longitude: null
+                            latitude: null
+                            status: a
+                            name: Turkey
+                            slug: turkey
+                          state: null
+                          name: Istanbul
+                          slug: istanbul
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-portal-location-country-id-cities
+      description: List cities of country
+      security:
+        - X-Session-Key: []
+  '/location/city/{id}/districts':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    get:
+      summary: List City Districts
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - status: a
+                          zipCode: a
+                          city:
+                            id: 1
+                            status: a
+                            country:
+                              id: 1
+                              isoCode: tr
+                              isoCode2: tr
+                              flag: tr
+                              longitude: null
+                              latitude: null
+                              status: a
+                              name: Turkey
+                              slug: turkey
+                            name: Istanbul
+                            slug: istanbul
+                          name: Kagithane
+                          slug: kagithane
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-portal-location-city-id-districts
+      description: List districts of a city
+      security:
+        - X-Session-Key: []
+  /subscription/packages:
+    get:
+      summary: List Subscription Packages
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - id: '1'
+                          status: a
+                          name: '$0.005 USD per unit / month '
+                          type: p
+                          details:
+                            info:
+                              en-us:
+                                title: Pay As You Go
+                                details:
+                                  dataSets: All
+                                  requests: Up-to-date Data
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: Unlimited API Access
+                                summary: $0.005 / attribute
+                              tr-tr:
+                                title: Pay As You Go
+                                details:
+                                  dataSets: All
+                                  requests: Up-to-date Data
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: Unlimited API Access
+                                summary: $0.005 / attribute
+                        - id: '2'
+                          status: a
+                          name: Starts at $0.00 USD per unit + $25.00 USD / month
+                          type: m
+                          details:
+                            info:
+                              en-us:
+                                title: Basic Plan
+                                details:
+                                  dataSets: All
+                                  requests: Up To 10.0000
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: $0.004 / each
+                                summary: $25.00 / monthly
+                              tr-tr:
+                                title: Basic Plan
+                                details:
+                                  dataSets: All
+                                  requests: Up To 10.0000
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: $0.004 / each
+                                summary: $25.00 / monthly
+                        - id: '3'
+                          status: a
+                          name: Starts at $0.00 USD per unit + $50.00 USD / month
+                          type: m
+                          details:
+                            info:
+                              en-us:
+                                title: Premium Plan
+                                details:
+                                  dataSets: All
+                                  requests: Up To 25.000
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: $0.0025 / each
+                                summary: $25.00 / monthly
+                              tr-tr:
+                                title: Premium Plan
+                                details:
+                                  dataSets: All
+                                  requests: Up To 25.000
+                                  fileExport: true
+                                  prioritySupport: true
+                                  additionalAttributes: $0.0025 / each
+                                summary: $25.00 / monthly
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-portal-subscription-packages
+      description: List subscription packages
+  /subscription:
+    get:
+      summary: Get Active Subscription
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        id: '1'
+                        status: a
+                        paymentMethod: 1
+                        items:
+                          - id: '1'
+                            status: a
+                            package: 1
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-portal-subscription
+      description: Get active subscription for client
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
