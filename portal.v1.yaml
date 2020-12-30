@@ -779,8 +779,39 @@ paths:
                   token: 50cfd96b-84eb-4aeb-8663-3d0ef0995813
                   newPassword: '123123123'
                   newPasswordConfirm: '123123123'
+  /location/countries:
     get:
-      summary: Recovery Password
+      summary: List Countries
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - id: 1
+                          isoCode: tr
+                          isoCode2: tr
+                          flag: tr
+                          longitude: null
+                          latitude: null
+                          status: a
+                          name: Turkey
+                          slug: turkey
+      operationId: get-portal-location-countries
+      description: List countries
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
