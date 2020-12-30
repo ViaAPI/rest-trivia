@@ -634,6 +634,61 @@ paths:
       description: Create an api token
       security:
         - X-Session-Key: []
+  /billing/details:
+    get:
+      summary: List Billing Details
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        - id: '2'
+                          status: a
+                          country:
+                            id: 1
+                            isoCode: tr
+                            isoCode2: tr
+                            flag: tr
+                            longitude: null
+                            latitude: null
+                            status: a
+                            name: Turkey
+                            slug: turkey
+                          state: null
+                          city:
+                            id: 1
+                            status: a
+                            name: Istanbul
+                            slug: istanbul
+                          district:
+                            status: a
+                            zipCode: a
+                            name: Kagithane
+                            slug: kagithane
+                          address: Selami Sokak.
+                          taxDistrict: Şişli V.D.
+                          taxNumber: '123456789'
+                          name: null
+                          type: c
+                          zipCode: '34400'
+                          isCurrent: 'y'
+      operationId: get-billing-details
+      description: List defined different billing details for client
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
