@@ -543,6 +543,21 @@ paths:
         - X-Session-Key: []
       tags:
         - Portal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+              required:
+                - title
+            examples:
+              Example:
+                value:
+                  title: Public2 Key
+        description: ''
   /api-tokens:
     get:
       summary: List Api Tokens of Client
@@ -689,6 +704,83 @@ paths:
       description: List defined different billing details for client
       security:
         - X-Session-Key: []
+  /password/recovery:
+    post:
+      summary: ''
+      operationId: post-password-recovery
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      description: Recovery password for with token.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                token:
+                  type: string
+                newPassword:
+                  type: string
+                newPasswordConfirm:
+                  type: string
+                  description: Must be same with **newPassword** given value
+              required:
+                - token
+                - newPassword
+                - newPasswordConfirm
+            examples:
+              example-1:
+                value:
+                  token: 50cfd96b-84eb-4aeb-8663-3d0ef0995813
+                  newPassword: '123123123'
+                  newPasswordConfirm: '123123123'
+    get:
+      summary: Recovery Password
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
