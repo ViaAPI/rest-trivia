@@ -808,6 +808,14 @@ paths:
                           status: a
                           name: Turkey
                           slug: turkey
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
       operationId: get-portal-location-countries
       description: List countries
       security:
