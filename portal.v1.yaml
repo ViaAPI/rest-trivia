@@ -704,6 +704,132 @@ paths:
       description: List defined different billing details for client
       security:
         - X-Session-Key: []
+    post:
+      summary: Create Billing Detail
+      operationId: post-portal-billing-id-details
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        id: '4'
+                        status: a
+                        country:
+                          id: 1
+                          isoCode: tr
+                          isoCode2: tr
+                          flag: tr
+                          longitude: null
+                          latitude: null
+                          status: a
+                          name: Turkey
+                          slug: turkey
+                        state: null
+                        city:
+                          id: 1
+                          status: a
+                          name: Istanbul
+                          slug: istanbul
+                        district:
+                          status: a
+                          zipCode: a
+                          name: Kagithane
+                          slug: kagithane
+                        address: Selami Sokakaa.
+                        taxDistrict: Şişli V.D.
+                        taxNumber: '123456789'
+                        name: null
+                        type: c
+                        zipCode: '34400'
+                        isCurrent: 'y'
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Portal
+      description: Create billing detail
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                address:
+                  type: string
+                  minLength: 1
+                district:
+                  type: number
+                taxDistrict:
+                  type: string
+                  minLength: 1
+                taxNumber:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                type:
+                  type: string
+                  minLength: 1
+                isCurrent:
+                  type: string
+                  minLength: 1
+                zipCode:
+                  type: string
+                  minLength: 1
+              required:
+                - address
+                - district
+                - taxDistrict
+                - taxNumber
+                - name
+                - type
+                - isCurrent
+                - zipCode
+            examples:
+              Example:
+                value:
+                  address: Selami Sokakaa.
+                  district: 1
+                  taxDistrict: Şişli V.D.
+                  taxNumber: '123456789'
+                  name: null
+                  type: c
+                  isCurrent: 'y'
+                  zipCode: '34400'
   /password/recovery:
     post:
       summary: ''
@@ -1123,6 +1249,157 @@ paths:
                       set: null
       operationId: get-portal-subscription
       description: Get active subscription for client
+  '/billing/{id}/details':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: Delete Billing Details
+      operationId: delete-portal-billing-id-details
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 4f4c15bdf156d61e19ec8aac357180e527ecaf603cf8cbd0c523a5fdc6ad6a2e
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Portal
+      description: Delete billing details
+      security:
+        - X-Session-Key: []
+    put:
+      summary: Update Billing Details
+      operationId: put-portal-billing-id-details
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set:
+                        id: '4'
+                        status: a
+                        country:
+                          id: 1
+                          isoCode: tr
+                          isoCode2: tr
+                          flag: tr
+                          longitude: null
+                          latitude: null
+                          status: a
+                          name: Turkey
+                          slug: turkey
+                        state: null
+                        city:
+                          id: 1
+                          status: a
+                          name: Istanbul
+                          slug: istanbul
+                        district:
+                          status: a
+                          zipCode: a
+                          name: Kagithane
+                          slug: kagithane
+                        address: Selami Sokakaa.
+                        taxDistrict: Şişli V.D.
+                        taxNumber: '123456789'
+                        name: null
+                        type: c
+                        zipCode: '34404'
+                        isCurrent: 'n'
+      description: Update billing details
+      tags:
+        - Portal
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                address:
+                  type: string
+                  minLength: 1
+                district:
+                  type: number
+                taxDistrict:
+                  type: string
+                  minLength: 1
+                taxNumber:
+                  type: string
+                  minLength: 1
+                name:
+                  type: string
+                type:
+                  type: string
+                  minLength: 1
+                isCurrent:
+                  type: string
+                  minLength: 1
+                zipCode:
+                  type: string
+                  minLength: 1
+              required:
+                - address
+                - district
+                - taxDistrict
+                - taxNumber
+                - name
+                - type
+                - isCurrent
+                - zipCode
+            examples:
+              Example:
+                value:
+                  address: Selami Sokakaa.
+                  district: 1
+                  taxDistrict: Şişli V.D.
+                  taxNumber: '123456789'
+                  name: ''
+                  type: c
+                  isCurrent: 'n'
+                  zipCode: '34404'
+        description: ''
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
