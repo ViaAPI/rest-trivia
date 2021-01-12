@@ -380,7 +380,7 @@ paths:
         - Portal
   /password:
     put:
-      summary: ''
+      summary: Update User Password
       operationId: put-portal-password
       responses:
         '200':
@@ -447,6 +447,8 @@ paths:
                   currentPassword: '123123'
                   newPassword: '111111'
                   newPasswordConfirm: '111111'
+      tags:
+        - Portal
   '/api-token/{id}':
     parameters:
       - schema:
@@ -832,7 +834,7 @@ paths:
                   zipCode: '34400'
   /password/recovery:
     post:
-      summary: ''
+      summary: Recovery Password
       operationId: post-password-recovery
       responses:
         '200':
@@ -905,10 +907,13 @@ paths:
                   token: 50cfd96b-84eb-4aeb-8663-3d0ef0995813
                   newPassword: '123123123'
                   newPasswordConfirm: '123123123'
+      tags:
+        - Portal
   /location/countries:
     get:
       summary: List Countries
-      tags: []
+      tags:
+        - Portal
       responses:
         '200':
           description: OK
