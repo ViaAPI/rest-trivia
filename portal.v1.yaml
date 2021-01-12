@@ -1536,6 +1536,89 @@ paths:
                   isCurrent: 'n'
                   zipCode: '34404'
         description: ''
+  '/catalogs/{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+    get:
+      summary: List Catalogs
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: b1b63633b41483ae774811558eff2f8209e177ff17e4ab806fd93be00c75850a
+                    result:
+                      pagination: null
+                      set:
+                        - id: '1'
+                          uuid: 65262483-53c2-11eb-bf8a-0242ac130002
+                          status: a
+                          product: Trivia API
+                          description: This API provides you with a large amount of interesting random trivia. Get random trivia or search facts by a specific keyword.
+                          sampleData:
+                            - id: 5fbd9edbb52f8a62242019a2
+                              tags:
+                                - id: 5fbd9bd9717de2384d1ddcd2
+                                  icon: null
+                                  title: literature
+                                  status: a
+                                  createdAt: '2020-11-24 23:48:41'
+                                  itemCount: 0
+                                  updatedAt: '2020-11-24 23:48:41'
+                              label:
+                                text: Polisiye hikayelerin en ünlü dedektif karakterinin adı nedir?
+                                audio: null
+                                image: null
+                                video: null
+                              banner: null
+                              status: a
+                              choices:
+                                - label:
+                                    text: Sherlock Holmes
+                                    audio: null
+                                    image: null
+                                    video: null
+                                  isCorrect: true
+                                - label:
+                                    text: Homo Sapiens
+                                    audio: null
+                                    image: null
+                                    video: null
+                                  isCorrect: false
+                                - label:
+                                    text: John Travolta
+                                    audio: null
+                                    image: null
+                                    video: null
+                                  isCorrect: false
+                                - label:
+                                    text: Pembe Panter
+                                    audio: null
+                                    image: null
+                                    video: null
+                                  isCorrect: false
+                              checkSum: 3be6e44974b724a236f48071713250ce
+                              createdAt: '2020-11-25 00:01:30'
+                              updatedAt: '2020-11-25 00:01:30'
+                              difficultyLevel: 1
+                              estimatedReadTime: 26
+      operationId: get-portal-catalogs-region
+      description: List product catalogs with sample datas
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
