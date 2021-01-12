@@ -1668,6 +1668,393 @@ paths:
       description: List client usage metrics
       security:
         - X-Session-Key: []
+  /payment-methods:
+    get:
+      summary: List
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: b1b63633b41483ae774811558eff2f8209e177ff17e4ab806fd93be00c75850a
+                    result:
+                      pagination: null
+                      set:
+                        - id: '5'
+                          status: a
+                          billingDetails:
+                            id: '14'
+                            city: Ümraniye
+                            name: Tayfun
+                            type: c
+                            state: Istanbul
+                            status: a
+                            country: 1
+                            zipCode: '34400'
+                            address1: sokak 3.
+                            address2: null
+                            taxNumber: '11223344'
+                            taxDistrict: null
+                          type: card
+                          card:
+                            id: '10'
+                            status: a
+                            address: null
+                            nameOnCard: Tayfun Temizel
+                            lastFourNumbers: '3222'
+                            expMonth: 11
+                            expYear: 0
+                            availableNetworks:
+                              - mastercard
+                            preferredNetwork: null
+                Example-0404:
+                  value:
+                    code: '200.0404'
+                    message: No records found matching your criteria.
+                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    result:
+                      pagination: null
+                      set: null
+      operationId: get-payment-methods
+      description: List client payment methods
+      security:
+        - X-Session-Key: []
+  /payment-method:
+    post:
+      summary: Create Payment Method
+      operationId: post-portal-payment-method
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: b1b63633b41483ae774811558eff2f8209e177ff17e4ab806fd93be00c75850a
+                    result:
+                      pagination: null
+                      set:
+                        id: '6'
+                        status: a
+                        billingDetails:
+                          id: '15'
+                          status: a
+                          country: 1
+                          state: Istanbul
+                          city: Ümraniye
+                          address1: sokak 3.
+                          address2: null
+                          taxDistrict: null
+                          taxNumber: '11223344'
+                          name: Tayfun
+                          type: c
+                          zipCode: '34400'
+                        type: card
+                        card:
+                          id: '11'
+                          status: a
+                          address: null
+                          nameOnCard: Tayfun Temizel
+                          lastFourNumbers: '3222'
+                          expMonth: 11
+                          expYear: 0
+                          availableNetworks:
+                            - mastercard
+                          preferredNetwork: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      description: Create payment method
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                card:
+                  type: object
+                  properties:
+                    nameOnCard:
+                      type: string
+                      minLength: 1
+                    number:
+                      type: string
+                      minLength: 1
+                    expMonth:
+                      type: number
+                    expYear:
+                      type: number
+                    cvc:
+                      type: number
+                  required:
+                    - nameOnCard
+                    - number
+                    - expMonth
+                    - expYear
+                    - cvc
+                billingDetails:
+                  type: object
+                  properties:
+                    address1:
+                      type: string
+                      minLength: 1
+                    address2: {}
+                    state:
+                      type: string
+                      minLength: 1
+                    city:
+                      type: string
+                      minLength: 1
+                    taxDistrict: {}
+                    taxNumber:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    type:
+                      type: string
+                      minLength: 1
+                    zipCode:
+                      type: string
+                      minLength: 1
+                    country:
+                      type: number
+                  required:
+                    - address1
+                    - state
+                    - city
+                    - taxNumber
+                    - name
+                    - type
+                    - zipCode
+                    - country
+              required:
+                - card
+                - billingDetails
+            examples:
+              Example:
+                value:
+                  card:
+                    nameOnCard: Tayfun Temizel
+                    number: xxxx
+                    expMonth: 11
+                    expYear: 21
+                    cvc: 222
+                  billingDetails:
+                    address1: sokak 3.
+                    address2: null
+                    state: Istanbul
+                    city: Kağıthane
+                    taxDistrict: null
+                    taxNumber: '11223344'
+                    name: Tayfun
+                    type: c
+                    zipCode: '34400'
+                    country: 1
+        description: ''
+      tags:
+        - Portal
+  '/payment-method/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    delete:
+      summary: Delete Payment Method
+      operationId: delete-portal-payment-method-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Portal
+      description: Delete payment method of client
+      security:
+        - X-Session-Key: []
+    put:
+      summary: Update Payment Method
+      operationId: put-portal-payment-method-id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: null
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      description: Update payment method of client
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                billingDetails:
+                  type: object
+                  required:
+                    - address1
+                    - state
+                    - city
+                    - taxNumber
+                    - name
+                    - type
+                    - zipCode
+                    - country
+                  properties:
+                    address1:
+                      type: string
+                      minLength: 1
+                    address2: {}
+                    state:
+                      type: string
+                      minLength: 1
+                    city:
+                      type: string
+                      minLength: 1
+                    taxDistrict:
+                      type: string
+                    taxNumber:
+                      type: string
+                      minLength: 1
+                    name:
+                      type: string
+                      minLength: 1
+                    type:
+                      type: string
+                      minLength: 1
+                    zipCode:
+                      type: string
+                      minLength: 1
+                    country:
+                      type: number
+              required:
+                - billingDetails
+            examples:
+              Example:
+                value:
+                  billingDetails:
+                    address1: sokak 111.
+                    address2: null
+                    state: İstanbul
+                    city: Kağıthane
+                    taxDistrict: null
+                    taxNumber: '11223344'
+                    name: Tayfun
+                    type: c
+                    zipCode: '34400'
+                    country: 1
+        description: ''
+      tags:
+        - Portal
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
