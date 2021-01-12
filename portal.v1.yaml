@@ -1619,6 +1619,55 @@ paths:
       description: List product catalogs with sample datas
       security:
         - X-Session-Key: []
+  /metrics:
+    get:
+      summary: List Usage Metrics
+      tags:
+        - Portal
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: b1b63633b41483ae774811558eff2f8209e177ff17e4ab806fd93be00c75850a
+                    result:
+                      pagination: null
+                      set:
+                        totals:
+                          daily: 44
+                          monthly: 539
+                        data:
+                          - date: 12.01.2021
+                            value: 44
+                          - date: 11.01.2021
+                            value: 51
+                          - date: 10.01.2021
+                            value: 61
+                          - date: 09.01.2021
+                            value: 70
+                          - date: 08.01.2021
+                            value: 93
+                          - date: 07.01.2021
+                            value: 58
+                          - date: 06.01.2021
+                            value: 17
+                          - date: 05.01.2021
+                            value: 70
+                          - date: 04.01.2021
+                            value: 21
+                          - date: 03.01.2021
+                            value: 54
+      operationId: get-portal-metrics
+      description: List client usage metrics
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
