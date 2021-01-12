@@ -1670,7 +1670,7 @@ paths:
         - X-Session-Key: []
   /payment-methods:
     get:
-      summary: List
+      summary: List Payment Methods
       tags:
         - Portal
       responses:
