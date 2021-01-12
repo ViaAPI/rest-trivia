@@ -1254,6 +1254,137 @@ paths:
                       set: null
       operationId: get-portal-subscription
       description: Get active subscription for client
+    post:
+      summary: Create Subscription
+      operationId: post-portal-subscription
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set:
+                        id: '4'
+                        status: a
+                        paymentMethod:
+                          id: '6'
+                          status: a
+                          billingDetails:
+                            id: '7'
+                            city: Ümraniye
+                            name: Tayfun
+                            type: c
+                            state: Istanbul
+                            status: a
+                            country: 1
+                            zipCode: '34400'
+                            address1: sokak 3.
+                            address2: null
+                            taxNumber: '11223344'
+                            taxDistrict: null
+                          type: card
+                          card:
+                            id: '7'
+                            status: a
+                            address: null
+                            nameOnCard: Tayfun Temizel
+                            lastFourNumbers: '3222'
+                            expMonth: 11
+                            expYear: 0
+                            availableNetworks:
+                              - mastercard
+                            preferredNetwork: null
+                        alternativePaymentMethod: null
+                        items:
+                          - id: '5'
+                            status: a
+                            package: 2
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-1120:
+                  value:
+                    code: '412.1120'
+                    message: There is already active subscription.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: null
+      description: Create subscription
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                package:
+                  type: number
+                paymentMethod:
+                  type: number
+              required:
+                - package
+                - paymentMethod
+            examples:
+              example-1:
+                value:
+                  package: 2
+                  paymentMethod: 6
+        description: ''
+      tags:
+        - Portal
+    delete:
+      summary: Cancel Subscription
+      operationId: delete-portal-subscription
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    result:
+                      pagination: null
+                      set: null
+      description: Cancel active subscription for client
+      tags:
+        - Portal
   '/billing/{id}/details':
     parameters:
       - schema:
