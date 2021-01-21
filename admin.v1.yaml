@@ -507,134 +507,6 @@ paths:
             > Also we can use **?tags={"in": "3,5,8"}**
       tags:
         - Question
-    post:
-      summary: Create New Multi-Choice Single Answer Question
-      operationId: admin-post-questions-mc-sa
-      responses:
-        '200':
-          description: OK
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example:
-                  value:
-                    code: '200.0000'
-                    message: Your request has been successfully completed.
-                    result:
-                      pagination: null
-                      set: 3222
-                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-        '401':
-          description: Unauthorized
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example-0001:
-                  value:
-                    code: '401.0001'
-                    message: Your session is expired. Please re-login.
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-                Example-9000:
-                  value:
-                    code: '401.9000'
-                    message: 'You do not have enough permissions to access this feature. '
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-        '412':
-          description: Precondition Failed
-          content:
-            application/json:
-              schema:
-                $ref: ./GenericModels/ApiResponse.v1.yaml
-              examples:
-                Example-7000:
-                  value:
-                    code: '401.7000'
-                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
-                    result:
-                      pagination: null
-                      set: null
-                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
-      description: |-
-        This endpoint is used to create a new multi-choice single answer trivia question entry.
-
-        <!-- theme: warning -->
-        > ### WARNING:
-        > A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
-
-        <!-- theme: danger -->
-
-        > ### Role Requirements
-        >
-        > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
-
-        ### Flow
-        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.post.questions.mc.sa.png)
-      security:
-        - X-Session-Key: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: ./TriviaModels/TQMultiChoiceSingleVersionCreate.v1.yaml
-            examples:
-              Example:
-                value:
-                  uuid: cfc21291-18f6-47cf-b714-ed87d150c076
-                  createdAt: '2020-01-20T12:23:24Z'
-                  updatedAt: '2020-01-21T21:23:12Z'
-                  status: a
-                  banner:
-                    path: batman-logo.jpg
-                    type: i
-                  difficultyLevel: 1
-                  estimatedReadTime: 50
-                  tags:
-                    - title: movies
-                      icon: movies.png
-                      itemCount: 234
-                  label:
-                    audio: question-223423-2342342-2342.mp3
-                    video: question-223423-2342342-2342.mp4
-                    image: batman-logo.jpg
-                    text: Who among these Hollywood stars have not played the Batman character?
-                  choices:
-                    - isCorrect: false
-                      label:
-                        audio: choiceC.wav
-                        image: choiceC.jpg
-                        text: Jackie Chan
-                        video: choicesC.mp4
-                    - isCorrect: true
-                      label:
-                        audio: choiceA.wav
-                        image: choiceA.jpg
-                        text: Michael Keaton
-                        video: choicesA.mp4
-                    - isCorrect: false
-                      label:
-                        audio: choiceB.wav
-                        image: choiceB.jpg
-                        text: Michael Douglas
-                        video: choicesB.mp4
-                    - isCorrect: false
-                      label:
-                        audio: choiceD.wav
-                        image: choiceD.jpg
-                        text: Denzel Washington
-                        video: choicesD.mp4
-        description: ''
-      tags:
-        - Question
     parameters:
       - schema:
           type: string
@@ -1183,6 +1055,136 @@ paths:
         - X-Session-Key: []
       tags:
         - Question
+    post:
+      summary: Create New Multi-Choice Single Answer Question
+      operationId: admin-post-question-region-mc-sa-uuid
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: 3222
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0001:
+                  value:
+                    code: '401.0001'
+                    message: Your session is expired. Please re-login.
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: 'You do not have enough permissions to access this feature. '
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-7000:
+                  value:
+                    code: '412.7000'
+                    message: 'You have supplied an invalid data. Please check releated documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+                    result:
+                      pagination: null
+                      set: null
+                    sessionToken: 031418d9424af4f81f95610d8fdee1c07943ca970871773bcea2781f1a8dfdfc
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+      description: |-
+        This endpoint is used to create a new multi-choice single answer trivia question entry.
+
+        <!-- theme: warning -->
+        > ### WARNING:
+        > A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
+
+        <!-- theme: danger -->
+
+        > ### Role Requirements
+        >
+        > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
+
+        ### Flow
+        ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.post.questions.mc.sa.png)
+      security:
+        - X-Session-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./TriviaModels/TQMultiChoiceSingleVersionCreate.v1.yaml
+            examples:
+              Example:
+                value:
+                  uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+                  createdAt: '2020-01-20T12:23:24Z'
+                  updatedAt: '2020-01-21T21:23:12Z'
+                  status: a
+                  banner:
+                    path: batman-logo.jpg
+                    type: i
+                  difficultyLevel: 1
+                  estimatedReadTime: 50
+                  tags:
+                    - title: movies
+                      icon: movies.png
+                      itemCount: 234
+                  label:
+                    audio: question-223423-2342342-2342.mp3
+                    video: question-223423-2342342-2342.mp4
+                    image: batman-logo.jpg
+                    text: Who among these Hollywood stars have not played the Batman character?
+                  choices:
+                    - isCorrect: false
+                      label:
+                        audio: choiceC.wav
+                        image: choiceC.jpg
+                        text: Jackie Chan
+                        video: choicesC.mp4
+                    - isCorrect: true
+                      label:
+                        audio: choiceA.wav
+                        image: choiceA.jpg
+                        text: Michael Keaton
+                        video: choicesA.mp4
+                    - isCorrect: false
+                      label:
+                        audio: choiceB.wav
+                        image: choiceB.jpg
+                        text: Michael Douglas
+                        video: choicesB.mp4
+                    - isCorrect: false
+                      label:
+                        audio: choiceD.wav
+                        image: choiceD.jpg
+                        text: Denzel Washington
+                        video: choicesD.mp4
+        description: ''
   '/question/{region}/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
