@@ -1185,6 +1185,8 @@ paths:
                         text: Denzel Washington
                         video: choicesD.mp4
         description: ''
+      tags:
+        - Question
   '/question/{region}/mc/sa/{uuid}/status/{status}':
     parameters:
       - schema:
