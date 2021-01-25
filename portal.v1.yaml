@@ -1233,17 +1233,28 @@ paths:
                   value:
                     code: '200.0000'
                     message: Your request has been successfully completed.
-                    sessionToken: 751694c54fefd05f2694c3003e11e8996e3cb98c2a91738d88af5f2175d29c5b
+                    sessionToken: 2307154a530a9d1ddb1e149ccdd753a132270d67a9e1ffd619a6f189254fe378
                     result:
                       pagination: null
                       set:
-                        id: '1'
+                        id: '22'
                         status: a
-                        paymentMethod: 1
-                        items:
-                          - id: '1'
-                            status: a
-                            package: 1
+                        package:
+                          id: '2'
+                          status: a
+                          name: Starts at $0.00 per unit + $25.00 / month
+                          type: m
+                          details:
+                            name: Basic Plan
+                            summary: $25.00 / monthly
+                            info:
+                              dataSets: All
+                              requests: Up To 10.0000
+                              fileExport: true
+                              prioritySupport: true
+                              additionalAttributes: $0.004 / each
+                        maxUsage: null
+                        currentUsage: 0
                 Example-0404:
                   value:
                     code: '200.0404'
@@ -1269,45 +1280,28 @@ paths:
                   value:
                     code: '200.0000'
                     message: Your request has been successfully completed.
-                    sessionToken: 47e62587a5e53c457492e42df0d2d976787654103bfe843a26c3901d550213f1
+                    sessionToken: 2307154a530a9d1ddb1e149ccdd753a132270d67a9e1ffd619a6f189254fe378
                     result:
                       pagination: null
                       set:
-                        id: '4'
+                        id: '22'
                         status: a
-                        paymentMethod:
-                          id: '6'
+                        package:
+                          id: '2'
                           status: a
-                          billingDetails:
-                            id: '7'
-                            city: Ümraniye
-                            name: Tayfun
-                            type: c
-                            state: Istanbul
-                            status: a
-                            country: 1
-                            zipCode: '34400'
-                            address1: sokak 3.
-                            address2: null
-                            taxNumber: '11223344'
-                            taxDistrict: null
-                          type: card
-                          card:
-                            id: '7'
-                            status: a
-                            address: null
-                            nameOnCard: Tayfun Temizel
-                            lastFourNumbers: '3222'
-                            expMonth: 11
-                            expYear: 0
-                            availableNetworks:
-                              - mastercard
-                            preferredNetwork: null
-                        alternativePaymentMethod: null
-                        items:
-                          - id: '5'
-                            status: a
-                            package: 2
+                          name: Starts at $0.00 per unit + $25.00 / month
+                          type: m
+                          details:
+                            name: Basic Plan
+                            summary: $25.00 / monthly
+                            info:
+                              dataSets: All
+                              requests: Up To 10.0000
+                              fileExport: true
+                              prioritySupport: true
+                              additionalAttributes: $0.004 / each
+                        maxUsage: null
+                        currentUsage: 0
         '412':
           description: Precondition Failed
           content:
@@ -1685,28 +1679,28 @@ paths:
                   value:
                     code: '200.0000'
                     message: Your request has been successfully completed.
-                    sessionToken: b1b63633b41483ae774811558eff2f8209e177ff17e4ab806fd93be00c75850a
+                    sessionToken: 2307154a530a9d1ddb1e149ccdd753a132270d67a9e1ffd619a6f189254fe378
                     result:
                       pagination: null
                       set:
-                        - id: '5'
+                        - id: '6'
                           status: a
                           billingDetails:
-                            id: '14'
-                            city: Ümraniye
+                            id: '7'
+                            city: Kağıthane
                             name: Tayfun
                             type: c
-                            state: Istanbul
+                            state: İstanbul
                             status: a
                             country: 1
                             zipCode: '34400'
-                            address1: sokak 3.
+                            address1: sokak 111.22
                             address2: null
                             taxNumber: '11223344'
                             taxDistrict: null
                           type: card
                           card:
-                            id: '10'
+                            id: '7'
                             status: a
                             address: null
                             nameOnCard: Tayfun Temizel
@@ -1716,6 +1710,7 @@ paths:
                             availableNetworks:
                               - mastercard
                             preferredNetwork: null
+                          isCurrent: 'n'
                 Example-0404:
                   value:
                     code: '200.0404'
@@ -2055,6 +2050,53 @@ paths:
         description: ''
       tags:
         - Portal
+  '/payment-method/{id}/current':
+    parameters:
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+    patch:
+      summary: Choose Current Payment Method
+      operationId: patch-payment-method-id-current
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties: {}
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: 2307154a530a9d1ddb1e149ccdd753a132270d67a9e1ffd619a6f189254fe378
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9995:
+                  value:
+                    code: '412.9995'
+                    message: The supplied path parameter is invalid or a required path parameter is missing.
+                    sessionToken: 2307154a530a9d1ddb1e149ccdd753a132270d67a9e1ffd619a6f189254fe378
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Portal
+      description: Endpoints helps us to set current to payment method which customer has selected.
+      security:
+        - X-Session-Key: []
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
