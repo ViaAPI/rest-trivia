@@ -1285,6 +1285,121 @@ paths:
         description: Holds TQTag object without the system given id.
       tags:
         - Trivia
+  '/feed/stats/{region}/choices':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+    post:
+      summary: Feed Stats Of Choices
+      operationId: post-feed-stats-region-choices
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    result:
+                      pagination: null
+                      set: true
+                    sessionToken: null
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0007:
+                  value:
+                    code: '412.0007'
+                    message: '{{ field }} is required. Please supply a value for this parameter.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+                Example-9999:
+                  value:
+                    code: '412.9999'
+                    message: 'The value, operands, or options are not valid for the email. Please check related documentation for more information.'
+                    sessionToken: 17ec7d1966adf542cd2c2e1f1800223b0cc4880434942786a089ba6504bca7c7
+                    result:
+                      pagination: null
+                      set: null
+      tags:
+        - Trivia
+      description: Provides to feed choices selection stats by authorized client.
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              description: ''
+              type: object
+              properties:
+                startedAt:
+                  type: string
+                  minLength: 1
+                endedAt:
+                  type: string
+                  minLength: 1
+                choices:
+                  type: array
+                  uniqueItems: true
+                  minItems: 1
+                  items:
+                    required:
+                      - question
+                      - correctChoice
+                    properties:
+                      question:
+                        type: string
+                        minLength: 1
+                      correctChoice:
+                        type: string
+                        minLength: 1
+                      stats:
+                        type: object
+                        properties:
+                          choiceA:
+                            type: number
+                          choiceB:
+                            type: number
+                          choiceC:
+                            type: number
+                          choiceD:
+                            type: number
+                        required:
+                          - choiceA
+                          - choiceB
+                          - choiceC
+                          - choiceD
+              required:
+                - startedAt
+                - endedAt
+                - choices
+            examples:
+              Example:
+                value:
+                  startedAt: '2021-02-05 00:00:00'
+                  endedAt: '2021-02-06 00:00:00'
+                  choices:
+                    - question: 5fbfa2c8796ca719195e91e4
+                      correctChoice: choiceA
+                      stats:
+                        choiceA: 2000
+                        choiceB: 2000
+                        choiceC: 1000
+                        choiceD: 800
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
