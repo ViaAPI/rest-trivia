@@ -126,28 +126,14 @@ paths:
               schema:
                 $ref: ./GenericModels/ApiResponse.v1.yaml
               examples:
-                Example-0401:
+                Example-0400:
                   value:
-                    code: '200.0401'
-                    message: You have been successfully logged in.
-                    sessionToken: f5d7ebd4b6d8017148651db908737cdb79391416917f66d92aa557e7d539d2ce
+                    code: '200.0400'
+                    message: Your account created successfully. You must activate  account.
+                    sessionToken: null
                     result:
                       pagination: null
-                      set:
-                        id: '9'
-                        uuid: 94487ecf-1d4a-4d54-bcf0-90fed5674dd7
-                        status: a
-                        email: john.doe@bodevoffice.com
-                        firstName: John
-                        middleName: null
-                        lastName: Doe
-                        mobileNumber: ''
-                        client:
-                          uuid: 5457499d-1cab-446b-8c2c-ab822820ad06
-                          title: John
-                          phone: null
-                          email: john.doe@bodevoffice.com
-                          status: a
+                      set: true
         '401':
           description: Unauthorized
           content:
@@ -2097,6 +2083,97 @@ paths:
       description: Endpoints helps us to set current to payment method which customer has selected.
       security:
         - X-Session-Key: []
+  '/account/activate/{userUuid}/{activationCode}':
+    parameters:
+      - schema:
+          type: string
+          format: uuid
+        name: userUuid
+        in: path
+        required: true
+        description: User uuid
+      - schema:
+          type: string
+          format: uuid
+        name: activationCode
+        in: path
+        required: true
+        description: Activation Code
+    patch:
+      summary: Registration Activate
+      operationId: patch-portal-account-activate-userUuid-activationCode
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: İşleminiz başarıyla tamamlanmıştır.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0005:
+                  value:
+                    code: '401.0005'
+                    message: You have been successfully logged in.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+      description: This endpoint provides to activate user registration.
+      tags:
+        - Portal
+  /account/code/resend:
+    post:
+      summary: Resend Registration Code
+      operationId: post-portal-account-code-resend
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: İşleminiz başarıyla tamamlanmıştır.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0100:
+                  value:
+                    code: '412.0100'
+                    message: Preliminary data validation failed. Please check related service documentation.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+      description: This endpoint provides to resend registration activation code.
+      tags:
+        - Portal
 externalDocs:
   url: 'https://api.docs.viaapi.com'
 components:
