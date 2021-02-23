@@ -1268,7 +1268,11 @@ paths:
                     message: Your request has been successfully completed.
                     result:
                       pagination: 'null'
-                      set: 5f7ae654f49cb6078151b14a
+                      set:
+                        icon: soccer.svg
+                        title: soccer
+                        itemCount: 0
+                        uuid: b914edfb-dadb-49f0-a729-08e882987e38
                     sessionToken: null
       description: Use this endpoint to create a new trivia tag entry.
       requestBody:
@@ -1281,7 +1285,6 @@ paths:
                 value:
                   icon: cinema.svg
                   title: cinema
-                  itemCount: 150
         description: Holds TQTag object without the system given id.
       tags:
         - Trivia
