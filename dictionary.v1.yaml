@@ -271,7 +271,7 @@ paths:
       security:
         - X-Api-Key: []
       tags:
-        - Dictionary
+        - Panel
     put:
       summary: Update An Existing Word
       operationId: put-word-region-by-id
@@ -280,8 +280,6 @@ paths:
           $ref: '#/components/responses/WordDetailResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      tags:
-        - Dictionary
       description: This endpoint provides us to update a word which identification number is given.
       security:
         - X-Api-Key: []
@@ -299,6 +297,8 @@ paths:
                     - Yuvarlak bir araba parçası
                   dictionaries:
                     - 60420d891d7e6142e043f195
+      tags:
+        - Panel
   '/word/{region}':
     parameters:
       - schema:
@@ -335,7 +335,7 @@ paths:
                     - 60420d891d7e6142e043f195
         description: ''
       tags:
-        - Dictionary
+        - Panel
   '/word/{region}/{id}/status/{status}':
     parameters:
       - schema:
@@ -367,6 +367,8 @@ paths:
       description: This endpoint updates status.
       security:
         - X-Api-Key: []
+      tags:
+        - Panel
   '/dictionary/{region}':
     parameters:
       - schema:
@@ -384,8 +386,6 @@ paths:
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
       description: This endpoint is used to create a dictionary entry.
-      tags:
-        - Dictionary
       security:
         - X-Api-Key: []
       requestBody:
@@ -393,6 +393,8 @@ paths:
           application/json:
             schema:
               $ref: ./DictionaryModels/DictionaryCreate.v1.yaml
+      tags:
+        - Panel
   '/dictionary/{region}/{id}':
     parameters:
       - schema:
@@ -432,7 +434,7 @@ paths:
       security:
         - X-Api-Key: []
       tags:
-        - Dictionary
+        - Panel
     put:
       summary: Update An Existing Dictionary
       operationId: put-dictionary-region-id
@@ -444,8 +446,6 @@ paths:
       description: This endpoint provides us to update a dictionary which identification number is given.
       security:
         - X-Api-Key: []
-      tags:
-        - Dictionary
       requestBody:
         content:
           application/json:
@@ -459,6 +459,8 @@ paths:
                   status: a
                   wordCount: 2
                   type: null
+      tags:
+        - Panel
   '/dictionary/{region}/{id}/status/{status}':
     parameters:
       - schema:
@@ -486,7 +488,7 @@ paths:
           $ref: '#/components/responses/InvalidDataResponse'
       description: This endpoint updates status.
       tags:
-        - Dictionary
+        - Panel
 components:
   schemas: {}
   securitySchemes:
