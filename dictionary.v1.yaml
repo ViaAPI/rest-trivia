@@ -263,15 +263,17 @@ paths:
       operationId: delete-word-region-by-id
       responses:
         '200':
-          $ref: '#/components/responses/WordsListResponse'
+          $ref: '#/components/responses/SuccessResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
       description: This endpoint is used to mark an existing entry as "deleted".
       parameters: []
       security:
         - X-Api-Key: []
+      tags:
+        - Dictionary
     put:
-      summary: Update Word
+      summary: Update An Existing Word
       operationId: put-word-region-by-id
       responses:
         '200':
@@ -306,7 +308,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     post:
-      summary: ''
+      summary: Create Word
       operationId: post-word-region
       responses:
         '200':
@@ -332,6 +334,8 @@ paths:
                   dictionaries:
                     - 60420d891d7e6142e043f195
         description: ''
+      tags:
+        - Dictionary
   '/word/{region}/{id}/status/{status}':
     parameters:
       - schema:
@@ -363,6 +367,126 @@ paths:
       description: This endpoint updates status.
       security:
         - X-Api-Key: []
+  '/dictionary/{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+    post:
+      summary: Create Dictionary
+      operationId: post-dictionary-region
+      responses:
+        '200':
+          $ref: '#/components/responses/DictionaryDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint is used to create a dictionary entry.
+      tags:
+        - Dictionary
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./DictionaryModels/DictionaryCreate.v1.yaml
+  '/dictionary/{region}/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: System attained id of the word.
+    get:
+      summary: Get Dictionary Detail
+      tags:
+        - Dictionary
+      responses:
+        '200':
+          $ref: '#/components/responses/DictionaryDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      operationId: get-dictionary-region-by-id
+      description: This endpoint provides us to show a single dictionary details.
+      security:
+        - X-Api-Key: []
+    delete:
+      summary: Delete Dictionary
+      operationId: delete-dictionary-region-id
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint is used to mark an existing entry as "deleted".
+      security:
+        - X-Api-Key: []
+      tags:
+        - Dictionary
+    put:
+      summary: Update An Existing Dictionary
+      operationId: put-dictionary-region-id
+      responses:
+        '200':
+          $ref: '#/components/responses/DictionaryDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint provides us to update a dictionary which identification number is given.
+      security:
+        - X-Api-Key: []
+      tags:
+        - Dictionary
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./DictionaryModels/DictionaryUpdate.v1.yaml
+            examples:
+              Example:
+                value:
+                  title: Hayvanlar Alemi
+                  description: null
+                  status: a
+                  wordCount: 2
+                  type: null
+  '/dictionary/{region}/{id}/status/{status}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: status
+        in: path
+        required: true
+    patch:
+      summary: Update Status Of Dictionary
+      operationId: patch-dictionary-region-id-status-status
+      responses:
+        '200':
+          $ref: '#/components/responses/DictionaryDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint updates status.
+      tags:
+        - Dictionary
 components:
   schemas: {}
   securitySchemes:
@@ -563,4 +687,94 @@ components:
                 sessionToken: null
                 code: '200.0000'
                 message: ' Your request has been successfully completed.'
+    DictionaryListResponse:
+      description: Dictionary list response
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                code: '200.0000'
+                message: İşleminiz başarıyla tamamlanmıştır.
+                sessionToken: EBamHMahXYA8iito0NaPmnuWwlTARXQl
+                result:
+                  pagination:
+                    isCircular: true
+                    prevLink: offset=56&limit=2
+                    nextLink: offset=2&limit=2
+                    lastLink: offset=56&limit=2
+                    firstLink: offset=0&limit=2
+                    totalItems: 57
+                    filteredItems: 57
+                    itemsPerPage: 2
+                    pageCount: 29
+                    currentPage: 1
+                  set:
+                    - id: 604607ece3ca461a6803f2d2
+                      createdAt: '2021-03-08 11:18:04'
+                      updatedAt: '2021-03-08 11:18:04'
+                      status: a
+                      title: Anatomi
+                      description: null
+                      wordCount: 0
+                      type: null
+                    - id: 604607ece3ca461a6803f2d3
+                      createdAt: '2021-03-08 11:18:04'
+                      updatedAt: '2021-03-08 11:18:04'
+                      status: a
+                      title: Astroloji Terimleri
+                      description: null
+                      wordCount: 0
+                      type: null
+            Example-0404:
+              value:
+                code: '200.0404'
+                message: Aradığınız kriterlere uygun veri bulunamamıştır.
+                sessionToken: 3QYjXwMEFGnDW2mVxjXR9aCh6X7RQdaC
+                result:
+                  pagination: null
+                  set: null
+    DictionaryDetailResponse:
+      description: Detail of a dictionary
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                code: '200.0000'
+                message: İşleminiz başarıyla tamamlanmıştır.
+                sessionToken: EBamHMahXYA8iito0NaPmnuWwlTARXQl
+                result:
+                  pagination:
+                    isCircular: true
+                    prevLink: offset=56&limit=2
+                    nextLink: offset=2&limit=2
+                    lastLink: offset=56&limit=2
+                    firstLink: offset=0&limit=2
+                    totalItems: 57
+                    filteredItems: 57
+                    itemsPerPage: 2
+                    pageCount: 29
+                    currentPage: 1
+                  set:
+                    id: 604607ece3ca461a6803f2d2
+                    createdAt: '2021-03-08 11:18:04'
+                    updatedAt: '2021-03-08 11:18:04'
+                    status: a
+                    title: Anatomi
+                    description: null
+                    wordCount: 0
+                    type: null
+            Example-0404:
+              value:
+                code: '200.0404'
+                message: Aradığınız kriterlere uygun veri bulunamamıştır.
+                sessionToken: 3QYjXwMEFGnDW2mVxjXR9aCh6X7RQdaC
+                result:
+                  pagination: null
+                  set: null
   examples: {}
