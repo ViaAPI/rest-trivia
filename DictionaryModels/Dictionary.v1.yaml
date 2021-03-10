@@ -1,0 +1,30 @@
+description: Dictionary generic modal
+type: object
+title: Dictionary
+properties:
+  id:
+    type: string
+    minLength: 1
+  createdAt:
+    type: string
+    minLength: 1
+  updatedAt:
+    type: string
+    minLength: 1
+  status:
+    type: string
+    minLength: 1
+  title:
+    type: string
+    minLength: 1
+  description: {}
+  wordCount:
+    type: number
+  type: {}
+required:
+  - id
+  - createdAt
+  - updatedAt
+  - status
+  - title
+  - wordCount

@@ -1,0 +1,566 @@
+openapi: 3.0.0
+info:
+  title: Dictionary API
+  version: v.1.0.0
+  description: This documentation covers all endpoints related to dictionary data store of ViaAPI.
+  contact:
+    name: System Administrator
+    url: 'https://viaapi.com'
+    email: admin@viaapi.com
+  termsOfService: 'https://www.viaapi.com/legal/tos/dictionary'
+servers:
+  - url: 'https://dictionary.api.viaapi.com/v1'
+    description: Production
+  - url: 'https://dictionary.api.dev.viaapi.com/v1'
+    description: Development / Testing Server
+paths:
+  '/words/{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: Region code. Like tr-tr
+    get:
+      summary: List Words
+      tags:
+        - Dictionary
+      responses:
+        '200':
+          $ref: '#/components/responses/WordsListResponse'
+        '412':
+          $ref: '#/components/responses/InvalidListQueriesResponse'
+      operationId: get-list-words-region
+      description: |-
+        This endpoint provides a list of Words.
+         You can summon data filtered by the following prperties:
+        - totalCharCount
+        - totalCharCountWithBlanks
+        - dictionaries
+        - status
+        - creation time
+        - update time
+      parameters:
+        - schema:
+            type: integer
+            default: '50'
+            maximum: 200
+            minimum: 1
+            exclusiveMinimum: false
+          in: query
+          name: limit
+          description: |-
+            Number of items to be returned. No more than 200 items can be returned at one query.<br />
+            **Example:**
+            ?limit=100
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: offset
+          description: |-
+            The start point / row of the entries to be listed.<br />
+
+            **Example:**
+            ?offset=0
+        - schema:
+            type: array
+            items:
+              type: string
+            maxItems: 0
+            minItems: 0
+            uniqueItems: false
+          in: query
+          name: order
+          description: |-
+            This parameter dictates the order of list.<br />
+            **Operands:**<br />
+            - `+`: ASCENDING
+            - `-`: DESCENDING<br />
+            **Available Options:**<br />
+            - createdAt
+            - updatedAt
+            - id
+            - wordCount
+            - totalCharCount
+            - totalCharCountWithBlanks
+            - word<br />
+            **Example:**
+            Sort words by their word counts ascending and by their creation time descending.<br />
+            ?order[]=+wordCount&order[]=-dateCreated
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: status
+          description: |-
+            This parameter is used to filter words by their statuses.<br />
+
+            **Example:**
+            Only retrieve words with status "a" or "w".<br />
+
+            ?status[]=a&status[]=w
+        - schema:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            maxItems: 2
+          in: query
+          name: createdAt
+          description: |-
+            This parameter is used to filter entries by their creation times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: In
+            - nin: Not In<br />
+            **Example**:
+            List entries created at 27th of January 2020.<br />
+
+            ?createdAt[[eq]]=2020-01-27<br />
+
+            List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
+        - schema:
+            items:
+              type: string
+              format: date-time
+            type: array
+          in: query
+          name: updatedAt
+          description: |-
+            This parameter is used to filter entries by their update times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br />
+            **Example**:
+            List entries updated at 27th of January 2020.<br />
+
+            ?updatedAt[[eq]]=2020-01-27<br />
+
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
+        - schema:
+            type: array
+            items:
+              type: integer
+          in: query
+          name: totalCharCount
+          description: |-
+            This parameter is used to filter entries by their total char counts without blanks.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.<br />
+            **Example**:
+            List entries marked with a total char count of 9.<br />
+
+            ?totalCharCount[[eq]]=9<br />
+
+            List entries marked with a total char count between 2 and 4 inclusive.<br />
+            ?totalCharCount[[gte]]=2&totalCharCount[lte]=4<br />
+
+            List entries marked with a total char count of 3, 5 and 8.<br />
+            ?difficultyLevel[[in]]=3,5,8
+        - schema:
+            type: array
+            items:
+              type: integer
+          in: query
+          name: totalCharCountWithBlanks
+          description: |-
+            This parameter is used to filter entries by their total char counts with blanks.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br />
+            **Example**:
+            List entries that contains 30 char length with blanks.<br />
+
+            ?totalCharCountWithBlanks[[eq]]=30<br />
+
+            List entries that length less than 30.<br />
+            ?totalCharCountWithBlanks[[lt]]=30
+
+            List entries that length beween 30 to 60.<br />
+            ?totalCharCountWithBlanks[[gte]]=30&totalCharCountWithBlanks[[lte]]=60
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: q
+          description: |-
+            This parameter is used to run a search within the word.<br />
+            **Keys**:
+            - w: word
+            - def: definitions<br />
+            **Operands**:
+            - `*`: Wildcard<br />
+            **Example**:
+            Search word with definition starting with "Bruce".<br />
+            ?q[[def]][]=Bruce\*
+
+            Search questions with word include "Batman"<br />
+            ?q[[w]][]=\*Batman\*
+        - schema:
+            type: array
+          in: query
+          name: dictionaries
+          description: 'This parameter is used to filter entries by their dictionaries.<br />**Operands**:- eq: Equal- gt: Greater Than- gte: Greater Than or Equal- lt: Less Than- lte: Less Than or Equal- nq: Not Equal- in: Use to summon arbitrary data.<br />**Example**:List entries tagged with dictionary of id 9.<br />?dictionaries[[eq]]=9<br />List entries taged with a dictionary of ids 3, 5 or 8.<br />?dictionaries[[in]]=3,5,8'
+  '/word/{region}/{id}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: System attained id of the word.
+    get:
+      summary: Get Word Detail
+      responses:
+        '200':
+          $ref: '#/components/responses/WordDetailResponse'
+      operationId: get-word-region-by-id
+      description: Get word details which is given identification number.
+      security:
+        - X-Api-Key: []
+      tags:
+        - Dictionary
+    delete:
+      summary: Delete Word
+      operationId: delete-word-region-by-id
+      responses:
+        '200':
+          $ref: '#/components/responses/WordsListResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint is used to mark an existing entry as "deleted".
+      parameters: []
+      security:
+        - X-Api-Key: []
+    put:
+      summary: Update Word
+      operationId: put-word-region-by-id
+      responses:
+        '200':
+          $ref: '#/components/responses/WordDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      tags:
+        - Dictionary
+      description: This endpoint provides us to update a word which identification number is given.
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./DictionaryModels/WordUpdate.v1.yaml
+            examples:
+              Example:
+                value:
+                  word: lastik
+                  status: a
+                  definitions:
+                    - Yuvarlak bir araba parçası
+                  dictionaries:
+                    - 60420d891d7e6142e043f195
+  '/word/{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+    post:
+      summary: ''
+      operationId: post-word-region
+      responses:
+        '200':
+          $ref: '#/components/responses/WordDetailResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint is used to create a dictionary word entry.
+      parameters: []
+      security:
+        - X-Api-Key: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./DictionaryModels/WordCreate.v1.yaml
+            examples:
+              Example:
+                value:
+                  word: lastik
+                  status: a
+                  definitions:
+                    - Yuvarlak bir araba parçası
+                  dictionaries:
+                    - 60420d891d7e6142e043f195
+        description: ''
+  '/word/{region}/{id}/status/{status}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+      - schema:
+          type: string
+        name: id
+        in: path
+        required: true
+        description: System attained id of the word.
+      - schema:
+          type: string
+        name: status
+        in: path
+        required: true
+        description: System attained status of the word.
+    patch:
+      summary: Update Status Of Word
+      operationId: patch-word-region-id-status-status
+      responses:
+        '200':
+          $ref: '#/components/responses/SuccessResponse'
+        '412':
+          $ref: '#/components/responses/InvalidDataResponse'
+      description: This endpoint updates status.
+      security:
+        - X-Api-Key: []
+components:
+  schemas: {}
+  securitySchemes:
+    X-Api-Key:
+      name: API Key
+      type: apiKey
+      in: header
+  responses:
+    WordsListResponse:
+      description: Response for words list
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                code: '200.0000'
+                message: İşleminiz başarıyla tamamlanmıştır.
+                sessionToken: null
+                result:
+                  pagination:
+                    isCircular: true
+                    prevLink: offset=336&limit=2
+                    nextLink: offset=2&limit=2
+                    lastLink: offset=336&limit=2
+                    firstLink: offset=0&limit=2
+                    totalItems: 337
+                    filteredItems: 337
+                    itemsPerPage: 2
+                    pageCount: 169
+                    currentPage: 1
+                  set:
+                    - id: 60462c0e853bc824952e7dd2
+                      createdAt: '2021-03-08 13:52:14'
+                      updatedAt: '2021-03-08 13:52:14'
+                      status: a
+                      word: Kemik
+                      totalCharCount: 5
+                      totalCharCountWithBlanks: 5
+                      definitions: []
+                      dictionaries:
+                        - id: 604607ece3ca461a6803f2d2
+                          createdAt: '2021-03-08 11:18:04'
+                          updatedAt: '2021-03-08 11:18:04'
+                          status: a
+                          title: Anatomi
+                          description: null
+                          wordCount: 0
+                          type: null
+                    - id: 60462c0f853bc824952e7dd3
+                      createdAt: '2021-03-08 13:52:15'
+                      updatedAt: '2021-03-08 13:52:15'
+                      status: a
+                      word: Kalp
+                      totalCharCount: 4
+                      totalCharCountWithBlanks: 4
+                      definitions: []
+                      dictionaries:
+                        - id: 604607ece3ca461a6803f2d2
+                          createdAt: '2021-03-08 11:18:04'
+                          updatedAt: '2021-03-08 11:18:04'
+                          status: a
+                          title: Anatomi
+                          description: null
+                          wordCount: 0
+                          type: null
+            Example-0404:
+              value:
+                code: '200.0404'
+                message: Aradığınız kriterlere uygun veri bulunamamıştır.
+                sessionToken: 3QYjXwMEFGnDW2mVxjXR9aCh6X7RQdaC
+                result:
+                  pagination: null
+                  set: null
+    WordDetailResponse:
+      description: Word's detail response.
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                code: '200.0000'
+                message: İşleminiz başarıyla tamamlanmıştır.
+                sessionToken: 3QYjXwMEFGnDW2mVxjXR9aCh6X7RQdaC
+                result:
+                  pagination: null
+                  set:
+                    id: 60462c0e853bc824952e7dd2
+                    createdAt: '2021-03-08 13:52:14'
+                    updatedAt: '2021-03-08 13:52:14'
+                    status: a
+                    word: Kemik
+                    totalCharCount: 5
+                    totalCharCountWithBlanks: 5
+                    definitions: []
+                    dictionaries:
+                      - id: 604607ece3ca461a6803f2d2
+                        createdAt: '2021-03-08 11:18:04'
+                        updatedAt: '2021-03-08 11:18:04'
+                        status: a
+                        title: Anatomi
+                        description: null
+                        wordCount: 0
+                        type: null
+            Example-0404:
+              value:
+                code: '200.0404'
+                message: Aradığınız kriterlere uygun veri bulunamamıştır.
+                sessionToken: 3QYjXwMEFGnDW2mVxjXR9aCh6X7RQdaC
+                result:
+                  pagination: null
+                  set: null
+    InvalidDataResponse:
+      description: This response is used usually for data validations.
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0100:
+              value:
+                code: '412.0100'
+                message: Preliminary data validation failed. Please check related service documentation.
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+            Example-9995:
+              value:
+                code: '412.9995'
+                message: The supplied path parameter is invalid or a required path parameter is missing.
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+    InvalidListQueriesResponse:
+      description: This response is used for listing endpoint's invalid queries.
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                code: '412.0000'
+                message: '"limit" parameter must be an integer value between 1 and 200.'
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+            Example-0001:
+              value:
+                code: '412.0001'
+                message: '"offset" parameter has one or more unsupported operands. See related documentation for more information.'
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+            Example-0002:
+              value:
+                code: '412.0002'
+                message: '"order" parameter has one or more unsupported operands. See related documentation for more information.'
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+            Example-0003:
+              value:
+                code: '412.0003'
+                message: '"order" parameter has one or more unsupported options. See related documentation for more information.'
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+            Example-9999:
+              value:
+                code: '412.9999'
+                message: 'The value, operands, or options are not valid for the createdAt. Please check related documentation for more information.'
+                result:
+                  pagination: null
+                  set: null
+                sessionToken: null
+    SuccessResponse:
+      description: Example response
+      content:
+        application/json:
+          schema:
+            $ref: ./GenericModels/ApiResponse.v1.yaml
+          examples:
+            Example-0000:
+              value:
+                result:
+                  pagination: null
+                  set: true
+                sessionToken: null
+                code: '200.0000'
+                message: ' Your request has been successfully completed.'
+  examples: {}

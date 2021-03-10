@@ -1,0 +1,43 @@
+description: Word generic model
+type: object
+title: Word
+properties:
+  id:
+    type: string
+    minLength: 1
+  createdAt:
+    type: string
+    minLength: 1
+  updatedAt:
+    type: string
+    minLength: 1
+  status:
+    type: string
+    minLength: 1
+  word:
+    type: string
+    minLength: 1
+  totalCharCount:
+    type: number
+  totalCharCountWithBlanks:
+    type: number
+  definitions:
+    type: array
+    items:
+      type: string
+  dictionaries:
+    type: array
+    uniqueItems: true
+    minItems: 1
+    items:
+      $ref: ./Dictionary.v1.yaml
+required:
+  - id
+  - createdAt
+  - updatedAt
+  - status
+  - word
+  - totalCharCount
+  - totalCharCountWithBlanks
+  - definitions
+  - dictionaries

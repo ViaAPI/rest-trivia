@@ -1,0 +1,34 @@
+title: Word Create
+type: object
+description: Word creation body scheme
+properties:
+  word:
+    type: string
+  status:
+    type: string
+    enum:
+      - a
+      - i
+      - d
+  definitions:
+    type: array
+    items:
+      type: string
+  dictionaries:
+    type: array
+    description: Contains array of dictionaries' identification numbers.
+    items:
+      type: string
+required:
+  - word
+  - status
+  - definitions
+  - dictionaries
+x-examples:
+  Example:
+    word: lastik
+    status: a
+    definitions:
+      - Yuvarlak bir araç parçası
+    dictionaries:
+      - 60420d891d7e6142e043f195
