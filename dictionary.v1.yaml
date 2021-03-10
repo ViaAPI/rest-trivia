@@ -778,3 +778,5 @@ components:
                   pagination: null
                   set: null
   examples: {}
+tags:
+  - name: Dictionary
