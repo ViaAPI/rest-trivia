@@ -1,0 +1,26 @@
+title: Dictionary Update
+type: object
+description: Dictionary update body scheme
+x-examples:
+  Example:
+    title: Hayvanlar Alemi
+    description: null
+    status: a
+    wordCount: 2
+    type: null
+properties:
+  title:
+    type: string
+  description:
+    type: string
+  status:
+    type: string
+  wordCount:
+    type: integer
+    minimum: 1
+  type:
+    type: string
+required:
+  - title
+  - description
+  - status

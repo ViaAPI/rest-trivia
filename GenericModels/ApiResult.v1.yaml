@@ -27,14 +27,14 @@ x-tags:
   - Models - Generic
 properties:
   pagination:
-    oneOf:
+    anyOf:
       - $ref: ./ApiPagination.v1.yaml
-      - type: 'null'
-        nullable: true
+      - nullable: true
         description: this is added to simulate null value.
         example: 'null'
         enum:
           - 'null'
+        type: string
   set:
     anyOf:
       - type: array

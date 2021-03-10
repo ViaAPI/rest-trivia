@@ -19,7 +19,7 @@ info:
 servers:
   - url: 'https://trivia.admin.api.viaapi.com/v1'
     description: Production
-  - url: 'http://trivia.admin.api.dev.viaapi.com/v1'
+  - url: 'https://trivia.admin.api.dev.viaapi.com/v1'
     description: Development / Testing Server
 paths:
   /login:
