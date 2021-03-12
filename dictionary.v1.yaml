@@ -14,6 +14,191 @@ servers:
   - url: 'https://dictionary.api.dev.viaapi.com/v1'
     description: Development / Testing Server
 paths:
+  '/dictionaries{region}':
+    parameters:
+      - schema:
+          type: string
+        name: region
+        in: path
+        required: true
+        description: Region code. Like tr-tr
+    get:
+      summary: List Dictionaries
+      tags:
+        - Dictionary
+      responses:
+        '200':
+          $ref: '#/components/responses/DictionaryListResponse'
+        '412':
+          $ref: '#/components/responses/InvalidListQueriesResponse'
+      operationId: get-list-dictionaries-region
+      description: |-
+        This endpoint provides a list of Dictionaries.
+         You can summon data filtered by the following prperties:
+        - title
+        - wordCount
+        - status
+        - creation time
+        - update time
+      parameters:
+        - schema:
+            type: integer
+            default: '50'
+            maximum: 200
+            minimum: 1
+            exclusiveMinimum: false
+          in: query
+          name: limit
+          description: |-
+            Number of items to be returned. No more than 200 items can be returned at one query.<br />
+            **Example:**
+            ?limit=100
+        - schema:
+            type: integer
+            minimum: 0
+            default: '0'
+          in: query
+          name: offset
+          description: |-
+            The start point / row of the entries to be listed.<br />
+
+            **Example:**
+            ?offset=0
+        - schema:
+            type: array
+            items:
+              type: string
+            maxItems: 0
+            minItems: 0
+            uniqueItems: false
+          in: query
+          name: order
+          description: |-
+            This parameter dictates the order of list.<br />
+            **Operands:**<br />
+            - `+`: ASCENDING
+            - `-`: DESCENDING<br />
+            **Available Options:**<br />
+            - createdAt
+            - updatedAt
+            - wordCount
+            - title<br />
+            **Example:**
+            Sort words by their word counts ascending and by their creation time descending.<br />
+            ?order[]=+wordCount&order[]=-createdAt
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: status
+          description: |-
+            This parameter is used to filter dictionaries by their statuses.<br />
+
+            **Example:**
+            Only retrieve words with status "a" or "w".<br />
+
+            ?status[]=a&status[]=w
+        - schema:
+            type: array
+            items:
+              type: string
+            minItems: 1
+            maxItems: 2
+          in: query
+          name: createdAt
+          description: |-
+            This parameter is used to filter entries by their creation times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: In
+            - nin: Not In<br />
+            **Example**:
+            List entries created at 27th of January 2020.<br />
+
+            ?createdAt[[eq]]=2020-01-27<br />
+
+            List entries created between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?createdAt[[gte]]=2020-01-21&createdAt[[lte]]=2020-01-27
+        - schema:
+            items:
+              type: string
+              format: date-time
+            type: array
+          in: query
+          name: updatedAt
+          description: |-
+            This parameter is used to filter entries by their update times.<br />
+            **Acceptable Date Formats**:<br />
+            - YYYY-MM-DD
+            - YYYY-MM-DD HH:ii:ss<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal<br />
+            **Example**:
+            List entries updated at 27th of January 2020.<br />
+
+            ?updatedAt[[eq]]=2020-01-27<br />
+
+            List entries updated between 21st and 27th of January 2020, both dates inclusive.<br />
+            ?updatedAt[[gte]]=2020-01-21&updatedAt[[lte]]=2020-01-27
+        - schema:
+            type: array
+            items:
+              type: integer
+          in: query
+          name: wordCount
+          description: |-
+            This parameter is used to filter entries by their total words.<br />
+            **Operands**:<br />
+            - eq: Equal
+            - gt: Greater Than
+            - gte: Greater Than or Equal
+            - lt: Less Than
+            - lte: Less Than or Equal
+            - nq: Not Equal
+            - in: Use to summon arbitrary data.<br />
+            **Example**:
+            List entries marked with a total char count of 9.<br />
+
+            ?wordCount[[eq]]=9<br />
+
+            List entries marked with a total word count between 2 and 4 inclusive.<br />
+            ?wordCount[[gte]]=2&wordCount[lte]=4<br />
+
+            List entries marked with a total word count of 3, 5 and 8.<br />
+            ?wordCount[[in]]=3,5,8
+        - schema:
+            type: array
+            items:
+              type: string
+          in: query
+          name: q
+          description: |-
+            This parameter is used to run a search within the dictionary.<br />
+            **Keys**:
+            - title: title
+            - desc: description<br />
+            **Operands**:
+            - `*`: Wildcard<br />
+            **Example**:
+            Search dictionary with description starting with "tom".<br />
+            ?q[[desc]][]=tom\*
+
+            Search dictionary with title include "Batman"<br />
+            ?q[[title]][]=\*Batman\*
   '/words/{region}':
     parameters:
       - schema:
