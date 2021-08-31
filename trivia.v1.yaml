@@ -222,20 +222,7 @@ paths:
             uniqueItems: false
           in: query
           name: order
-          description: |-
-            This parameter dictates the order of list.<br />
-            **Operands:**<br />
-            - `+`: ASCENDING
-            - `-`: DESCENDING<br />
-            **Available Options:**<br />
-            - createdAt
-            - updatedAt
-            - id
-            - difficultyLevel
-            - label.text<br />
-            **Example:**
-            Sort questions by their labels ascending and by their creation time descending.<br />
-            ?order[]=+label.text&order[]=-dateCreated
+          description: 'This parameter dictates the order of list.<br />**Operands:**<br />- `+`: ASCENDING- `-`: DESCENDING<br />**Available Options:**<br />- createdAt- updatedAt- id- difficultyLevel- label.text<br />**Example:**Sort questions by their labels ascending and by their creation time descending.<br />?order[]=+label.text&order[]=-dateCreated'
         - schema:
             type: array
             items:

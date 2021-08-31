@@ -259,7 +259,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: This endpoint creates an password reset recovery so that client can reset password.
+      description: This endpoint creates a password reset request so that client can reset password.
       requestBody:
         content:
           application/json:
@@ -276,6 +276,62 @@ paths:
                 value:
                   email: user@example.com
         description: Body must contain email.
+      tags:
+        - Portal
+  /password/check:
+    post:
+      summary: Attempt Reset Password
+      operationId: post-portal-password-check
+      responses:
+        '200':
+          description: OK
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0000:
+                  value:
+                    code: '200.0000'
+                    message: Your request has been successfully completed.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: true
+        '412':
+          description: Precondition Failed
+          headers: {}
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-0008:
+                  value:
+                    code: '412.0008'
+                    message: You have entered your password incorrectly. Please make sure you type the right password for the account and try again.
+                    sessionToken: null
+                    result:
+                      pagination: null
+                      set: null
+                Example-7000:
+                  value:
+                    result: null
+                    code: '412.7000'
+                    message: ' You have supplied an invalid data. Please check related documentation, fix all your issues and try again. If the problem persists, you can contact our support team.'
+      description: This endpoint creates an password reset recovery so that client can reset password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: ./GenericModels/UserPassword.v1.yaml
+            examples:
+              Example-1:
+                value:
+                  user: 76f62a58-5404-486d-9afc-07bded328704
+                  password: pa$$word
+        description: Body must contain UserPassword model.
       tags:
         - Portal
   /profile:
