@@ -24,7 +24,7 @@ paths:
   /login:
     parameters: []
     post:
-      summary: Login
+      summary: 'POST :: /login'
       operationId: post-portal-login
       responses:
         '200':
@@ -116,7 +116,7 @@ paths:
         - Portal
   /register:
     post:
-      summary: Register
+      summary: 'POST :: /register'
       operationId: post-portal-register
       responses:
         '200':
@@ -208,7 +208,7 @@ paths:
         - Portal
   /password/reset:
     post:
-      summary: Attempt Reset Password
+      summary: 'POST :: /password/reset'
       operationId: post-portal-password-reset
       responses:
         '200':
@@ -280,7 +280,7 @@ paths:
         - Portal
   /password/check:
     post:
-      summary: Attempt Reset Password
+      summary: 'POST :: /password/check'
       operationId: post-portal-password-check
       responses:
         '200':
@@ -335,7 +335,7 @@ paths:
         - Portal
   /profile:
     put:
-      summary: Update User Profile Informations
+      summary: 'PUT :: /profile'
       operationId: post-profile
       responses:
         '200':
@@ -421,7 +421,7 @@ paths:
         - Portal
   /password:
     put:
-      summary: Update User Password
+      summary: 'PUT :: /password'
       operationId: put-portal-password
       responses:
         '200':
@@ -498,7 +498,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: Delete Api Token
+      summary: 'DELETE :: /api-token/{id}'
       operationId: delete-portal-api-token-id
       responses:
         '200':
@@ -537,7 +537,7 @@ paths:
       security:
         - X-Session-Key: []
     put:
-      summary: Update Api Token
+      summary: 'PUT :: /api-token/{id}'
       operationId: put-portal-api-token-id
       responses:
         '200':
@@ -603,7 +603,7 @@ paths:
         description: ''
   /api-tokens:
     get:
-      summary: List Api Tokens of Client
+      summary: 'GET :: /api-tokens'
       tags:
         - Portal
       responses:
@@ -641,7 +641,7 @@ paths:
         - X-Session-Key: []
   /api-token:
     post:
-      summary: Create Api Token
+      summary: 'POST :: /api-token'
       operationId: post-portal-api-token
       responses:
         '200':
@@ -694,7 +694,7 @@ paths:
         - X-Session-Key: []
   /billing/details:
     get:
-      summary: List Billing Details
+      summary: 'GET :: /billing/details'
       tags:
         - Portal
       responses:
@@ -748,7 +748,7 @@ paths:
       security:
         - X-Session-Key: []
     post:
-      summary: Create Billing Detail
+      summary: 'POST :: /billing/details'
       operationId: post-portal-billing-id-details
       responses:
         '200':
@@ -875,7 +875,7 @@ paths:
                   zipCode: '34400'
   /password/recovery:
     post:
-      summary: Recovery Password
+      summary: 'POST :: /password/recovery'
       operationId: post-password-recovery
       responses:
         '200':
@@ -952,7 +952,7 @@ paths:
         - Portal
   /location/countries:
     get:
-      summary: List Countries
+      summary: 'GET :: /location/countries'
       tags:
         - Portal
       responses:
@@ -1000,7 +1000,7 @@ paths:
         in: path
         required: true
     get:
-      summary: List Country States
+      summary: 'GET :: /location/country/{id}/states'
       tags:
         - Portal
       responses:
@@ -1050,7 +1050,7 @@ paths:
         in: path
         required: true
     get:
-      summary: List Country Cities
+      summary: 'GET :: /location/country/{id}/cities'
       tags:
         - Portal
       responses:
@@ -1104,7 +1104,7 @@ paths:
         in: path
         required: true
     get:
-      summary: List City Districts
+      summary: 'GET :: /location/city/{id}/districts'
       tags:
         - Portal
       responses:
@@ -1156,7 +1156,7 @@ paths:
         - X-Session-Key: []
   /subscription/packages:
     get:
-      summary: List Subscription Packages
+      summary: 'GET :: /subscription/packages'
       tags:
         - Portal
       responses:
@@ -1259,7 +1259,7 @@ paths:
       description: List subscription packages
   /subscription:
     get:
-      summary: Get Active Subscription
+      summary: 'GET :: /subscription'
       tags:
         - Portal
       responses:
@@ -1307,7 +1307,7 @@ paths:
       operationId: get-portal-subscription
       description: Get active subscription for client
     post:
-      summary: Create Subscription
+      summary: 'POST :: /subscription'
       operationId: post-portal-subscription
       responses:
         '200':
@@ -1384,7 +1384,7 @@ paths:
       tags:
         - Portal
     delete:
-      summary: Cancel Subscription
+      summary: 'DELETE :: /subscription'
       operationId: delete-portal-subscription
       responses:
         '200':
@@ -1428,7 +1428,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: Delete Billing Details
+      summary: 'DELETE :: /billing/{id}/details'
       operationId: delete-portal-billing-id-details
       responses:
         '200':
@@ -1468,7 +1468,7 @@ paths:
       security:
         - X-Session-Key: []
     put:
-      summary: Update Billing Details
+      summary: 'PUT :: /billing/{id}/details'
       operationId: put-portal-billing-id-details
       responses:
         '200':
@@ -1579,7 +1579,7 @@ paths:
         in: path
         required: true
     get:
-      summary: List Catalogs
+      summary: 'GET :: /catalogs/{region}'
       tags:
         - Portal
       responses:
@@ -1656,7 +1656,7 @@ paths:
         - X-Session-Key: []
   /metrics:
     get:
-      summary: List Usage Metrics
+      summary: 'GET :: /metrics'
       tags:
         - Portal
       responses:
@@ -1705,7 +1705,7 @@ paths:
         - X-Session-Key: []
   /payment-methods:
     get:
-      summary: List Payment Methods
+      summary: 'GET :: /payment-methods'
       tags:
         - Portal
       responses:
@@ -1766,7 +1766,7 @@ paths:
         - X-Session-Key: []
   /payment-method:
     post:
-      summary: Create Payment Method
+      summary: 'POST :: /payment-method'
       operationId: post-portal-payment-method
       responses:
         '200':
@@ -1936,7 +1936,7 @@ paths:
         in: path
         required: true
     delete:
-      summary: Delete Payment Method
+      summary: 'DELETE :: /payment-method/{id}'
       operationId: delete-portal-payment-method-id
       responses:
         '200':
@@ -1975,7 +1975,7 @@ paths:
       security:
         - X-Session-Key: []
     put:
-      summary: Update Payment Method
+      summary: 'PUT :: /payment-method/{id}'
       operationId: put-portal-payment-method-id
       responses:
         '200':
@@ -2099,7 +2099,7 @@ paths:
         in: path
         required: true
     patch:
-      summary: Choose Current Payment Method
+      summary: 'PATCH :: /payment-method/{id}/current'
       operationId: patch-payment-method-id-current
       responses:
         '200':
@@ -2155,7 +2155,7 @@ paths:
         required: true
         description: Activation Code
     patch:
-      summary: Registration Activate
+      summary: 'PATCH :: /account/activate/{userUuid}/{activationCode}'
       operationId: patch-portal-account-activate-userUuid-activationCode
       responses:
         '200':
@@ -2193,7 +2193,7 @@ paths:
         - Portal
   /account/code/resend:
     post:
-      summary: Resend Registration Code
+      summary: 'POST :: /account/code/resend'
       operationId: post-portal-account-code-resend
       responses:
         '200':

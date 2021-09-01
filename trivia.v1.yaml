@@ -26,7 +26,7 @@ servers:
 paths:
   '/questions/{region}/mc/sa':
     get:
-      summary: List Multi-Choice Single Answer Questions
+      summary: 'GET :: /questions/{region}/mc/sa'
       responses:
         '200':
           description: Successful response.
@@ -401,7 +401,7 @@ paths:
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
   '/tags/{region}':
     get:
-      summary: List Trivia Tags
+      summary: 'GET :: /tags/{region}'
       responses:
         '200':
           description: Successful response.
@@ -645,7 +645,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     put:
-      summary: Update Existing Multi-Choice Single Answer Question
+      summary: 'PUT :: /question/{region}/mc/sa/{uuid}'
       operationId: put-questions-mc-sa-uuid
       responses:
         '200':
@@ -710,7 +710,7 @@ paths:
       tags:
         - Panel
     delete:
-      summary: Delete Existing Multi-Choice Single Answer Question
+      summary: 'DELETE :: /question/{region}/mc/sa/{uuid}'
       operationId: delete-questions-mc-sa-uuid
       responses:
         '200':
@@ -785,7 +785,7 @@ paths:
       tags:
         - Panel
     get:
-      summary: Retrieve One Multi-Choice Single Answer Question
+      summary: 'GET :: /question/{region}/mc/sa/{uuid}'
       operationId: get-questions-mc-sa-uuid
       responses:
         '200':
@@ -910,7 +910,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     patch:
-      summary: Update Status of Multi-Choice Single Answer Question
+      summary: 'PATCH :: /question/{region}/mc/sa/{uuid}/status/{status}'
       operationId: patch-questions-mc-sa-uuid-status-status
       responses:
         '200':
@@ -992,7 +992,7 @@ paths:
         in: path
         required: true
     patch:
-      summary: Merge Tags
+      summary: 'PATCH :: /tags/{region}/merge'
       operationId: patch-tags-region-merge
       responses:
         '200':
@@ -1034,7 +1034,7 @@ paths:
         in: path
         required: true
     post:
-      summary: Create New Multi-Choice Single Answer Question
+      summary: 'POST :: /question/{region}/mc/sa'
       operationId: post-questions-mc-sa
       responses:
         '200':
@@ -1138,7 +1138,7 @@ paths:
         in: path
         required: true
     get:
-      summary: Update Existing Trivia Tag
+      summary: 'GET :: /tag/{region}/{uuid}'
       tags:
         - Trivia
       responses:
@@ -1174,7 +1174,7 @@ paths:
       operationId: get-tag-region-uuid
       description: Use this endpoint to retrieve one trivia tag by its uuid.
     put:
-      summary: Update Existing Trivia Tag
+      summary: 'PUT :: /tag/{region}/{uuid}'
       operationId: put-tag-region-uuid
       responses:
         '200':
@@ -1209,7 +1209,7 @@ paths:
       tags:
         - Trivia
     delete:
-      summary: ''
+      summary: 'DELETE :: /tag/{region}/{uuid}'
       operationId: delete-tag-region-uuid
       responses:
         '200':
@@ -1239,7 +1239,7 @@ paths:
         required: true
         description: Region maps the database  where the operation will be performed.
     post:
-      summary: Create New Tag
+      summary: 'POST :: /tag/{region}'
       operationId: post-tag-region
       responses:
         '200':
@@ -1283,7 +1283,7 @@ paths:
         in: path
         required: true
     post:
-      summary: Feed Stats Of Choices
+      summary: 'POST :: /feed/stats/{region}/choices'
       operationId: post-feed-stats-region-choices
       responses:
         '200':

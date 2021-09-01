@@ -24,7 +24,7 @@ servers:
 paths:
   /login:
     post:
-      summary: ''
+      summary: 'POST :: /login'
       operationId: admin-post-login
       responses:
         '200':
@@ -97,7 +97,7 @@ paths:
         - Authentication
   '/questions/{region}/mc/sa':
     get:
-      summary: List Multi-Choice Single Answer Questions
+      summary: 'GET :: /questions/{region}/mc/sa'
       responses:
         '200':
           description: Successful response.
@@ -520,7 +520,7 @@ paths:
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
   '/tags/{region}':
     get:
-      summary: List Trivia Tags
+      summary: 'GET :: /tags/{region}'
       responses:
         '200':
           description: Successful response.
@@ -780,7 +780,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     put:
-      summary: Update Existing Multi-Choice Single Answer Question
+      summary: 'PUT :: /question/{region}/mc/sa/{uuid}'
       operationId: admin-put-questions-mc-sa-uuid
       responses:
         '200':
@@ -886,7 +886,7 @@ paths:
       tags:
         - Question
     delete:
-      summary: Delete Existing Multi-Choice Single Answer Question
+      summary: 'DELETE :: /question/{region}/mc/sa/{uuid}'
       operationId: admin-delete-questions-mc-sa-uuid
       responses:
         '200':
@@ -966,7 +966,7 @@ paths:
       tags:
         - Question
     get:
-      summary: Retrieve One Multi-Choice Single Answer Question
+      summary: 'GET :: /question/{region}/mc/sa/{uuid}'
       operationId: admin-get-questions-mc-sa-uuid
       responses:
         '200':
@@ -1097,7 +1097,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     patch:
-      summary: Update Status of Multi-Choice Single Answer Question
+      summary: 'PATCH :: /question/{region}/mc/sa/{uuid}/status/{status}'
       operationId: admin-patch-questions-mc-sa-uuid-status-status
       responses:
         '200':
@@ -1182,7 +1182,7 @@ paths:
         in: path
         required: true
     post:
-      summary: Create New Multi-Choice Single Answer Question
+      summary: 'POST :: /question/{region}/mc/sa'
       operationId: admin-post-question-region-mc-sa
       responses:
         '200':

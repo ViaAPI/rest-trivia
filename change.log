@@ -30,6 +30,9 @@
 - "user" property from "UserPassword" model removed. 
 - .idea folder removed from git.
 - "/dictionaries{region}" path fixed to "/dictionaries/{region}"
+- Description of the "/dictionaries/{region}" is fixed.
+- Description of the "/words/{region}" is fixed.
+
 
 
 

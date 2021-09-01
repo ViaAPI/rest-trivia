@@ -23,7 +23,7 @@ paths:
         required: true
         description: Region code. Like tr-tr
     get:
-      summary: List Dictionaries
+      summary: 'GET :: /dictionaries/{region}'
       tags:
         - Dictionary
       responses:
@@ -32,14 +32,7 @@ paths:
         '412':
           $ref: '#/components/responses/InvalidListQueriesResponse'
       operationId: get-list-dictionaries-region
-      description: |-
-        This endpoint provides a list of Dictionaries.
-         You can summon data filtered by the following prperties:
-        - title
-        - wordCount
-        - status
-        - creation time
-        - update time
+      description: Use this endpoint to list dictionary entries associated with a region-specific catalog.
       parameters:
         - schema:
             type: integer
@@ -208,7 +201,7 @@ paths:
         required: true
         description: Region code. Like tr-tr
     get:
-      summary: List Words
+      summary: 'GET :: /words/{region}'
       tags:
         - Dictionary
       responses:
@@ -217,15 +210,7 @@ paths:
         '412':
           $ref: '#/components/responses/InvalidListQueriesResponse'
       operationId: get-list-words-region
-      description: |-
-        This endpoint provides a list of Words.
-         You can summon data filtered by the following prperties:
-        - totalCharCount
-        - totalCharCountWithBlanks
-        - dictionaries
-        - status
-        - creation time
-        - update time
+      description: Use this endpoint to list words associated with a region-specific catalog.
       parameters:
         - schema:
             type: integer
@@ -433,7 +418,7 @@ paths:
         required: true
         description: System attained id of the word.
     get:
-      summary: Get Word Detail
+      summary: 'GET :: /word/{region}/{id}'
       responses:
         '200':
           $ref: '#/components/responses/WordDetailResponse'
@@ -444,7 +429,7 @@ paths:
       tags:
         - Dictionary
     delete:
-      summary: Delete Word
+      summary: 'DELETE :: /word/{region}/{id}'
       operationId: delete-word-region-by-id
       responses:
         '200':
@@ -458,7 +443,7 @@ paths:
       tags:
         - Panel
     put:
-      summary: Update An Existing Word
+      summary: 'PUT :: /word/{region}/{id}'
       operationId: put-word-region-by-id
       responses:
         '200':
@@ -493,7 +478,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     post:
-      summary: Create Word
+      summary: 'POST :: /word/{region}'
       operationId: post-word-region
       responses:
         '200':
@@ -542,7 +527,7 @@ paths:
         required: true
         description: System attained status of the word.
     patch:
-      summary: Update Status Of Word
+      summary: 'PATCH :: /word/{region}/{id}/status/{status}'
       operationId: patch-word-region-id-status-status
       responses:
         '200':
@@ -563,7 +548,7 @@ paths:
         required: true
         description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
     post:
-      summary: Create Dictionary
+      summary: 'POST :: /dictionary/{region}'
       operationId: post-dictionary-region
       responses:
         '200':
@@ -595,7 +580,7 @@ paths:
         required: true
         description: System attained id of the word.
     get:
-      summary: Get Dictionary Detail
+      summary: 'GET :: /dictionary/{region}/{id}'
       tags:
         - Dictionary
       responses:
@@ -608,7 +593,7 @@ paths:
       security:
         - X-Api-Key: []
     delete:
-      summary: Delete Dictionary
+      summary: 'DELETE :: /dictionary/{region}/{id}'
       operationId: delete-dictionary-region-id
       responses:
         '200':
@@ -621,7 +606,7 @@ paths:
       tags:
         - Panel
     put:
-      summary: Update An Existing Dictionary
+      summary: 'PUT :: /dictionary/{region}/{id}'
       operationId: put-dictionary-region-id
       responses:
         '200':
@@ -664,7 +649,7 @@ paths:
         in: path
         required: true
     patch:
-      summary: Update Status Of Dictionary
+      summary: 'PATCH :: /dictionary/{region}/{id}/status/{status}'
       operationId: patch-dictionary-region-id-status-status
       responses:
         '200':
@@ -854,7 +839,7 @@ components:
             Example-9999:
               value:
                 code: '412.9999'
-                message: 'The value, operands, or options are not valid for the createdAt. Please check related documentation for more information.'
+                message: 'The value, operands, or options are not valid for the {property}. Please check related documentation for more information.'
                 result:
                   pagination: null
                   set: null
