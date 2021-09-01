@@ -1,0 +1,187 @@
+openapi: 3.0.0
+info:
+  title: ViaAPI User Management API
+  version: v1.0.0
+  description: This documentation covers all endpoints related to user management.
+  termsOfService: 'https://www.viaapi.com/legal/tos/trivia'
+  contact:
+    name: System Administrator
+    email: admin@viaapi.com
+    url: 'https://www.viaapi.com'
+  license:
+    name: Trivia
+    url: 'https://www.viaapi.com/legal/licensing/trivia'
+paths:
+  /user/{:
+    get:
+      summary: 'Initialize Application'
+      operationId: get-init
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+              examples:
+                Example:
+                  value:
+                    code: '200.0000'
+                    message: You have been successfully logged in.
+                    result:
+                      pagination: null
+                      set:
+                        fallbackLanguage: tr-tr
+                        timezone: "Europe/Istanbul"
+                        version: "v1.0.0-r2324.1.0001-BETA"
+                    sessionToken: null
+      description: 'This endpoint needs to be used to initialize standart aspects of the application.'
+      security:
+        - X-Api-Key: []
+        - X-Session-Token: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginForm'
+            examples:
+              Example:
+                value:
+                  email: member@maildrop.cc
+                  password: 123verysecure321...
+                  termsAccepted: true
+      tags:
+        - application
+components:
+  schemas:
+    ApiResponse:
+      title: ApiResponse
+      type: object
+      description: This is the standart response object. All of your request to ViaAPI will return this object.
+      properties:
+        result:
+          $ref: '#/components/schemas/ApiResult'
+        sessionToken:
+          type: string
+          description: 'This is the session token, and it will only revealed if user logs in the system with username and password, or if an already logged-in user needs to refresh its existing token.'
+          example: 1a79a4d60de6718e8e5b326e338ae533
+          nullable: true
+        code:
+          type: string
+          example: '200.0000'
+          description: "This is the API's internal response code. The first part equals to HTTP response code, the second part is used to match more specific causes."
+        message:
+          type: string
+          description: "This is the API's internal response message."
+          example: ' Your request has been successfully completed.'
+      required:
+        - code
+        - message
+      x-tags:
+        - response
+      x-examples:
+        Example:
+          code: '200.0000'
+          message: ''
+          result:
+            pagination:
+              isCircular: true
+              prevLink: null
+              nextLink: 'offset=10&limit=10'
+              lastLink: 'offset=90&limit=10'
+              firstLink: 'offset=0&limit=10'
+              totalItems: 100
+              itemsPerPage: 10
+              pageCount: 10
+              currentPage: 1
+          set: true
+    ApiResult:
+      title: ApiResult
+      type: object
+      description: 'If response returns a result, the result set will be stored here alongsite with any available pagination information.'
+      x-tags:
+        - response
+      x-examples:
+        Example:
+          pagination: null
+          set:
+            uuid: cfc21291-18f6-47cf-b714-ed87d150c076
+            dateCreated: '2020-01-20T12:23:24Z'
+            dateUpdated: '2020-01-21T21:23:12Z'
+            status: a
+            banner:
+              path: batman-logo.jpg
+              type: i
+            difficultyLevel: 1
+            estimatedReadTime: 50
+            tags:
+              - title: movies
+                icon: movies.png
+                itemCount: 234
+            label:
+              audio: question-223423-2342342-2342.mp3
+              video: question-223423-2342342-2342.mp4
+              image: batman-logo.jpg
+              text: Who among these Hollywood stars have not played the Batman character?
+      properties:
+        pagination:
+          $ref: '#/components/schemas/ApiPagination'
+        set:
+          anyOf:
+            - type: array
+              items:
+                anyOf:
+                  - type: boolean
+                  - type: number
+                  - type: string
+                  - type: integer
+            - type: boolean
+          description: This is the result object of the object. It contains the actual result set and a pagination instruction if pagination is needed.
+    AppSettings:
+      title: AppSettings
+      type: object
+      description: Holds standard entries for the application.
+      properties:
+        fallbackLanguage:
+          type: string
+          description: a.k.a default language. This is the language code to be used if there are no matching translations for given language.
+          example: tr-tr
+        timezone:
+          type: string
+          description: "Application's timezone information"
+          example: "Europe/Istanbul"
+        version:
+          type: string
+          description: "Current version of the application."
+          example: "v1.0.0-r2324.1.0001-BETA"
+      required:
+        - fallbackLanguage
+        - timezone
+      x-examples:
+        Example:
+          fallbackLanguage: tr-tr
+          timezone: "Europe/Istanbul"
+          version: "v1.0.0-r2324.1.0001-BETA"
+      x-tags:
+        - Application
+  securitySchemes:
+    X-Api-Key:
+      type: apiKey
+      in: header
+      name: API Key
+      description: 'This is required for application access control. This is the API key defined for your application in your account page at https://www.viaapi.com/my-account/applications'
+    X-Session-Token:
+      name: Session Token
+      type: apiKey
+      in: header
+      description: 'This token is required to authenticate "real" users. This token will be assigned and supplied to you dynamically only after successful login using a username-password combination or social media login method. Once - and if - you get this token, you must supplies this token to access data provided by ViaAPI.'
+tags:
+  - name: application
+  - name: "management-console"
+servers:
+  - url: 'https://mconsole.api.viaapi.com/v1.0'
+    description: Production
+  - url: 'https://mconsole.api.dev.viaapi.com/v1.0'
+    description: Development / Testing Server
+externalDocs:
+  url: 'https://api.docs.viaapi.com'
