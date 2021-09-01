@@ -21,7 +21,7 @@ paths:
         name: region
         in: path
         required: true
-        description: Region code. Like tr-tr
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
     get:
       summary: 'GET :: /dictionaries/{region}'
       tags:
@@ -199,7 +199,7 @@ paths:
         name: region
         in: path
         required: true
-        description: Region code. Like tr-tr
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
     get:
       summary: 'GET :: /words/{region}'
       tags:
@@ -410,13 +410,13 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
       - schema:
           type: string
         name: id
         in: path
         required: true
-        description: System attained id of the word.
+        description: ID of the record to be fetched/modified/deleted.
     get:
       summary: 'GET :: /word/{region}/{id}'
       responses:
@@ -476,7 +476,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
     post:
       summary: 'POST :: /word/{region}'
       operationId: post-word-region
@@ -513,19 +513,19 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
       - schema:
           type: string
         name: id
         in: path
         required: true
-        description: System attained id of the word.
+        description: ID of the record to be modified.
       - schema:
           type: string
         name: status
         in: path
         required: true
-        description: System attained status of the word.
+        description: New status.
     patch:
       summary: 'PATCH :: /word/{region}/{id}/status/{status}'
       operationId: patch-word-region-id-status-status
@@ -546,7 +546,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
     post:
       summary: 'POST :: /dictionary/{region}'
       operationId: post-dictionary-region
@@ -572,13 +572,13 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
       - schema:
           type: string
         name: id
         in: path
         required: true
-        description: System attained id of the word.
+        description: ID of the record to be fetched/modified/deleted.
     get:
       summary: 'GET :: /dictionary/{region}/{id}'
       tags:
@@ -638,16 +638,19 @@ paths:
         name: region
         in: path
         required: true
+        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
       - schema:
           type: string
         name: id
         in: path
         required: true
+        description: ID of the record to be updated.
       - schema:
           type: string
         name: status
         in: path
         required: true
+        description: New status of the record.
     patch:
       summary: 'PATCH :: /dictionary/{region}/{id}/status/{status}'
       operationId: patch-dictionary-region-id-status-status
