@@ -329,7 +329,6 @@ paths:
             examples:
               Example-1:
                 value:
-                  user: 76f62a58-5404-486d-9afc-07bded328704
                   password: pa$$word
         description: Body must contain UserPassword model.
       tags:
