@@ -28,6 +28,8 @@
 # ########################################################################## #
 - change.log file added.
 - "user" property from "UserPassword" model removed. 
+- .idea folder removed from git.
+- "/dictionaries{region}" path fixed to "/dictionaries/{region}"
 
 
 

@@ -1,7 +1,7 @@
 openapi: 3.0.0
 info:
   title: Dictionary API
-  version: v.1.0.0
+  version: v1.0.0-r21.3536.1.0001
   description: This documentation covers all endpoints related to dictionary data store of ViaAPI.
   contact:
     name: System Administrator
@@ -14,7 +14,7 @@ servers:
   - url: 'https://dictionary.api.dev.viaapi.com/v1'
     description: Development / Testing Server
 paths:
-  '/dictionaries{region}':
+  '/dictionaries/{region}':
     parameters:
       - schema:
           type: string
