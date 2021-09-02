@@ -192,6 +192,8 @@ paths:
 
             Search dictionary with title include "Batman"<br />
             ?q[[title]][]=\*Batman\*
+      security:
+        - X-Api-Key: []
   '/words/{region}':
     parameters:
       - schema:
@@ -403,6 +405,8 @@ paths:
           in: query
           name: dictionaries
           description: 'This parameter is used to filter entries by their dictionaries.<br />**Operands**:- eq: Equal- gt: Greater Than- gte: Greater Than or Equal- lt: Less Than- lte: Less Than or Equal- nq: Not Equal- in: Use to summon arbitrary data.<br />**Example**:List entries tagged with dictionary of id 9.<br />?dictionaries[[eq]]=9<br />List entries taged with a dictionary of ids 3, 5 or 8.<br />?dictionaries[[in]]=3,5,8'
+      security:
+        - X-Api-Key: []
   '/word/{region}/{id}':
     parameters:
       - schema:
@@ -423,7 +427,7 @@ paths:
         '200':
           $ref: '#/components/responses/WordDetailResponse'
       operationId: get-word-region-by-id
-      description: Get word details which is given identification number.
+      description: Use this endpoint to retrive a given "word" entry from within a regional cataloh by its ID.
       security:
         - X-Api-Key: []
       tags:
@@ -436,7 +440,7 @@ paths:
           $ref: '#/components/responses/SuccessResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint is used to mark an existing entry as "deleted".
+      description: Use this endpoint to delete a specific word entry within a regional catalog by its ID.
       parameters: []
       security:
         - X-Api-Key: []
@@ -450,7 +454,7 @@ paths:
           $ref: '#/components/responses/WordDetailResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint provides us to update a word which identification number is given.
+      description: Use this endpoint to update an existing word entry within a regional catalog by its ID.
       security:
         - X-Api-Key: []
       requestBody:
@@ -467,6 +471,7 @@ paths:
                     - Yuvarlak bir araba parçası
                   dictionaries:
                     - 60420d891d7e6142e043f195
+        description: You need to provide "WordUpdate" model within the "body" of your request.
       tags:
         - Panel
   '/word/{region}':
@@ -525,7 +530,7 @@ paths:
         name: status
         in: path
         required: true
-        description: New status.
+        description: 'New status of the record. See [documentation](https://api.docs.viaapi.com/dictionary-api#u2-word-status-definitions)'
     patch:
       summary: 'PATCH :: /word/{region}/{id}/status/{status}'
       operationId: patch-word-region-id-status-status
@@ -534,7 +539,7 @@ paths:
           $ref: '#/components/responses/SuccessResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint updates status.
+      description: Use this endpoint to update the status of a specific word entry within a region by its ID.
       security:
         - X-Api-Key: []
       tags:
@@ -555,7 +560,7 @@ paths:
           $ref: '#/components/responses/DictionaryDetailResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint is used to create a dictionary entry.
+      description: Use this endpoint to create a new dictionary eneity within a regional catalog.
       security:
         - X-Api-Key: []
       requestBody:
@@ -563,6 +568,7 @@ paths:
           application/json:
             schema:
               $ref: ./DictionaryModels/DictionaryCreate.v1.yaml
+        description: 'You must supply "DictionaryCreate" model within the body of your request. '
       tags:
         - Panel
   '/dictionary/{region}/{id}':
@@ -589,7 +595,7 @@ paths:
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
       operationId: get-dictionary-region-by-id
-      description: This endpoint provides us to show a single dictionary details.
+      description: Use this endpoint to retrieve details of a regional dictionary record by its ID.
       security:
         - X-Api-Key: []
     delete:
@@ -600,7 +606,7 @@ paths:
           $ref: '#/components/responses/SuccessResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint is used to mark an existing entry as "deleted".
+      description: Use this endpoint to delete an existing regional dictionary record by its ID.
       security:
         - X-Api-Key: []
       tags:
@@ -613,7 +619,7 @@ paths:
           $ref: '#/components/responses/DictionaryDetailResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint provides us to update a dictionary which identification number is given.
+      description: Use this endpoint to update details of an existing regional dictionary record by its ID.
       security:
         - X-Api-Key: []
       requestBody:
@@ -638,7 +644,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](See https://api.docs.viaapi.com/Cxem-region-codes for available region codes.)'
+        description: 'see [documentation](https://api.docs.viaapi.com/Cxem-region-codes) for available region codes.)'
       - schema:
           type: string
         name: id
@@ -647,10 +653,14 @@ paths:
         description: ID of the record to be updated.
       - schema:
           type: string
+          enum:
+            - a
+            - i
+            - d
         name: status
         in: path
         required: true
-        description: New status of the record.
+        description: 'New status of the record. See [documentation](https://api.docs.viaapi.com/dictionary-api#ia-dictionary-status-definitions)'
     patch:
       summary: 'PATCH :: /dictionary/{region}/{id}/status/{status}'
       operationId: patch-dictionary-region-id-status-status
@@ -659,9 +669,11 @@ paths:
           $ref: '#/components/responses/DictionaryDetailResponse'
         '412':
           $ref: '#/components/responses/InvalidDataResponse'
-      description: This endpoint updates status.
+      description: Use this endpoint to update the status of a dictionary item.
       tags:
         - Panel
+      security:
+        - X-Api-Key: []
 components:
   schemas: {}
   securitySchemes:
