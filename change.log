@@ -9,7 +9,7 @@
 #                                                                            #
 # ########################################################################## #
 - Missing security definitions in Administration API added.
-- Endpoint descriptions are fixed.
+- Endpoint descriptions are fixed in Administration API.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0002                                                     #
