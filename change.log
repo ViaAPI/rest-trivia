@@ -2,12 +2,43 @@
 # Current Versions                                                           #
 # ########################################################################## #
 #                                                                            #
-# Administration API:         v1.0.0-r21.3536.1.0001                         #
+# Administration API:         v1.0.0-r21.3536.1.0002                         #
 # Client Potal API            v1.0.0-r21.3536.1.0001                         #
 # Dictionary Catalog API:     v1.0.0-r21.3536.1.0001                         #
 # Trivia Catalog API:         v1.0.0-r21.3536.1.0001                         #
 #                                                                            #
 # ########################################################################## #
+- Missing security definitions in Administration API added.
+- Endpoint descriptions are fixed.
+
+# ########################################################################## #
+# v1.0.0-r21.3536.1.0002                                                     #
+#                                                                            #
+# version:      1.0.0                                                        #
+# release:      R21.3536.1                                                   #
+# update:       0002                                                         #
+#                                                                            #
+# author(s):                                                                 #
+#               - Can Berkol                                                 #
+#               - Tayfun Temizel                                             #
+#                                                                            #
+# All rights reserved 2021 (c) Viaapi, Inc. https://www.viaapi.com           #
+#                                                                            #
+# ViaAPI is a Data as a Service company providing maintained, ready-to-use   #
+# data sets to developers and alike.                                         #
+#                                                                            #
+# see docs ui @                                                              #
+# https://api.docs.viaapi.com/                                               #
+# ########################################################################## #
+- change.log file added.
+- "user" property from "UserPassword" model removed. 
+- .idea folder removed from git.
+- "/dictionaries{region}" path fixed to "/dictionaries/{region}"
+- Description of the "/dictionaries/{region}" is fixed.
+- Description of the "/words/{region}" is fixed.
+- Path names modified to match "METHOD :: path" format. 
+- Path parameter descriptions fixed.
+- Missing security definitions added.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0001                                                     #

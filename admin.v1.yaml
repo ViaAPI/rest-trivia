@@ -76,7 +76,7 @@ paths:
                       set: null
                     sessionToken: null
       description: |-
-        This endpoint is used to authenticate admin users with their username and password.
+        Use this endpoint to authenticate a real admin user into the UI/panel.
 
         ### Flow
         ![Flow](https://docs-viaapi.s3.amazonaws.com/flow-charts/admin.post.login.png)
@@ -259,7 +259,7 @@ paths:
         This endpoint only provides the most up-to-date version of each document.
 
         <!-- theme: danger -->
-        > ### Role Requirement
+        > ### ROLE REQUIREMENT
         > 
         > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
 
@@ -562,7 +562,7 @@ paths:
         This endpoint returns a list of tags (TQTag objects) that are used to classify trivia tags.
 
         <!-- theme: danger -->
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_GRANTED_APP** at session.
 
@@ -782,7 +782,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](https://api.docs.viaapi.com/Cxem-region-codes)'
     put:
       summary: 'PUT :: /question/{region}/mc/sa/{uuid}'
       operationId: admin-put-questions-mc-sa-uuid
@@ -844,11 +844,11 @@ paths:
         This endpoint is used to update an existing multi-choice single answer trivia question entry.
 
         <!-- theme: warning -->
-        > ### Warning
+        > ### WARNING
         >
         > A trivia editor (NOT ADMIN) can only edit the same question a maximum of 3 times in 120 minutes.
 
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE** at session.
 
@@ -958,7 +958,7 @@ paths:
         This endpoint is used to mark an existing entry as "deleted".
 
         <!-- theme: danger -->
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DELETE** at session.
 
@@ -1049,7 +1049,7 @@ paths:
 
         <!-- theme: danger -->
 
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_DISPLAY** at session.
 
@@ -1099,7 +1099,7 @@ paths:
         name: region
         in: path
         required: true
-        description: 'see [documentation](https://archbee.io/public/3geArFXiTaFdM3kcfky7E/region-codes)'
+        description: 'see [documentation](https://api.docs.viaapi.com/Cxem-region-codes)'
     patch:
       summary: 'PATCH :: /question/{region}/mc/sa/{uuid}/status/{status}'
       operationId: admin-patch-questions-mc-sa-uuid-status-status
@@ -1157,7 +1157,7 @@ paths:
         - i: inactive
 
         <!-- theme: danger -->
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_UPDATE_STATUS** at session.
 
@@ -1251,7 +1251,7 @@ paths:
 
         <!-- theme: danger -->
 
-        > ### Role Requirements
+        > ### ROLE REQUIREMENT
         >
         > This endpoint needs **ROLE_TRIVIA_QUESTION_CREATE** at session. If session also has **ROLE_TRIVIA_QUESTION_APPROVE** role, system creates question with active status (a). If has no, system creates question with waiting approval status (w).
 
