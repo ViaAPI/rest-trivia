@@ -8,6 +8,8 @@
 # Trivia Catalog API:         v1.0.0-r21.3536.1.0001                         #
 #                                                                            #
 # ########################################################################## #
+
+# ########################################################################## #
 # v1.0.0-r21.3536.1.0001                                                     #
 #                                                                            #
 # version:      1.0.0                                                        #
@@ -32,7 +34,8 @@
 - "/dictionaries{region}" path fixed to "/dictionaries/{region}"
 - Description of the "/dictionaries/{region}" is fixed.
 - Description of the "/words/{region}" is fixed.
-
-
+- Path names modified to match "METHOD :: path" format. 
+- Path parameter descriptions fixed.
+- Missing security definitions added.
 
 

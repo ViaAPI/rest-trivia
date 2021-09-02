@@ -95,6 +95,8 @@ paths:
       parameters: []
       tags:
         - Authentication
+      security:
+        - X-Session-Key: []
   '/questions/{region}/mc/sa':
     get:
       summary: 'GET :: /questions/{region}/mc/sa'
@@ -739,6 +741,8 @@ paths:
             > Also we can use **?itemCount={"gte": "5", "lte": 10}**
       tags:
         - Tag
+      security:
+        - X-Session-Key: []
     parameters:
       - schema:
           type: string
