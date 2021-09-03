@@ -589,7 +589,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-api-tokens
-      description: List api tokens of a client
+      description: Use this endpoint to list the api tokens of a client.
       security:
         - X-Session-Key: []
   /api-token:
@@ -642,7 +642,7 @@ paths:
                       set: null
       tags:
         - Portal
-      description: Create an api token
+      description: Use this endpoint to generate a new API token.
       security:
         - X-Session-Key: []
   /billing/details:
@@ -697,7 +697,7 @@ paths:
                           zipCode: '34400'
                           isCurrent: 'y'
       operationId: get-billing-details
-      description: List defined different billing details for client
+      description: Use this endpoint to list all billing information of the authenticated user.
       security:
         - X-Session-Key: []
     post:
@@ -774,7 +774,7 @@ paths:
                       set: null
       tags:
         - Portal
-      description: Create billing detail
+      description: Use this endpoint to create a new billing detail for authenticated user.
       security:
         - X-Session-Key: []
       requestBody:
@@ -877,7 +877,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Recovery password for with token.
+      description: Use this endpoint to update user's password with a recoery token. This endpoint is only available for unauthenticated users.
       requestBody:
         content:
           application/json:

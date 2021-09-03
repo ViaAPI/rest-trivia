@@ -24,6 +24,9 @@
 - "PasswordUpdate" model added.
 - "PUT :: /password" body requirement is updated to use new "PasswordUpdate"
   model.
+- Description of "/api-token/{id}" path methods updated.
+- Description of "/api-token/{id}, /api-tokens, /api-token, /billing-details,
+  /password/recovery" methods added.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0002                                                     #
