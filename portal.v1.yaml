@@ -241,18 +241,12 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: This endpoint creates a password reset request so that client can reset password.
+      description: This endpoint is used to create a password reset request so that client can reset password.
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-              required:
-                - email
+              $ref: ./GenericModels/UserEmail.v1.yaml
             examples:
               Example:
                 value:
@@ -372,33 +366,21 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: This endpoint updates user profile.
+      description: Use this endpoint to update user's basic profile.
       security:
         - X-Session-Key: []
       requestBody:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  format: email
-                firstName:
-                  type: string
-                lastName:
-                  type: string
-              required:
-                - email
-                - firstName
-                - lastName
+              $ref: ./GenericModels/ClientProfileBasic.v1.yaml
             examples:
-              Example:
+              Example-1:
                 value:
-                  email: user@example.com
-                  firstName: BO
-                  lastName: Development
-        description: ''
+                  email: some.user@viaapi.com
+                  firstName: James
+                  lastName: Bond
+        description: Body must contain ClientProfileBasic model.
       tags:
         - Portal
   /password:

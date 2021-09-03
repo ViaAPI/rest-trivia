@@ -10,7 +10,14 @@
 # ########################################################################## #
 - Missing security definitions in Administration API added.
 - Endpoint descriptions are fixed in Administration API.
-- Description of POST :: /register endpoint is updated.
+- Description of "POST :: /register" endpoint is updated.
+- "ClientInit" model added.
+- "POST :: /register" body requirement is updated to use new "ClientInit" 
+  model.
+- Description of "POST :: /password/reset" updated.
+- "UserEmail" model added.
+- "POST :: /password/reset" body requirement is updated to use new "UserEmail"
+  model.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0002                                                     #

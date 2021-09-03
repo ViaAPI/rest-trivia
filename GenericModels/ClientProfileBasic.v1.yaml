@@ -1,0 +1,21 @@
+title: ClientProfileBasic.v1
+type: object
+description: This model represents basic client profile information.
+properties:
+  email:
+    type: string
+    format: email
+    example: some.user@viaapi.com
+    description: User's email.
+  firstName:
+    type: string
+    example: James
+    description: User's first name.
+  lastName:
+    type: string
+    example: Bond
+    description: User's last name.
+examples:
+  - email: some.user@viaapi.com
+    firstName: James
+    lastName: Bond

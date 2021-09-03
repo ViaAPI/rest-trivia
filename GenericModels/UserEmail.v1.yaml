@@ -1,0 +1,13 @@
+title: UserEmail.v1
+type: object
+description: This model is used when the program needs to supply only the email of the user..
+examples:
+  - password: pa$$word
+properties:
+  email:
+    type: string
+    description: Preferably a hashed value.
+    format: email
+    example: someuser@viaapi.com
+required:
+  - email
