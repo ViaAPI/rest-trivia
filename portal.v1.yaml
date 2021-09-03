@@ -1005,7 +1005,7 @@ paths:
                           name: State 1
                           slug: state1
       operationId: get-portal-location-country-id-states
-      description: List country states
+      description: Use this endpoint to get a list of states for given country.
   '/location/country/{id}/cities':
     parameters:
       - schema:
@@ -1057,7 +1057,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-location-country-id-cities
-      description: List cities of country
+      description: Use this endpoint to list cities that belong to a specific country.
       security:
         - X-Session-Key: []
   '/location/city/{id}/districts':
@@ -1115,7 +1115,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-location-city-id-districts
-      description: List districts of a city
+      description: Use this endpoint to list districts that belong to a given city.
       security:
         - X-Session-Key: []
   /subscription/packages:
@@ -1220,7 +1220,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-subscription-packages
-      description: List subscription packages
+      description: Use this endpoint to list subscription packages of an authenticated user.
   /subscription:
     get:
       summary: 'GET :: /subscription'
@@ -1269,7 +1269,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-subscription
-      description: Get active subscription for client
+      description: Use this endpoint to get details of authenticated user's active subscription package.
     post:
       summary: 'POST :: /subscription'
       operationId: post-portal-subscription
@@ -1322,7 +1322,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Create subscription
+      description: Use this endpoint to subscribe (create a new subscription) authenticated user to a package.
       security:
         - X-Session-Key: []
       requestBody:
@@ -1381,7 +1381,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Cancel active subscription for client
+      description: Use this endpoint to cancel authenticated user's active subscription.
       tags:
         - Portal
   '/billing/{id}/details':
@@ -1428,7 +1428,7 @@ paths:
                       set: null
       tags:
         - Portal
-      description: Delete billing details
+      description: Use this endpoint to delete authenticated user's selected billing detail.
       security:
         - X-Session-Key: []
     put:
@@ -1480,7 +1480,7 @@ paths:
                         type: c
                         zipCode: '34404'
                         isCurrent: 'n'
-      description: Update billing details
+      description: Use this endpoint to update authenticated user's selected billing details.
       tags:
         - Portal
       security:
@@ -1615,7 +1615,7 @@ paths:
                               difficultyLevel: 1
                               estimatedReadTime: 26
       operationId: get-portal-catalogs-region
-      description: List product catalogs with sample datas
+      description: Use this endpoint to list product catalogs with sample data.
       security:
         - X-Session-Key: []
   /metrics:
@@ -1664,7 +1664,7 @@ paths:
                           - date: 03.01.2021
                             value: 54
       operationId: get-portal-metrics
-      description: List client usage metrics
+      description: Use this enndpoint get details of client's usage metrics.
       security:
         - X-Session-Key: []
   /payment-methods:
@@ -1725,7 +1725,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-payment-methods
-      description: List client payment methods
+      description: Use this endpoint to list payment methods of authenticated client.
       security:
         - X-Session-Key: []
   /payment-method:
@@ -1798,7 +1798,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Create payment method
+      description: Use this endpoint to register / define a new payment method for authenticated user.
       security:
         - X-Session-Key: []
       requestBody:
@@ -1935,7 +1935,7 @@ paths:
                       set: null
       tags:
         - Portal
-      description: Delete payment method of client
+      description: Use this endpoint when the authenticated user wants / needs to remove her/his selected payment method.
       security:
         - X-Session-Key: []
     put:
@@ -1988,7 +1988,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Update payment method of client
+      description: Use this endpoint to update authenticated user's selected payment method.
       security:
         - X-Session-Key: []
       requestBody:
@@ -2099,7 +2099,7 @@ paths:
                       set: null
       tags:
         - Portal
-      description: Endpoints helps us to set current to payment method which customer has selected.
+      description: Use this endpoint to set a given payment method as the default payment method of the user.
       security:
         - X-Session-Key: []
   '/account/activate/{userUuid}/{activationCode}':
@@ -2152,7 +2152,7 @@ paths:
                     result:
                       pagination: null
                       set: true
-      description: This endpoint provides to activate user registration.
+      description: Use this endpoint ot activate a given user's account after first time registration.
       tags:
         - Portal
   /account/code/resend:
@@ -2190,7 +2190,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: This endpoint provides to resend registration activation code.
+      description: Use this endpoin if the user re-requests account activation code.
       tags:
         - Portal
 externalDocs:
