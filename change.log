@@ -10,6 +10,7 @@
 # ########################################################################## #
 - Missing security definitions in Administration API added.
 - Endpoint descriptions are fixed in Administration API.
+- Description of POST :: /register endpoint is updated.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0002                                                     #

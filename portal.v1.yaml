@@ -172,7 +172,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Use this endpoint to register for client portal.
+      description: Use this endpoint to register a new client.
       requestBody:
         content:
           application/json:
