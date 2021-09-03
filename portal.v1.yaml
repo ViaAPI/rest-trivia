@@ -433,25 +433,14 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                currentPassword:
-                  type: string
-                newPassword:
-                  type: string
-                newPasswordConfirm:
-                  type: string
-                  description: This value **must be same with newPassword value**
-              required:
-                - currentPassword
-                - newPassword
-                - newPasswordConfirm
+              $ref: ./GenericModels/PasswordUpdate.yaml
             examples:
               example-1:
                 value:
-                  currentPassword: '123123'
-                  newPassword: '111111'
-                  newPasswordConfirm: '111111'
+                  currentPassword: pa$$word
+                  newPassword: pa$$wordN3w
+                  newPassworfConfirm: pa$$wordN3w
+        description: You must supply PasswordUpdate model.
       tags:
         - Portal
   '/api-token/{id}':

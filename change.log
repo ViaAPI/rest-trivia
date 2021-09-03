@@ -18,6 +18,12 @@
 - "UserEmail" model added.
 - "POST :: /password/reset" body requirement is updated to use new "UserEmail"
   model.
+- "ClientProfileBasic" model added.
+- "PUT :: /profile" body requirement is updated to use new "ClientProfileBasic"
+  model.
+- "PasswordUpdate" model added.
+- "PUT :: /password" body requirement is updated to use new "PasswordUpdate"
+  model.
 
 # ########################################################################## #
 # v1.0.0-r21.3536.1.0002                                                     #
