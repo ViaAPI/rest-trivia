@@ -484,7 +484,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Delete an api token
+      description: Use this endpoint to delete a specific API token.
       tags:
         - Portal
       security:
@@ -534,7 +534,7 @@ paths:
                     result:
                       pagination: null
                       set: null
-      description: Update an api token
+      description: Use this endpoint to update a given API token entry.
       security:
         - X-Session-Key: []
       tags:
