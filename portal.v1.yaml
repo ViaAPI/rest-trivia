@@ -177,33 +177,15 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties:
-                email:
-                  type: string
-                  description: Email information
-                  format: email
-                password:
-                  type: string
-                  description: Password information
-                firstName:
-                  type: string
-                  description: First Name of user.
-                lastName:
-                  type: string
-                  description: Last Name of user. This field can be null.
-              required:
-                - email
-                - password
-                - firstName
+              $ref: ./GenericModels/ClientInit.v1.yaml
             examples:
-              example-1:
+              Example-1:
                 value:
-                  email: user@example.com
-                  password: '1234'
-                  firstName: John
-                  lastName: Doe
-        description: ''
+                  email: some.user@viaapi.com
+                  password: pa$$word
+                  firstName: James
+                  lastName: Bond
+        description: You must supply ClientInit model.
       tags:
         - Portal
   /password/reset:

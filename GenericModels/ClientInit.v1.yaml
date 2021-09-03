@@ -1,0 +1,29 @@
+title: ClientInit.v1
+type: object
+description: This model is used to create a new client with minimum possible values.
+properties:
+  email:
+    type: string
+    format: email
+    example: some.user@viaapi.com
+    description: User's email.
+  password:
+    type: string
+    format: password
+    description: User's selected password.
+  firstName:
+    type: string
+    example: James
+    description: User's first name.
+  lastName:
+    type: string
+    example: Bond
+    description: User's last name.
+required:
+  - email
+  - password
+examples:
+  - email: some.user@viaapi.com
+    password: pa$$word
+    firstName: James
+    lastName: Bond
