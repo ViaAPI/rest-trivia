@@ -846,6 +846,17 @@ paths:
                     result:
                       pagination: null
                       set: true
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ./GenericModels/ApiResponse.v1.yaml
+              examples:
+                Example-9000:
+                  value:
+                    code: '401.9000'
+                    message: You do not have enough permissions to access this feature.
         '412':
           description: Precondition Failed
           content:
@@ -942,7 +953,7 @@ paths:
                       pagination: null
                       set: null
       operationId: get-portal-location-countries
-      description: List countries
+      description: Use this endpoint to list countries.
       security:
         - X-Session-Key: []
   '/location/country/{id}/states':
